@@ -1,7 +1,7 @@
 ﻿using Public;
 using UnityEngine;
 
-public class CPlayer1 : CPlayer
+public class CPlayer0 : CPlayer
 {
     public override void ControlledFixedUpdate()
     {

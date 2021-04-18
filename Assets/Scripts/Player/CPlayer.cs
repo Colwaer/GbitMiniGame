@@ -34,27 +34,29 @@ public class CPlayer : MonoBehaviour
     }
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
-    internal bool b_OnGround;
+    [SerializeField]internal bool b_OnGround;
     internal bool b_IsMoving;
     internal float m_Direction;             //移动方向
-    private float m_RaycastLength = 1.1f;
+    private float m_RaycastLength = 0.8f;   
     internal KeyCode KeyCode_Jump, KeyCode_Swith;
     private void Awake()
     {
         Initialize();
     }
-
-    public virtual void FixedUpdate()
+    //不会自动调用，由PlayerController调用
+    public virtual void ControlledFixedUpdate()
     {
         PhysicsCheck();
         Move();
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - m_RaycastLength * GravityScale, 0));
     }
-    private void Initialize()
+
+    protected virtual void Initialize()
     {
         Speed = 3.0f;
         JumpHeight = 3.0f;
@@ -63,20 +65,25 @@ public class CPlayer : MonoBehaviour
         GroundLayer = LayerMask.GetMask("Ground");
     }
 
-    private void PhysicsCheck()
+    protected virtual void PhysicsCheck()
     {
         b_IsMoving = m_RigidBody.velocity.magnitude > 0.05f;
         b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1 * gravityScale), m_RaycastLength, GroundLayer);
     }
 
-    internal void Move()
+    public virtual void Move()
     {
         m_RigidBody.velocity = new Vector2(m_Direction * Speed, m_RigidBody.velocity.y);
     }
 
-    internal void Jump()
+    public virtual void Jump()
     {
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2) * GravityScale);
-        Debug.Log(Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2) * GravityScale);
+        //Debug.Log(Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2) * GravityScale);
+    }
+    //反转重力
+    public void Twist()
+    {
+        GravityScale = -GravityScale;
     }
 }
