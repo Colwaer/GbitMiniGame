@@ -46,9 +46,7 @@ public class CPlayerController : CSigleton<CPlayerController>
         Vector3 tempPos = players[m_playerIndex].transform.position;
         players[m_playerIndex].transform.position = players[1-m_playerIndex].transform.position;
         players[1 - m_playerIndex].transform.position = tempPos;
-        m_Player.Twist();
-        players[1 - m_playerIndex].GetComponent<CPlayer>().Twist();
-        CEventSystem.Instance.Switched?.Invoke(m_playerIndex);
+        CEventSystem.Instance.ExchangePosition?.Invoke(m_playerIndex);
     }
 
     private void OnSceneLoaded(int index)

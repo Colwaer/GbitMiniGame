@@ -6,7 +6,7 @@ public class CPlayer : MonoBehaviour
 {
     internal float Speed { get; private set; }
     internal float JumpHeight { get; private set; }
-    private float gravityScale;
+
     internal float GravityScale
     {
         get
@@ -14,7 +14,7 @@ public class CPlayer : MonoBehaviour
             if (m_RigidBody != null)
                 return m_RigidBody.gravityScale;
             else
-                return gravityScale;
+                return 1f;
         }
         private set
         {
@@ -34,7 +34,7 @@ public class CPlayer : MonoBehaviour
     }
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
-    [SerializeField]internal bool b_OnGround;
+    internal bool b_OnGround;
     internal bool b_IsMoving;
     internal float m_Direction;             //移动方向
     private float m_RaycastLength = 0.8f;   
@@ -42,6 +42,10 @@ public class CPlayer : MonoBehaviour
     private void Awake()
     {
         Initialize();
+    }
+    private void Start()
+    {
+        CEventSystem.Instance.ExchangePosition += Twist;
     }
     //不会自动调用，由PlayerController调用
     public virtual void ControlledFixedUpdate()
@@ -61,14 +65,14 @@ public class CPlayer : MonoBehaviour
         Speed = 3.0f;
         JumpHeight = 3.0f;
         m_RigidBody = GetComponent<Rigidbody2D>();
-        GravityScale = gravityScale = m_RigidBody.gravityScale;
+        GravityScale = m_RigidBody.gravityScale;
         GroundLayer = LayerMask.GetMask("Ground");
     }
 
     protected virtual void PhysicsCheck()
     {
         b_IsMoving = m_RigidBody.velocity.magnitude > 0.05f;
-        b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1 * gravityScale), m_RaycastLength, GroundLayer);
+        b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1 * GravityScale), m_RaycastLength, GroundLayer);
     }
 
     public virtual void Move()
@@ -82,7 +86,7 @@ public class CPlayer : MonoBehaviour
         //Debug.Log(Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2) * GravityScale);
     }
     //反转重力
-    public void Twist()
+    public void Twist(int playerIndex)
     {
         GravityScale = -GravityScale;
     }
