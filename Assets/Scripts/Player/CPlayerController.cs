@@ -11,31 +11,20 @@ public class CPlayerController : CSigleton<CPlayerController>
 
     private bool b_DesiredJump = false;
     private bool b_DesiredShoot = false;
-    private bool b_DesiredMove = false;
+
     protected override void Awake()
     {
         base.Awake();
-        Initialize();
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
         OnSceneLoaded(1);    //以后需要修改   
-        
-    }
-
-    public void Initialize()
-    {
         
     }
     
     private void Update()
     {    
-        Calculate();
+        CalculateDirection();
 
-        m_Player.m_DesiredPosition = Input.GetAxis("Horizontal");
-        if (m_Player.m_DesiredPosition != 0)
-            b_DesiredMove = true;
-        else
-            b_DesiredMove = false;
-        Debug.Log("ismoving" + b_DesiredMove);
+        m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
             b_DesiredJump = true;
         
@@ -48,8 +37,7 @@ public class CPlayerController : CSigleton<CPlayerController>
     private void FixedUpdate()
     {
         m_Player.PhysicsCheck();
-        if (b_DesiredMove)
-            m_Player.Move();
+        m_Player.GroundMove();
         if (b_DesiredJump)
         {
             b_DesiredJump = false;
@@ -61,7 +49,7 @@ public class CPlayerController : CSigleton<CPlayerController>
             m_Player.Shoot(-1f * Direction);
         }
     }
-    private void Calculate()
+    private void CalculateDirection()
     {
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //按鼠标所在方向的反方向冲刺的代码有问题
         Direction = new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
