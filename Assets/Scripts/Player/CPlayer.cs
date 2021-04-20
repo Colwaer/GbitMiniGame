@@ -24,6 +24,10 @@ public class CPlayer : MonoBehaviour
     private bool b_CanShoot;               //射击冷却完毕
     private IEnumerator ie_Dash;
 
+    private bool inMaxSpeed;
+    [SerializeField]
+    private float accelerateTime;
+
     private void Awake()
     {
         Initialize();
@@ -37,9 +41,10 @@ public class CPlayer : MonoBehaviour
 
     public void Initialize()
     {
+        //accelerateTime = 0.4f;
         b_CanShoot = true;
         t_Shoot = 0.5f;
-        Speed = 6f;
+        Speed = 5.0f;
         DashSpeed = 30f;
         JumpHeight = 3f;
         t_Dash = 0.3f;
@@ -71,15 +76,50 @@ public class CPlayer : MonoBehaviour
     {
         if (!b_isDashing)
         {
-            Debug.Log(Vector2.MoveTowards(Vector2.zero, new Vector2(m_DesiredPosition, 0), Time.deltaTime * Speed));
-            m_RigidBody.velocity = new Vector2(m_DesiredPosition * Speed, m_RigidBody.velocity.y);
+            // 地面跑动：采用惯性跑动，有加速与减速过程，但是不需要太明显弄得地面太滑；存在速度阈值，
+            // 加速到阈值速度的时间大概在0.4s左右。减速的需求：减速从阈值到0速的时间为0.2s左右，只要
+            // 玩家停止原运动方向的输入即判定进入减速阶段，减速过程位移与时间固定，玩家选择反向输入或
+            // 停止输入不影响减速过程。但是玩家若在减速过程中选择原方向输入，那就以当前的速度进入到加速过程。
+            if (m_DesiredPosition > 0.05f)
+            {
+                if (m_RigidBody.velocity.x <= Speed)
+                {
+                    Debug.Log(new Vector2(m_RigidBody.mass * Speed / accelerateTime, 0));
+                    m_RigidBody.AddForce(new Vector2(m_RigidBody.mass * Speed / accelerateTime + Speed * 5, 0), ForceMode2D.Force);
+                }
+            }
+            else if (m_DesiredPosition < -0.05f)
+            {
+                if (m_RigidBody.velocity.x >= -Speed)
+                {
+                    Debug.Log(-new Vector2(m_RigidBody.mass * Speed / accelerateTime, 0));
+                    m_RigidBody.AddForce(-new Vector2(m_RigidBody.mass * Speed / accelerateTime + Speed * 5, 0), ForceMode2D.Force);
+                }
+            }
+            else
+            {
+                
+                if (Mathf.Abs(m_RigidBody.velocity.x) > 0.5f)
+                {
+                    // float multiple = 1f;
+                    // if (m_RigidBody.velocity.x > 0)
+                    //     multiple = -1f;
+                    //Debug.Log("decrease velocity" + new Vector2((m_RigidBody.velocity.x > 0 ? -1f : 1f) * m_RigidBody.mass * Speed / (accelerateTime * 2), 0));
+                    m_RigidBody.AddForce(new Vector2((m_RigidBody.velocity.x > 0 ? -1f : 1f) * m_RigidBody.mass * Speed / (accelerateTime * 2), 0), ForceMode2D.Force);
+                }
+                else
+                {
+                    m_RigidBody.velocity = new Vector2(0, m_RigidBody.velocity.y);
+                }
+            }
+            Debug.Log(m_DesiredPosition);
         }
     }
 
     public void Jump()
     {
         if (b_OnGround)
-            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
+            m_RigidBody.velocity =  new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
 
     public void Shoot(Vector2 direction)

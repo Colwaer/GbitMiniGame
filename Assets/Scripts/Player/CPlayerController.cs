@@ -30,12 +30,12 @@ public class CPlayerController : CSigleton<CPlayerController>
     {    
         Calculate();
 
-        m_Player.m_DesiredPosition = Input.GetAxisRaw("Horizontal");
+        m_Player.m_DesiredPosition = Input.GetAxis("Horizontal");
         if (m_Player.m_DesiredPosition != 0)
             b_DesiredMove = true;
         else
             b_DesiredMove = false;
-
+        Debug.Log("ismoving" + b_DesiredMove);
         if (Input.GetButtonDown("Jump"))
             b_DesiredJump = true;
         
