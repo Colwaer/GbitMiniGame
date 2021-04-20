@@ -44,7 +44,7 @@ public class CPlayer : MonoBehaviour
     public void Initialize()
     {
         frame_Accelerate = 20;
-        frame_SlowDown = 10;
+        frame_SlowDown = 15;
         b_CanShoot = true;
         t_Shoot = 0.5f;
         Speed = 10f;
@@ -85,9 +85,10 @@ public class CPlayer : MonoBehaviour
         v = m_RigidBody.velocity.x;
         if (b_isDashing) return;
         float vx = Mathf.Abs(m_RigidBody.velocity.x);
-        float sgn = Mathf.Sign(m_RigidBody.velocity.x);   //为什么物体静止时sgn=1呢？
+        float sgn = Mathf.Sign(m_RigidBody.velocity.x);   //为什么物体静止时sgn=1呢？//sgn的含义是物体当前实际移动的方向
         //速度很小时想往哪边移就往哪边移，所以此时把sgn赋值成移动输入的方向，不可以赋值为0，原因见下方代码
         if (vx < 0.01f) sgn = m_DesiredDirection;   
+        Debug.Log(m_DesiredDirection);
 
         if (vx > Speed)
         {
@@ -105,7 +106,7 @@ public class CPlayer : MonoBehaviour
         //移动输入和速度同向时,不执行减速，这样的话加速时间（0到Speed）等于t_Accelerate
         //无移动输入时，减速时间（Speed到0）等于t_SlowDown
         //移动输入和速度反向时，减速时间（Speed到0）小于t_SlowDown
-        if (m_DesiredDirection * sgn <= 0)
+        if (m_DesiredDirection * sgn <= 0 && b_OnGround)
             m_RigidBody.velocity = new Vector2(sgn * Mathf.Max(0,vx - Speed / frame_SlowDown), m_RigidBody.velocity.y);
     }
 
