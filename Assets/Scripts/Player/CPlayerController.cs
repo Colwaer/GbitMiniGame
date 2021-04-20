@@ -11,6 +11,7 @@ public class CPlayerController : CSigleton<CPlayerController>
 
     private bool b_DesiredJump = false;
     private bool b_DesiredShoot = false;
+    private bool b_DesiredMove = false;
     protected override void Awake()
     {
         base.Awake();
@@ -30,7 +31,11 @@ public class CPlayerController : CSigleton<CPlayerController>
         Calculate();
 
         m_Player.m_DesiredPosition = Input.GetAxisRaw("Horizontal");
-        
+        if (m_Player.m_DesiredPosition != 0)
+            b_DesiredMove = true;
+        else
+            b_DesiredMove = false;
+
         if (Input.GetButtonDown("Jump"))
             b_DesiredJump = true;
         
@@ -43,8 +48,8 @@ public class CPlayerController : CSigleton<CPlayerController>
     private void FixedUpdate()
     {
         m_Player.PhysicsCheck();
-        
-        m_Player.Move();
+        if (b_DesiredMove)
+            m_Player.Move();
         if (b_DesiredJump)
         {
             b_DesiredJump = false;
