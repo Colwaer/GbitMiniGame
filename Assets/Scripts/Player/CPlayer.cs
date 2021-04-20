@@ -14,11 +14,15 @@ public class CPlayer : MonoBehaviour
     internal bool b_OnGround;
     internal bool b_IsMoving;
     internal bool b_isDashing;
-    internal float m_Direction;             //移动方向
+    internal float m_DesiredPosition;             //移动方向
     private float m_RaycastLength = 1.2f;
     private float t_Dash;                   //冲刺时间,应当小于武器冷却
     private float m_E;                      //恢复系数
     private event Action OnColl;            //碰撞事件
+
+    private float t_Shoot;              //射击冷却
+    private bool b_CanShoot;               //射击冷却完毕
+    private IEnumerator ie_Dash;
 
     private void Awake()
     {
@@ -33,17 +37,28 @@ public class CPlayer : MonoBehaviour
 
     public void Initialize()
     {
+        b_CanShoot = true;
+        t_Shoot = 0.5f;
         Speed = 6f;
         DashSpeed = 30f;
         JumpHeight = 3f;
         t_Dash = 0.3f;
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        OnColl?.Invoke();
+        if (b_isDashing && ie_Dash != null)
+        {
+            StopCoroutine(ie_Dash);
+            b_isDashing = false;
+            m_RigidBody.gravityScale = 1;
+            Debug.Log("stop dash");
+            Debug.Log(m_RigidBody.velocity);
+        }
+            
     }
 
     public void PhysicsCheck()
@@ -54,17 +69,26 @@ public class CPlayer : MonoBehaviour
 
     public void Move()
     {
-        m_RigidBody.velocity = new Vector2(m_Direction * Speed, m_RigidBody.velocity.y);
+        if (!b_isDashing)
+        {
+            Debug.Log(Vector2.MoveTowards(Vector2.zero, new Vector2(m_DesiredPosition, 0), Time.deltaTime * Speed));
+            m_RigidBody.velocity = new Vector2(m_DesiredPosition * Speed, m_RigidBody.velocity.y);
+        }
     }
 
     public void Jump()
     {
-        m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
+        if (b_OnGround)
+            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
 
     public void Shoot(Vector2 direction)
     {
-        
+        if (!b_CanShoot)
+            return;
+        ie_Dash = Dash(direction);
+        StartCoroutine(ie_Dash);
+        StartCoroutine(ShootCoolDown());
     }
     //冲刺时不能主动移动，也不受重力影响
     public IEnumerator Dash(Vector2 direction)
@@ -72,10 +96,17 @@ public class CPlayer : MonoBehaviour
         b_isDashing = true;
         m_RigidBody.gravityScale = 0;
         m_RigidBody.velocity = direction * DashSpeed;
-        Debug.Log(direction);
+        //Debug.Log(direction);
         yield return CTool.Wait(t_Dash);
         b_isDashing = false;
         m_RigidBody.gravityScale = 1;
         m_RigidBody.velocity = Vector2.zero;
     }
+    private IEnumerator ShootCoolDown()
+    {
+        b_CanShoot = false;
+        yield return new WaitForSeconds(t_Shoot);
+        b_CanShoot = true;
+    }
+
 }
