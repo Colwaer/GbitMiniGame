@@ -7,4 +7,5 @@ using System;
 public class CEventSystem : CSigleton<CEventSystem>
 {
     public Action<int> SceneLoaded;
+    public Action<int> ShootCountChanged;   //射击次数改变了
 }

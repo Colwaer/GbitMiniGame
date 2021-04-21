@@ -37,13 +37,13 @@ public class CPlayerController : CSigleton<CPlayerController>
     private void FixedUpdate()
     {
         m_Player.PhysicsCheck();
-        m_Player.GroundMove();
+        m_Player.Move();
         if (b_DesiredJump)
         {
             b_DesiredJump = false;
             m_Player.Jump();
         }
-        if (b_DesiredShoot)
+        if (b_DesiredShoot&&m_Player.ShootCount>0)
         {
             b_DesiredShoot = false;
             m_Player.Shoot(-1f * Direction);
