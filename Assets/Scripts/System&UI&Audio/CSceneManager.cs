@@ -21,7 +21,6 @@ public class CSceneManager :CSigleton<CSceneManager>
 
     private void Start()
     {
-        Debug.Log(2);
         CEventSystem.Instance.SceneLoaded?.Invoke(m_Index);
     }
 
