@@ -8,15 +8,20 @@ public class CSceneManager :CSigleton<CSceneManager>
 {
     public static int m_Index = 0;  //当前关的index
 
-    public void Initialize()
+    private void OnEnable()
     {
+        Debug.Log(1);
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
         m_Index = GetActiveScene().buildIndex;
+    }
+    private void OnDisable()
+    {
+        CEventSystem.Instance.SceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
     {
-        //等待其他接收者注册好再调用事件
+        Debug.Log(2);
         CEventSystem.Instance.SceneLoaded?.Invoke(m_Index);
     }
 

@@ -9,10 +9,12 @@ public class CEventSystem : CSigleton<CEventSystem>
     public Action<int> SceneLoaded;
     public Action<int> ShootCountChanged;   //射击次数改变了
     public Action PlayerDie;
-    public Action CheckPointChanged;   //激活了新的记录点
+    public Action CheckPointChanged;        //激活了新的记录点
 
-    public void Initialize()
+    protected override void Awake()
     {
+        base.Awake();
         UnityEngine.Random.InitState(System.DateTime.Now.Second);
     }
 }
+

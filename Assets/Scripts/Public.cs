@@ -26,12 +26,12 @@ namespace Public
     public class CSigleton<T> : MonoBehaviour
         where T : CSigleton<T>
     {
-        public static T Instance 
-        { get; private set; }
+        public static T Instance { get; private set; }
         protected virtual void Awake()
         {
             if (Instance == null)
             {
+                Debug.Log("生成了"+this.GetType().ToString());
                 Instance = (T)this;
                 DontDestroyOnLoad(gameObject);
             }

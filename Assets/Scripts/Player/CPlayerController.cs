@@ -12,10 +12,13 @@ public class CPlayerController : CSigleton<CPlayerController>
     private bool b_DesiredJump = false;
     private bool b_DesiredShoot = false;
 
-    public void Initialize()
+    private void OnEnable()
     {
-        OnSceneLoaded(1);
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        CEventSystem.Instance.SceneLoaded -= OnSceneLoaded;
     }
 
     private void Update()
@@ -52,10 +55,12 @@ public class CPlayerController : CSigleton<CPlayerController>
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //按鼠标所在方向的反方向冲刺的代码有问题
         Direction = new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
     }
+
     private void OnSceneLoaded(int SceneIndex)
     {
         if (SceneIndex > 0)
         {
+            Debug.Log(3);
             m_Player = GameObject.Find("Player").GetComponent<CPlayer>();
         }
     }
