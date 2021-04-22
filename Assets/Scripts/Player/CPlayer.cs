@@ -3,7 +3,7 @@ using Public;
 using System.Collections;
 using System;
 
-public class CPlayer : MonoBehaviour
+public class CPlayer : MonoBehaviour,IDamagable_Friendly
 {
     internal float Speed { get; private set; }
     internal float DashSpeed { get; private set; } 
@@ -98,12 +98,15 @@ public class CPlayer : MonoBehaviour
         */
 
         //不能通过连续撞击同一朵云来获得云，只要接触了另一朵云，就解除这个限制
-        if(LastCloud == null || collision.gameObject != LastCloud)
+        if (LastCloud == null || collision.gameObject != LastCloud)
         {
             if (m_Velocity_LastFrame.magnitude > 15f)
             {
                 ShootCount += 2;
                 LastCloud = collision.gameObject;
+                //不能通过向下冲锋获得云
+                if (m_Velocity_LastFrame.y < -15f)
+                    ShootCount --;
             }
             else
                 LastCloud = null;
@@ -115,7 +118,7 @@ public class CPlayer : MonoBehaviour
         m_Velocity_LastFrame = m_RigidBody.velocity;
         b_IsMoving = m_RigidBody.velocity.magnitude > 0.1f;
         b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), m_RaycastLength, GroundLayer);
-        if (b_OnGround && ShootCount == 0) ShootCount = 1;
+        if (b_OnGround && ShootCount <= 2) ShootCount = 2;
     }
 
     // 地面跑动：采用惯性跑动，有加速与减速过程，但是不需要太明显弄得地面太滑；存在速度阈值，
@@ -169,6 +172,13 @@ public class CPlayer : MonoBehaviour
         StartCoroutine(ie_Dash);
         StartCoroutine(ShootCoolDown());
     }
+
+    private IEnumerator ShootCoolDown()
+    {
+        b_CanShoot = false;
+        yield return new WaitForSeconds(t_Shoot);
+        b_CanShoot = true;
+    }
     //冲刺时不能主动移动，也不受重力影响
     public IEnumerator Dash(Vector2 direction)
     {
@@ -185,10 +195,9 @@ public class CPlayer : MonoBehaviour
         b_isDashing = false;
         m_RigidBody.gravityScale = 1;
     }
-    private IEnumerator ShootCoolDown()
+
+    public void Die()
     {
-        b_CanShoot = false;
-        yield return new WaitForSeconds(t_Shoot);
-        b_CanShoot = true;
+        CEventSystem.Instance.PlayerDie?.Invoke();
     }
 }

@@ -12,14 +12,12 @@ public class CPlayerController : CSigleton<CPlayerController>
     private bool b_DesiredJump = false;
     private bool b_DesiredShoot = false;
 
-    protected override void Awake()
+    public void Initialize()
     {
-        base.Awake();
+        OnSceneLoaded(1);
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
-        OnSceneLoaded(1);    //以后需要修改   
-        
     }
-    
+
     private void Update()
     {    
         CalculateDirection();
@@ -56,11 +54,9 @@ public class CPlayerController : CSigleton<CPlayerController>
     }
     private void OnSceneLoaded(int SceneIndex)
     {
-        if (SceneIndex != 0)
+        if (SceneIndex > 0)
         {
             m_Player = GameObject.Find("Player").GetComponent<CPlayer>();
         }
     }
-
-
 }
