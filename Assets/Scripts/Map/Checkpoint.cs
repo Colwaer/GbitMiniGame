@@ -20,7 +20,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IDamagable_Friendly obj = collision.GetComponent<IDamagable_Friendly>();
+        IPlayer obj = collision.GetComponent<IPlayer>();
         if (obj != null)
         {
             CEventSystem.Instance.CheckPointChanged?.Invoke();

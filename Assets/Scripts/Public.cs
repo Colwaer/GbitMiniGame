@@ -33,7 +33,7 @@ namespace Public
             {
                 Debug.Log("生成了"+this.GetType().ToString());
                 Instance = (T)this;
-                //DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(gameObject);
             }
             else
                 Destroy(gameObject);
@@ -44,8 +44,8 @@ namespace Public
     {
         void Die();
     }
-    //会受到敌人伤害的单位继承此接口
-    public interface IDamagable_Friendly
+    //玩家继承此接口
+    public interface IPlayer
     {
         void Die();
     }

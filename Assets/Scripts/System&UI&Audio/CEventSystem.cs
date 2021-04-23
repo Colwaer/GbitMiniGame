@@ -2,6 +2,7 @@
 using UnityEngine;
 using Public;
 using System;
+using System.Collections;
 
 //此脚本所属游戏物体应当被最先生成
 public class CEventSystem : CSigleton<CEventSystem>

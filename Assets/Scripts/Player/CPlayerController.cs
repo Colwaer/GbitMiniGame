@@ -2,18 +2,26 @@
 using Public;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class CPlayerController : CSigleton<CPlayerController>
 {
-    internal CPlayer m_Player;          //当前正在控制的角色的脚本
+    internal GameObject Player;         //控制的角色
+    internal CPlayer m_Player;          //控制的角色的脚本
     internal Vector3 MousePos;          //鼠标位置
     internal Vector2 Direction;         //瞄准方向
 
     private bool b_DesiredJump = false;
     private bool b_DesiredShoot = false;
 
-    bool isReady = false;
+    bool b_IsActive = false;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        Player = transform.Find("Player").gameObject;
+        m_Player = Player.GetComponent<CPlayer>();
+    }
     private void OnEnable()
     {
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
@@ -25,7 +33,7 @@ public class CPlayerController : CSigleton<CPlayerController>
 
     private void Update()
     {
-        if (!isReady)
+        if (!b_IsActive)
             return;
         CalculateDirection();
 
@@ -41,7 +49,7 @@ public class CPlayerController : CSigleton<CPlayerController>
 
     private void FixedUpdate()
     {
-        if (!isReady)
+        if (!b_IsActive)
             return;
         m_Player.PhysicsCheck();
         m_Player.Move();
@@ -60,6 +68,7 @@ public class CPlayerController : CSigleton<CPlayerController>
             b_DesiredShoot = false;
         }
     }
+
     private void CalculateDirection()
     {
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //按鼠标所在方向的反方向冲刺的代码有问题
@@ -68,11 +77,16 @@ public class CPlayerController : CSigleton<CPlayerController>
 
     private void OnSceneLoaded(int SceneIndex)
     {
-        if (SceneIndex > 0)
+        
+        if (SceneIndex == 0)
         {
-            isReady = true;
-            Debug.Log(3);
-            m_Player = GameObject.Find("Player").GetComponent<CPlayer>();
+            b_IsActive = false;
+            Player.SetActive(false);
+        }
+        else
+        {
+            b_IsActive = true;
+            Player.SetActive(true);
         }
     }
 }

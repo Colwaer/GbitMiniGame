@@ -3,7 +3,7 @@ using Public;
 using System.Collections;
 using System;
 
-public class CPlayer : MonoBehaviour,IDamagable_Friendly
+public class CPlayer : MonoBehaviour,IPlayer
 {
     internal float Speed { get; private set; }
     internal float DashSpeed { get; private set; } 
