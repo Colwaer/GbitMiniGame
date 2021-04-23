@@ -12,6 +12,8 @@ public class CPlayerController : CSigleton<CPlayerController>
     private bool b_DesiredJump = false;
     private bool b_DesiredShoot = false;
 
+    bool isReady = false;
+
     private void OnEnable()
     {
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
@@ -22,21 +24,25 @@ public class CPlayerController : CSigleton<CPlayerController>
     }
 
     private void Update()
-    {    
+    {
+        if (!isReady)
+            return;
         CalculateDirection();
 
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
             b_DesiredJump = true;
-        
+
         if (Input.GetMouseButtonDown(0))
         {
-            b_DesiredShoot = true;       
+            b_DesiredShoot = true;
         }
     }
 
     private void FixedUpdate()
     {
+        if (!isReady)
+            return;
         m_Player.PhysicsCheck();
         m_Player.Move();
         if (b_DesiredJump)
@@ -44,10 +50,14 @@ public class CPlayerController : CSigleton<CPlayerController>
             b_DesiredJump = false;
             m_Player.Jump();
         }
-        if (b_DesiredShoot&&m_Player.ShootCount>0)
+        if (b_DesiredShoot && m_Player.ShootCount > 0)
         {
             b_DesiredShoot = false;
             m_Player.Shoot(-1f * Direction);
+        }
+        else if (b_DesiredShoot)
+        {
+            b_DesiredShoot = false;
         }
     }
     private void CalculateDirection()
@@ -60,6 +70,7 @@ public class CPlayerController : CSigleton<CPlayerController>
     {
         if (SceneIndex > 0)
         {
+            isReady = true;
             Debug.Log(3);
             m_Player = GameObject.Find("Player").GetComponent<CPlayer>();
         }

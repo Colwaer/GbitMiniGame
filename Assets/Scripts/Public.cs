@@ -33,7 +33,7 @@ namespace Public
             {
                 Debug.Log("生成了"+this.GetType().ToString());
                 Instance = (T)this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
             else
                 Destroy(gameObject);

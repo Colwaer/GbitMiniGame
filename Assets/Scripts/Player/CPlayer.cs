@@ -127,7 +127,8 @@ public class CPlayer : MonoBehaviour,IDamagable_Friendly
     // 停止输入不影响减速过程。但是玩家若在减速过程中选择原方向输入，那就以当前的速度进入到加速过程。
     public void Move()
     {
-        if (b_isDashing) return;
+        if (b_isDashing) 
+            return;
 
         float v_x = Mathf.Abs(m_RigidBody.velocity.x);
         float v_y = Mathf.Abs(m_RigidBody.velocity.y);
@@ -135,7 +136,6 @@ public class CPlayer : MonoBehaviour,IDamagable_Friendly
         float sgn_y = Mathf.Sign(m_RigidBody.velocity.y);
         if (v_x < 0.01f) sgn_x = m_DesiredDirection;
         if (v_y < 0.01f) sgn_y = -1;
-
         if (b_OnGround)
         {
             m_RigidBody.velocity = new Vector2(sgn_x * Mathf.Min(Speed, v_x + Speed / frame_Accelerate * m_DesiredDirection * sgn_x), m_RigidBody.velocity.y);
@@ -200,4 +200,5 @@ public class CPlayer : MonoBehaviour,IDamagable_Friendly
     {
         CEventSystem.Instance.PlayerDie?.Invoke();
     }
+
 }

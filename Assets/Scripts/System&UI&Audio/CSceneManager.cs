@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Public;
-using static UnityEngine.SceneManagement.SceneManager;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class CSceneManager :CSigleton<CSceneManager>
+public class CSceneManager : CSigleton<CSceneManager>
 {
-    public static int m_Index = 0;  //当前关的index
-
+    public int m_Index = 0;  //当前关的index
+    Camera mainSceneCamera;
     private void OnEnable()
     {
+        mainSceneCamera = Camera.main;
         Debug.Log(1);
-        CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
-        m_Index = GetActiveScene().buildIndex;
+        //CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
+        m_Index = SceneManager.GetActiveScene().buildIndex;
     }
     private void OnDisable()
     {
-        CEventSystem.Instance.SceneLoaded -= OnSceneLoaded;
+        //CEventSystem.Instance.SceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
@@ -29,6 +30,7 @@ public class CSceneManager :CSigleton<CSceneManager>
         m_Index = index;
         if (index > 0)
         {
+            
             GameObject obj = GameObject.Find("Checkpoint0");
             Checkpoint checkpoint;
             if (obj != null)
@@ -38,17 +40,30 @@ public class CSceneManager :CSigleton<CSceneManager>
                 checkpoint.Spawn();
             }
         }
+
     }
 
-    public static void NextLevel()
+    public void NextLevel()
     {
-        LoadScene(m_Index + 1);
-        CEventSystem.Instance.SceneLoaded?.Invoke(m_Index);
+        StartCoroutine(LoadLevel());
     }
-
-    public static void Exit()
+    IEnumerator LoadLevel()
     {
-        LoadScene(0);
+        
+        SceneManager.LoadScene(m_Index + 1, LoadSceneMode.Additive);
+        //Debug.Log("load");
+        yield return null;
+        //Debug.Log("before active");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(m_Index));
+        //Debug.Log("after active before action");
+        if (m_Index == 0)
+            mainSceneCamera.gameObject.SetActive(false);
+        CEventSystem.Instance.SceneLoaded?.Invoke(m_Index + 1);
+        //Debug.Log("after action");
+    }
+    public void Exit()
+    {
+        SceneManager.LoadScene(0);
         CEventSystem.Instance.SceneLoaded?.Invoke(0);
     }
 }
