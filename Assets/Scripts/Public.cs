@@ -31,8 +31,9 @@ namespace Public
         {
             if (Instance == null)
             {
+                Debug.Log("生成了"+this.GetType().ToString());
                 Instance = (T)this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
             else
                 Destroy(gameObject);
@@ -41,12 +42,12 @@ namespace Public
     //会受到玩家伤害的单位继承此接口
     public interface IDamagable
     {
-        void GetDamage(int damage);
+        void Die();
     }
     //会受到敌人伤害的单位继承此接口
     public interface IDamagable_Friendly
     {
-        void GetDamage(int damage);
+        void Die();
     }
 }
 
