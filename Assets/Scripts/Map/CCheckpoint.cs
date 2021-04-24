@@ -71,6 +71,8 @@ public class CCheckpoint : MonoBehaviour
                 //设置新的记录点时，先禁用（只是修改b_IsActive）所有检查点
                 CEventSystem.Instance.CheckPointChanged?.Invoke();
                 Active = true;
+                
+                
             }
         }
     }
