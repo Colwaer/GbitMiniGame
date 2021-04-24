@@ -106,7 +106,7 @@ public class CPlayer : MonoBehaviour,IPlayer
                 LastCloud = collision.gameObject;
                 //不能通过向下冲锋获得云
                 if (m_Velocity_LastFrame.y < -15f)
-                    ShootCount --;
+                    ShootCount--;
             }
             else
                 LastCloud = null;

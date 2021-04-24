@@ -20,6 +20,7 @@ public class CPlayerController : CSigleton<CPlayerController>
     {
         base.Awake();
         Player = transform.Find("Player").gameObject;
+        Debug.Log(Player.name);
         m_Player = Player.GetComponent<CPlayer>();
     }
     private void OnEnable()
