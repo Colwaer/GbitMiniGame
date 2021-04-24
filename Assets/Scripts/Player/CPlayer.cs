@@ -96,7 +96,7 @@ public class CPlayer : MonoBehaviour,IPlayer
                 ShootCount += 2;
                 LastCloud = collision.gameObject;
                 //向下冲锋撞击云只能获得一朵云（依然有不能连续获得的限制）
-                if (m_Velocity_LastFrame.y < -15f)
+                if (m_Velocity_LastFrame.y < 0)
                     ShootCount--;
             }
             else
