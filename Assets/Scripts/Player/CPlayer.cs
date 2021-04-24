@@ -3,7 +3,7 @@ using Public;
 using System.Collections;
 using System;
 
-public class CPlayer : MonoBehaviour,IPlayer, ISaveable
+public class CPlayer : MonoBehaviour,IPlayer
 {
     internal float Speed { get; private set; }
     internal float DashSpeed { get; private set; } 
@@ -78,15 +78,6 @@ public class CPlayer : MonoBehaviour,IPlayer, ISaveable
         t_Dash = 0.15f;
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
-    }
-    public PlayerSave save;
-    
-    public void Save()
-    {
-        save.position = transform.position;
-        save.velocity = m_RigidBody.velocity;
-        save.shootCount = ShootCount;
-        //save.playerPos = transform.position;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
