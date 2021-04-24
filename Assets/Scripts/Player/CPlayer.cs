@@ -3,7 +3,7 @@ using Public;
 using System.Collections;
 using System;
 
-public class CPlayer : MonoBehaviour,IPlayer
+public class CPlayer : MonoBehaviour,IPlayer, ISaveable
 {
     internal float Speed { get; private set; }
     internal float DashSpeed { get; private set; } 
@@ -34,14 +34,14 @@ public class CPlayer : MonoBehaviour,IPlayer
         {
             return _ShootCount;
         }
-        private set
+        set
         {
             if (value > MaxShootCount) return;
             CEventSystem.Instance.ShootCountChanged?.Invoke(value);
             _ShootCount = value;
         }
     }       
-
+    
     private float t_Shoot;                  //射击冷却
     private bool b_CanShoot;                //射击冷却完毕
 
@@ -79,7 +79,15 @@ public class CPlayer : MonoBehaviour,IPlayer
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
     }
-
+    public PlayerSave save;
+    
+    public void Save()
+    {
+        save.position = transform.position;
+        save.velocity = m_RigidBody.velocity;
+        save.shootCount = ShootCount;
+        //save.playerPos = transform.position;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (b_isDashing && ie_Dash != null)
@@ -158,6 +166,8 @@ public class CPlayer : MonoBehaviour,IPlayer
 
     public void Shoot(Vector2 direction)
     {
+        if (ShootCount <= 0)
+            return;
         ShootCount--;
         if (!b_CanShoot)
             return;
@@ -180,9 +190,9 @@ public class CPlayer : MonoBehaviour,IPlayer
         m_RigidBody.velocity = direction * DashSpeed;
         yield return CTool.Wait(t_Dash);
         //减速过程
-        for(;m_RigidBody.velocity.magnitude>Speed; )
+        for( ; m_RigidBody.velocity.magnitude > Speed; )
         {
-            m_RigidBody.velocity -= m_RigidBody.velocity.normalized* 2f;
+            m_RigidBody.velocity -= m_RigidBody.velocity.normalized * 2f;
             yield return new WaitForFixedUpdate();
         }
         b_isDashing = false;

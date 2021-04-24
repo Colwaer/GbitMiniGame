@@ -49,6 +49,10 @@ namespace Public
     {
         void Die();
     }
+    public interface ISaveable
+    {
+        void Save();
+    }
 }
 
 

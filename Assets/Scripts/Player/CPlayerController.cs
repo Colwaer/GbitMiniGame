@@ -59,14 +59,10 @@ public class CPlayerController : CSigleton<CPlayerController>
             b_DesiredJump = false;
             m_Player.Jump();
         }
-        if (b_DesiredShoot && m_Player.ShootCount > 0)
+        if (b_DesiredShoot)
         {
             b_DesiredShoot = false;
             m_Player.Shoot(-1f * Direction);
-        }
-        else if (b_DesiredShoot)
-        {
-            b_DesiredShoot = false;
         }
     }
 
