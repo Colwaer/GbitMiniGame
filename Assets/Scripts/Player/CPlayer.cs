@@ -66,7 +66,7 @@ public class CPlayer : MonoBehaviour,IPlayer
     {
         frame_Accelerate = 20;
         frame_SlowDown = 10;
-        MaxShootCount = 4;
+        MaxShootCount = 3;
         ShootCount = 0;
         b_CanShoot = true;
         t_Shoot = 0.3f;
@@ -109,7 +109,7 @@ public class CPlayer : MonoBehaviour,IPlayer
         m_Velocity_LastFrame = m_RigidBody.velocity;
         b_IsMoving = m_RigidBody.velocity.magnitude > 0.1f;
         b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), m_RaycastLength, GroundLayer);
-        if (b_OnGround && ShootCount <= 2) ShootCount = 2;
+        if (b_OnGround) ShootCount = 1;
     }
 
     // 地面跑动：采用惯性跑动，有加速与减速过程，但是不需要太明显弄得地面太滑；存在速度阈值，
