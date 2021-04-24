@@ -4,6 +4,7 @@ using UnityEngine;
 public class Button_StartGame : MonoBehaviour
 {
     Button button;
+
     void Start()
     {
         button = GetComponent<Button>();

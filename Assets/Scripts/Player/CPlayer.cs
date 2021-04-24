@@ -21,12 +21,10 @@ public class CPlayer : MonoBehaviour,IPlayer
     internal float m_DesiredDirection;      //移动方向
     private float m_RaycastLength = 1.2f;
     
-    [SerializeField] 
-    private int frame_Accelerate;           //地面上加速需要的固定帧帧数
-    [SerializeField] 
+    private int frame_Accelerate;           //地面上加速需要的固定帧帧数 
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
 
-    internal int MaxShootCount;           //最大射击次数
+    internal int MaxShootCount;             //最大射击次数
 
     [SerializeField]
     internal int _ShootCount;
@@ -91,12 +89,6 @@ public class CPlayer : MonoBehaviour,IPlayer
             m_RigidBody.gravityScale = 1;
         }
 
-        /*
-        float normalSpeed;  //碰前法向速度大小
-        Vector2 deltaVelocity;  //
-        Debug.Log($"撞击时法向速度大小为{normalSpeed}");
-        */
-
         //不能通过连续撞击同一朵云来获得云，只要接触了另一朵云，就解除这个限制
         if (LastCloud == null || collision.gameObject != LastCloud)
         {
@@ -104,7 +96,7 @@ public class CPlayer : MonoBehaviour,IPlayer
             {
                 ShootCount += 2;
                 LastCloud = collision.gameObject;
-                //不能通过向下冲锋获得云
+                //向下冲锋撞击云只能获得一朵云（依然有不能连续获得的限制）
                 if (m_Velocity_LastFrame.y < -15f)
                     ShootCount --;
             }
@@ -134,8 +126,9 @@ public class CPlayer : MonoBehaviour,IPlayer
         float v_y = Mathf.Abs(m_RigidBody.velocity.y);
         float sgn_x = Mathf.Sign(m_RigidBody.velocity.x);
         float sgn_y = Mathf.Sign(m_RigidBody.velocity.y);
-        if (v_x < 0.01f) sgn_x = m_DesiredDirection;
-        if (v_y < 0.01f) sgn_y = -1;
+        if (v_x < 0.01f) sgn_x = m_DesiredDirection;    //禁止赋值为0
+        if (v_y < 0.01f) sgn_y = -1;                    //禁止赋值为0
+
         if (b_OnGround)
         {
             m_RigidBody.velocity = new Vector2(sgn_x * Mathf.Min(Speed, v_x + Speed / frame_Accelerate * m_DesiredDirection * sgn_x), m_RigidBody.velocity.y);
@@ -187,7 +180,7 @@ public class CPlayer : MonoBehaviour,IPlayer
         m_RigidBody.velocity = direction * DashSpeed;
         yield return CTool.Wait(t_Dash);
         //减速过程
-        for(;m_RigidBody.velocity.magnitude>Speed ; )
+        for(;m_RigidBody.velocity.magnitude>Speed; )
         {
             m_RigidBody.velocity -= m_RigidBody.velocity.normalized* 2f;
             yield return new WaitForFixedUpdate();
@@ -198,7 +191,9 @@ public class CPlayer : MonoBehaviour,IPlayer
 
     public void Die()
     {
+        Debug.Log("角色死亡了");
+        m_RigidBody.velocity = Vector2.zero;
+        ShootCount = 0;
         CEventSystem.Instance.PlayerDie?.Invoke();
     }
-
 }

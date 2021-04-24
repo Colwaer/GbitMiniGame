@@ -27,17 +27,6 @@ public class CSceneManager : CSigleton<CSceneManager>
     private void OnSceneLoaded(int index)
     {
         m_Index = index;
-        if (index > 0)
-        {
-            GameObject obj = GameObject.Find("Checkpoint0");
-            Checkpoint checkpoint;
-            if (obj != null)
-            {
-                checkpoint = obj.GetComponent<Checkpoint>();
-                checkpoint.b_IsActive = true;
-                checkpoint.Spawn();
-            }
-        }
     }
 
     public void LoadNextLevel()
