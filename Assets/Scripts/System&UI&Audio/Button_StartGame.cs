@@ -19,6 +19,7 @@ public class Button_StartGame : MonoBehaviour
 
     private void OnClick()
     {
+        
         gameObject.SetActive(false);
     }
 }
