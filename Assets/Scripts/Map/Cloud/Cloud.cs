@@ -8,7 +8,6 @@ public class Cloud : MonoBehaviour
     {
         if (other.collider.tag == "Player")
         {
-            Debug.Log("player collider with cloud");
             var t = GetComponentsInChildren<MoveableSting>();
             foreach(MoveableSting item in t)
             {

@@ -7,6 +7,7 @@ public class GameManager : CSigleton<GameManager>
 {
 
     public CCheckpoint[] checkpoints;
+    
     public int CurrentCheckPoint
     {
         get
@@ -19,4 +20,5 @@ public class GameManager : CSigleton<GameManager>
             return -1;
         }
     }
+
 }

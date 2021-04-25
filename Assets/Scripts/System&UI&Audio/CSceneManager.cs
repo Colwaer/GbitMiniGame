@@ -3,10 +3,13 @@ using UnityEngine;
 using Public;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class CSceneManager : CSigleton<CSceneManager>
 {
     public int m_Index = 0;  //当前关的index
+
+    public Slider loadSlider;
 
     private void OnEnable()
     {
@@ -31,21 +34,32 @@ public class CSceneManager : CSigleton<CSceneManager>
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(m_Index + 1);
-        CEventSystem.Instance.SceneLoaded?.Invoke(m_Index + 1);
+        
+        StartCoroutine(ILoadLevel(m_Index + 1));
+        
     }
 
-    /*
-    IEnumerator LoadLevel()
+    IEnumerator ILoadLevel(int index)
     {
-        SceneManager.LoadScene(m_Index + 1, LoadSceneMode.Additive);
-        yield return null;
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(m_Index));
-        if (m_Index == 0)
-            mainSceneCamera.gameObject.SetActive(false);
-        CEventSystem.Instance.SceneLoaded?.Invoke(m_Index + 1);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
+        asyncLoad.allowSceneActivation = false;
+        while (!asyncLoad.isDone)
+        {
+            loadSlider.value = asyncLoad.progress;
+            if (asyncLoad.progress >= 0.9f)
+            {
+                loadSlider.value = 1.0f;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    asyncLoad.allowSceneActivation = true;
+                }
+            }
+
+            yield return null;
+        }
+        CEventSystem.Instance.SceneLoaded?.Invoke(index);
+
     }
-    */
 
     public void Exit()
     {
