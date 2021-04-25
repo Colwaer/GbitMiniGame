@@ -6,7 +6,7 @@ public class Cloud : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        if (other.collider.tag == "Player")
+        if (other.collider.CompareTag("Player"))
         {
             var t = GetComponentsInChildren<MoveableSting>();
             foreach(MoveableSting item in t)

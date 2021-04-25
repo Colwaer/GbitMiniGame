@@ -7,7 +7,6 @@ public class CPlayer : MonoBehaviour,IPlayer
 {
     internal float Speed { get; private set; }
     internal float DashSpeed { get; private set; } 
-   
     internal float JumpHeight { get; private set; }
 
     private float MaxFallSpeed;
@@ -180,7 +179,7 @@ public class CPlayer : MonoBehaviour,IPlayer
         m_RigidBody.gravityScale = 0;
         m_RigidBody.velocity = direction * DashSpeed;
         yield return CTool.Wait(t_Dash);
-        //减速过程
+        //减速过程，时间很短
         for( ; m_RigidBody.velocity.magnitude > Speed; )
         {
             m_RigidBody.velocity -= m_RigidBody.velocity.normalized * 2f;

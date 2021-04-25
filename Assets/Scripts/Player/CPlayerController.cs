@@ -68,7 +68,7 @@ public class CPlayerController : CSigleton<CPlayerController>
 
     private void CalculateDirection()
     {
-        MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //按鼠标所在方向的反方向冲刺的代码有问题
+        MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
         Direction = new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
     }
 

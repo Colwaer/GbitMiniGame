@@ -3,11 +3,22 @@ using UnityEngine;
 
 public class Button_StartGame : MonoBehaviour
 {
-    Button button;
+    Button Button;
+    [SerializeField]private GameObject Textbox;
 
-    void Start()
+    private void Awake()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(CSceneManager.Instance.LoadNextLevel);
+        Button = GetComponent<Button>();
+    }
+
+    private void Start()
+    {
+        Button.onClick.AddListener(CSceneManager.Instance.LoadNextLevel);
+        Button.onClick.AddListener(OnClick);
+    }
+
+    private void OnClick()
+    {
+        gameObject.SetActive(false);
     }
 }

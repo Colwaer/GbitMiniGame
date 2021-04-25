@@ -11,5 +11,7 @@ public class CDeadline : MonoBehaviour
         {
             player.Die();
         }
+        else
+            Destroy(collision.gameObject);  //摧毁到达边界的物体
     }
 }

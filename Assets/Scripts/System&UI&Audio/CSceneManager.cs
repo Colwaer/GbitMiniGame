@@ -34,16 +34,14 @@ public class CSceneManager : CSigleton<CSceneManager>
 
     public void LoadNextLevel()
     {
-        
         StartCoroutine(ILoadLevel(m_Index + 1));
-        
     }
 
     IEnumerator ILoadLevel(int index)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
         asyncLoad.allowSceneActivation = false;
-        while (!asyncLoad.isDone)
+        for (; !asyncLoad.isDone;)
         {
             loadSlider.value = asyncLoad.progress;
             if (asyncLoad.progress >= 0.9f)
@@ -54,11 +52,9 @@ public class CSceneManager : CSigleton<CSceneManager>
                     asyncLoad.allowSceneActivation = true;
                 }
             }
-
             yield return null;
         }
         CEventSystem.Instance.SceneLoaded?.Invoke(index);
-
     }
 
     public void Exit()

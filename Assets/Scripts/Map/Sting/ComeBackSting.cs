@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalSting : MoveableSting
+public class ComeBackSting : MoveableSting
 {
     public float speed = 3.0f;
     public Vector2 direction;
 
     public override void StartMove()
     {
-        Debug.Log("start move");
         StartCoroutine(Move());
     }
 
@@ -23,7 +22,7 @@ public class HorizontalSting : MoveableSting
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.tag != "Player" && other.transform != transform.parent)
+        if (!other.CompareTag("Player") && other.transform != transform.parent)
         {
             Debug.Log("sting collide with cloud");
             StopAllCoroutines();
