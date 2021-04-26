@@ -9,7 +9,7 @@ public class CSceneManager : CSigleton<CSceneManager>
 {
     public int m_Index = 0;  //当前关的index
 
-    public Slider loadSlider;
+    public Pre_LoadScene loadScenePrefab;
 
     private void OnEnable()
     {
@@ -39,16 +39,19 @@ public class CSceneManager : CSigleton<CSceneManager>
 
     IEnumerator ILoadLevel(int index)
     {
+        loadScenePrefab.gameObject.SetActive(true);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
         asyncLoad.allowSceneActivation = false;
         for (; !asyncLoad.isDone;)
         {
-            loadSlider.value = asyncLoad.progress;
+            loadScenePrefab.slider.value = asyncLoad.progress;
             if (asyncLoad.progress >= 0.9f)
             {
-                loadSlider.value = 1.0f;
-                if (Input.GetKeyDown(KeyCode.Space))
+                loadScenePrefab.text.gameObject.SetActive(true);
+                loadScenePrefab.slider.value = 1.0f;
+                if (Input.anyKeyDown)
                 {
+                    loadScenePrefab.gameObject.SetActive(false);
                     asyncLoad.allowSceneActivation = true;
                 }
             }
