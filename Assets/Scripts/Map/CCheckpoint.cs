@@ -16,7 +16,7 @@ public class CCheckpoint : MonoBehaviour
             b_IsActive = value;
             if(value)
             {
-                m_SpriteRenderer.color = Color.green;
+                m_SpriteRenderer.color = Color.green;   //待修改
                 Debug.Log($"记录点重设为{transform.position}");
             }
             else
@@ -58,7 +58,7 @@ public class CCheckpoint : MonoBehaviour
     //使玩家重生
     public void Spawn()
     {
-        CPlayerController.Instance.m_Player.transform.position = transform.position;
+        PlayerController.Instance.m_Player.transform.position = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Public;
-public class SaveManager : CSigleton<SaveManager>
+public class SaveManager : Sigleton<SaveManager>
 {
     public Save save;
     public CPlayer player;

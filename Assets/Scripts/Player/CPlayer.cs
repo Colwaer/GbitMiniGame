@@ -111,10 +111,6 @@ public class CPlayer : MonoBehaviour,IPlayer
         if (b_OnGround) ShootCount = 1;
     }
 
-    // 地面跑动：采用惯性跑动，有加速与减速过程，但是不需要太明显弄得地面太滑；存在速度阈值，
-    // 加速到阈值速度的时间大概在0.4s左右。减速的需求：减速从阈值到0速的时间为0.2s左右，只要
-    // 玩家停止原运动方向的输入即判定进入减速阶段，减速过程位移与时间固定，玩家选择反向输入或
-    // 停止输入不影响减速过程。但是玩家若在减速过程中选择原方向输入，那就以当前的速度进入到加速过程。
     public void Move()
     {
         if (b_isDashing) 
@@ -191,7 +187,6 @@ public class CPlayer : MonoBehaviour,IPlayer
 
     public void Die()
     {
-        Debug.Log("角色死亡了");
         m_RigidBody.velocity = Vector2.zero;
         ShootCount = 0;
         CEventSystem.Instance.PlayerDie?.Invoke();

@@ -23,8 +23,8 @@ namespace Public
             => Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
     }
     //单例模式
-    public class CSigleton<T> : MonoBehaviour
-        where T : CSigleton<T>
+    public class Sigleton<T> : MonoBehaviour
+        where T : Sigleton<T>
     {
         public static T Instance { get; private set; }
         protected virtual void Awake()
