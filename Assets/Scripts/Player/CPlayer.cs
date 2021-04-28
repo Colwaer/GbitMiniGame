@@ -103,8 +103,10 @@ public class CPlayer : MonoBehaviour,IPlayer
         }
     }
 
+    [SerializeField] Vector2 v;
     public void PhysicsCheck()
     {
+        v = m_RigidBody.velocity;
         m_Velocity_LastFrame = m_RigidBody.velocity;
         b_IsMoving = m_RigidBody.velocity.magnitude > 0.1f;
         b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), m_RaycastLength, GroundLayer);
@@ -178,7 +180,7 @@ public class CPlayer : MonoBehaviour,IPlayer
         //减速过程，时间很短
         for( ; m_RigidBody.velocity.magnitude > Speed; )
         {
-            m_RigidBody.velocity -= m_RigidBody.velocity.normalized * 2f;
+            m_RigidBody.velocity -= m_RigidBody.velocity.normalized * 3f;
             yield return new WaitForFixedUpdate();
         }
         b_isDashing = false;
