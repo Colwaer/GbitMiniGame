@@ -63,7 +63,7 @@ public class CPlayer : MonoBehaviour,IPlayer
 
     public void Initialize()
     {
-        frame_Accelerate = 20;
+        frame_Accelerate = 10;
         frame_SlowDown = 10;
         MaxShootCount = 3;
         ShootCount = 0;
@@ -103,10 +103,8 @@ public class CPlayer : MonoBehaviour,IPlayer
         }
     }
 
-    [SerializeField] Vector2 v;
     public void PhysicsCheck()
     {
-        v = m_RigidBody.velocity;
         m_Velocity_LastFrame = m_RigidBody.velocity;
         b_IsMoving = m_RigidBody.velocity.magnitude > 0.1f;
         b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), m_RaycastLength, GroundLayer);

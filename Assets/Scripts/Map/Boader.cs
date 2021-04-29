@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 //地图的边界
-public class Deadline : MonoBehaviour
+public class Boader : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D collision)
     {

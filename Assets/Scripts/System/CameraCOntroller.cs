@@ -1,14 +1,49 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Cinemachine;
+using System.Collections;
 using UnityEngine;
-using Cinemachine;
 
-public class CameraCOntroller : MonoBehaviour
+//默认状态下始终跟随玩家
+public class CameraController : MonoBehaviour
 {
-    CinemachineVirtualCamera cvc;
+    internal CinemachineVirtualCamera cvc;
+    private float t_Normalize = 2f;  //从任何状态恢复正常需要的时间
+    private float m_DefaultSize;     //相机默认大小     
+    private Coroutine ActiveCoroutine = null;
+
     private void Awake()
     {
         cvc = GetComponent<CinemachineVirtualCamera>();
+        m_DefaultSize = cvc.m_Lens.OrthographicSize;
         cvc.Follow = PlayerController.Instance.Player.transform;
+    }
+    //duration为镜头扩大需要的时间
+    public void StartChangeScale(float targetSize, float duration, Transform follow = null)
+    {
+        if (ActiveCoroutine != null) StopCoroutine(ActiveCoroutine);
+        ActiveCoroutine = StartCoroutine(ChangeScale(targetSize, duration, follow));
+    }
+
+    public void StopCameraEffect()
+    {
+        StopAllCoroutines();
+        ActiveCoroutine = StartCoroutine(ChangeScale(m_DefaultSize, t_Normalize,PlayerController.Instance.Player.transform));
+    }
+
+    private IEnumerator ChangeScale(float targetSize, float duration, Transform follow = null)
+    {
+        cvc.Follow = null;
+        float deltaSize;    //每帧改变的尺寸
+        Vector3 deltaPos;   //每帧的位移
+        deltaSize = (targetSize - cvc.m_Lens.OrthographicSize) / duration * Time.fixedDeltaTime;
+        deltaPos = (follow.position - transform.position) / duration * Time.fixedDeltaTime;
+        for (float timer = 0; timer < duration; timer += Time.fixedDeltaTime)
+        {
+            //Debug.Log(cvc.m_Lens.OrthographicSize);
+            cvc.m_Lens.OrthographicSize += deltaSize;
+            cvc.transform.position += deltaPos;
+            yield return new WaitForFixedUpdate();
+        }
+        cvc.m_Lens.OrthographicSize = targetSize;
+        cvc.Follow = follow;
     }
 }
