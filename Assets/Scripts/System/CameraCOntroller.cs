@@ -9,9 +9,10 @@ public class CameraController : MonoBehaviour
     private float t_Normalize = 2f;  //从任何状态恢复正常需要的时间
     private float m_DefaultSize;     //相机默认大小     
     private Coroutine ActiveCoroutine = null;
-
+    private Transform transform_MainCamera; 
     private void Awake()
     {
+        transform_MainCamera = Camera.main.transform;
         cvc = GetComponent<CinemachineVirtualCamera>();
         m_DefaultSize = cvc.m_Lens.OrthographicSize;
         cvc.Follow = PlayerController.Instance.Player.transform;
@@ -35,12 +36,12 @@ public class CameraController : MonoBehaviour
         float deltaSize;    //每帧改变的尺寸
         Vector3 deltaPos;   //每帧的位移
         deltaSize = (targetSize - cvc.m_Lens.OrthographicSize) / duration * Time.fixedDeltaTime;
-        deltaPos = (follow.position - transform.position) / duration * Time.fixedDeltaTime;
+        deltaPos = (follow.position - transform_MainCamera.position) / duration * Time.fixedDeltaTime;
         for (float timer = 0; timer < duration; timer += Time.fixedDeltaTime)
         {
             //Debug.Log(cvc.m_Lens.OrthographicSize);
             cvc.m_Lens.OrthographicSize += deltaSize;
-            cvc.transform.position += deltaPos;
+            transform_MainCamera.position += deltaPos;
             yield return new WaitForFixedUpdate();
         }
         cvc.m_Lens.OrthographicSize = targetSize;
