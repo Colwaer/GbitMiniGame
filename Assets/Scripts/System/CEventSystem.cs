@@ -11,6 +11,7 @@ public class CEventSystem : Sigleton<CEventSystem>
     public Action<int> ShootCountChanged;   //射击次数改变了
     public Action PlayerDie;
     public Action CheckPointChanged;        //激活了新的记录点
+    public Action<int> PointChanged;
 
     protected override void Awake()
     {

@@ -23,10 +23,11 @@ public class CPlayer : MonoBehaviour, IPlayer
     private int frame_Accelerate;           //地面上加速需要的固定帧帧数 
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
 
+    private float t_Shoot;                  //射击冷却
+    private bool b_CanShoot;                //射击冷却完毕
     internal int MaxShootCount;             //最大射击次数
-
     [SerializeField]
-    internal int _ShootCount;
+    private int _ShootCount;
     internal int ShootCount                 //可用射击次数
     {
         get
@@ -41,14 +42,30 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
     }
 
-    private float t_Shoot;                  //射击冷却
-    private bool b_CanShoot;                //射击冷却完毕
+    [SerializeField]
+    private int _Point;
+    internal int Point
+    {
+        get
+        {
+            return _Point;
+        }
+        set
+        {
+            CEventSystem.Instance.ShootCountChanged?.Invoke(value);
+            _Point = value;
+        }
+    }
 
     private float t_Dash;                   //冲刺时间,应当小于射击冷却
     private IEnumerator ie_Dash;            //冲刺协程
 
     private Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
     private GameObject LastCloud;           //上一朵碰撞的云
+
+    [SerializeField]private Animator PlayerAnim;
+    [SerializeField]private Animator BottleAnim;
+    [SerializeField]private int statusindex;   
 
     private void Awake()
     {
@@ -63,6 +80,7 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Initialize()
     {
+        Point = 0;
         frame_Accelerate = 20;
         frame_SlowDown = 10;
         MaxShootCount = 3;
@@ -106,7 +124,6 @@ public class CPlayer : MonoBehaviour, IPlayer
     public void PhysicsCheck()
     {
         m_Velocity_LastFrame = m_RigidBody.velocity;
-        b_IsMoving = m_RigidBody.velocity.magnitude > 0.1f;
         b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), m_RaycastLength, GroundLayer);
         if (b_OnGround) ShootCount = 1;
     }
@@ -122,6 +139,8 @@ public class CPlayer : MonoBehaviour, IPlayer
         float sgn_y = Mathf.Sign(m_RigidBody.velocity.y);
         if (v_x < 0.01f) sgn_x = m_DesiredDirection;    //禁止赋值为0
         if (v_y < 0.01f) sgn_y = -1;                    //禁止赋值为0
+
+        b_IsMoving = v_x > 0.1f && b_OnGround && sgn_x * m_DesiredDirection > 0;
 
         if (b_OnGround)
         {
@@ -190,5 +209,28 @@ public class CPlayer : MonoBehaviour, IPlayer
         m_RigidBody.velocity = Vector2.zero;
         ShootCount = 0;
         CEventSystem.Instance.PlayerDie?.Invoke();
+    }
+    //statusindex是动画器参数，0对应idle，1对应walk，2对应jump，3对应drop
+    public void SwitchAnim()
+    {
+        if(m_RigidBody.velocity.x!=0)
+        {
+            //改变的是父物体而不是图片的Scale
+            transform.localScale = new Vector3(-Mathf.Sign(m_RigidBody.velocity.x), 1, 1);
+        }
+
+        if(b_OnGround)
+        {
+            if (!b_IsMoving) statusindex = 0;
+            else statusindex = 1;
+        }
+        else
+        {
+            if (m_RigidBody.velocity.y > 0) statusindex = 2;
+            else statusindex = 3;
+        }
+
+        PlayerAnim.SetInteger("statusindex", statusindex);
+        BottleAnim.SetInteger("statusindex", statusindex);
     }
 }
