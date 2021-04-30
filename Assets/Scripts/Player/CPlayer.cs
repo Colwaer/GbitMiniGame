@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Public;
 using System.Collections;
 using System;
 
-public class CPlayer : MonoBehaviour,IPlayer
+public class CPlayer : MonoBehaviour, IPlayer
 {
     internal float Speed { get; private set; }
-    internal float DashSpeed { get; private set; } 
+    internal float DashSpeed { get; private set; }
     internal float JumpHeight { get; private set; }
 
     private float MaxFallSpeed;
@@ -19,7 +19,7 @@ public class CPlayer : MonoBehaviour,IPlayer
     internal bool b_isDashing;
     internal float m_DesiredDirection;      //移动方向
     private float m_RaycastLength = 1.2f;
-    
+
     private int frame_Accelerate;           //地面上加速需要的固定帧帧数 
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
 
@@ -28,7 +28,7 @@ public class CPlayer : MonoBehaviour,IPlayer
     [SerializeField]
     internal int _ShootCount;
     internal int ShootCount                 //可用射击次数
-    { 
+    {
         get
         {
             return _ShootCount;
@@ -39,8 +39,8 @@ public class CPlayer : MonoBehaviour,IPlayer
             CEventSystem.Instance.ShootCountChanged?.Invoke(value);
             _ShootCount = value;
         }
-    }       
-    
+    }
+
     private float t_Shoot;                  //射击冷却
     private bool b_CanShoot;                //射击冷却完毕
 
@@ -63,7 +63,7 @@ public class CPlayer : MonoBehaviour,IPlayer
 
     public void Initialize()
     {
-        frame_Accelerate = 10;
+        frame_Accelerate = 20;
         frame_SlowDown = 10;
         MaxShootCount = 3;
         ShootCount = 0;
@@ -113,7 +113,7 @@ public class CPlayer : MonoBehaviour,IPlayer
 
     public void Move()
     {
-        if (b_isDashing) 
+        if (b_isDashing)
             return;
 
         float v_x = Mathf.Abs(m_RigidBody.velocity.x);
@@ -147,7 +147,7 @@ public class CPlayer : MonoBehaviour,IPlayer
     public void Jump()
     {
         if (b_OnGround)
-            m_RigidBody.velocity =  new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
+            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
 
     public void Shoot(Vector2 direction)
@@ -176,9 +176,9 @@ public class CPlayer : MonoBehaviour,IPlayer
         m_RigidBody.velocity = direction * DashSpeed;
         yield return CTool.Wait(t_Dash);
         //减速过程，时间很短
-        for( ; m_RigidBody.velocity.magnitude > Speed; )
+        for (; m_RigidBody.velocity.magnitude > Speed;)
         {
-            m_RigidBody.velocity -= m_RigidBody.velocity.normalized * 3f;
+            m_RigidBody.velocity -= m_RigidBody.velocity.normalized * 2f;
             yield return new WaitForFixedUpdate();
         }
         b_isDashing = false;
