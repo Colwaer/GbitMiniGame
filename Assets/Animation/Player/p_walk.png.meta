@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,7 +100,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -112,7 +112,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -129,10 +129,10 @@ TextureImporter:
       name: p_walk_0
       rect:
         serializedVersion: 2
-        x: 59
+        x: 0
         y: 0
-        width: 203
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,10 +150,10 @@ TextureImporter:
       name: p_walk_1
       rect:
         serializedVersion: 2
-        x: 378
+        x: 320
         y: 0
-        width: 203
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,10 +171,10 @@ TextureImporter:
       name: p_walk_2
       rect:
         serializedVersion: 2
-        x: 699
+        x: 640
         y: 0
-        width: 203
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,10 +192,10 @@ TextureImporter:
       name: p_walk_3
       rect:
         serializedVersion: 2
-        x: 1028
+        x: 960
         y: 0
-        width: 193
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,10 +213,10 @@ TextureImporter:
       name: p_walk_4
       rect:
         serializedVersion: 2
-        x: 1349
+        x: 1280
         y: 0
-        width: 193
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +234,10 @@ TextureImporter:
       name: p_walk_5
       rect:
         serializedVersion: 2
-        x: 1678
+        x: 1600
         y: 0
-        width: 193
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,10 +255,10 @@ TextureImporter:
       name: p_walk_6
       rect:
         serializedVersion: 2
-        x: 1999
+        x: 1920
         y: 0
-        width: 193
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -276,10 +276,10 @@ TextureImporter:
       name: p_walk_7
       rect:
         serializedVersion: 2
-        x: 2307
+        x: 2240
         y: 0
-        width: 185
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,10 +297,10 @@ TextureImporter:
       name: p_walk_8
       rect:
         serializedVersion: 2
-        x: 2618
+        x: 2560
         y: 0
-        width: 183
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -318,10 +318,10 @@ TextureImporter:
       name: p_walk_9
       rect:
         serializedVersion: 2
-        x: 2929
+        x: 2880
         y: 0
-        width: 183
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,10 +339,10 @@ TextureImporter:
       name: p_walk_10
       rect:
         serializedVersion: 2
-        x: 3268
+        x: 3200
         y: 0
-        width: 193
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -360,10 +360,10 @@ TextureImporter:
       name: p_walk_11
       rect:
         serializedVersion: 2
-        x: 3589
+        x: 3520
         y: 0
-        width: 193
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -381,10 +381,10 @@ TextureImporter:
       name: p_walk_12
       rect:
         serializedVersion: 2
-        x: 3898
+        x: 3840
         y: 0
-        width: 203
-        height: 201
+        width: 320
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

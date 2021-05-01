@@ -171,7 +171,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 862cee57dfbe92b48b00e644904d0033, type: 2}
+  m_Motion: {fileID: 7400000, guid: 72b2e042ea9248d4bb62c43f0d159ab9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -392,7 +392,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bottle
+  m_Name: Player
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: statusindex
@@ -438,7 +438,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 18f184571d8c9e14abd2996e0dc3f97b, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4c80e7486b919a24494957efd2183755, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -468,7 +468,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0b1eab6b6e0771f4a992e8d16192ce43, type: 2}
+  m_Motion: {fileID: 7400000, guid: 468dde8b73bfd0948b1eb05e5f31cce8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -573,7 +573,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 14c15f6a61d3868479150f6f4d5b1be1, type: 2}
+  m_Motion: {fileID: 7400000, guid: a1381738a0c9e974fb879ccea868baa8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -628,7 +628,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d7b37dbe51141694e8fa5e3ae6a5b6c7, type: 2}
+  m_Motion: {fileID: 7400000, guid: 06d7f23e661cdfb4dbb8d50263081fab, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -16,7 +16,7 @@ public class CEventSystem : Sigleton<CEventSystem>
     protected override void Awake()
     {
         base.Awake();
-        UnityEngine.Random.InitState(System.DateTime.Now.Second);
+        UnityEngine.Random.InitState(DateTime.Now.Second);
     }
 }
 
