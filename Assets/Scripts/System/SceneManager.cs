@@ -25,7 +25,6 @@ public class SceneManager : Sigleton<SceneManager>
     {
         CEventSystem.Instance.SceneLoaded?.Invoke(m_Index);
     }
-
     private void OnSceneLoaded(int index)
     {
         m_Index = index;
