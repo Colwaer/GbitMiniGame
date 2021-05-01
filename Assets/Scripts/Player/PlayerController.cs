@@ -18,7 +18,6 @@ public class PlayerController : Sigleton<PlayerController>
     {
         base.Awake();
         Player = transform.Find("Player").gameObject;
-        Debug.Log(Player.name);
         m_Player = Player.GetComponent<CPlayer>();
     }
     private void OnEnable()
@@ -62,6 +61,7 @@ public class PlayerController : Sigleton<PlayerController>
             b_DesiredShoot = false;
             m_Player.Shoot(-1f * Direction);
         }
+        m_Player.SwitchAnim();
     }
 
     private void CalculateDirection()

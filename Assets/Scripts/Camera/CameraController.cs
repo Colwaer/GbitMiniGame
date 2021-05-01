@@ -7,31 +7,25 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     internal CinemachineVirtualCamera cvc;
-    // private float t_Normalize = 2f;  //从任何状态恢复正常需要的时间
-    private float m_DefaultSize = 9.0f;   //相机默认大小     
-    // private Coroutine ActiveCoroutine = null;
-    private Transform transform_MainCamera;
+    private float t_Normalize = 1f;         //恢复跟随玩家需要的时间
+    private float m_DefaultSize = 9.0f;     //相机默认大小     
     private Vector2 m_defaultShiftSpeed;
-    const float tranformScaleToCameraSize = 2.8f;
+    private const float ScaleToCameraSize = 0.28f;  //下面改成了乘法
+    private Transform transform_Player;
 
-    private Transform player;
     private void Awake()
     {
-        transform_MainCamera = Camera.main.transform;
         cvc = GetComponent<CinemachineVirtualCamera>();
         m_DefaultSize = cvc.m_Lens.OrthographicSize;
-        player = PlayerController.Instance.Player.transform;
-        cvc.Follow = player;
+        transform_Player = PlayerController.Instance.Player.transform;
+        cvc.Follow = transform_Player;
         m_defaultShiftSpeed = cvc.m_Lens.LensShift;
-        // Debug.Log("cvc follow camera :" + cvc.Follow);
     }
 
     internal void StartChangeScale(float t_Effect, Transform cameraArea)
     {
-        
         StopAllCoroutines();
-        
-        float targetSize = cameraArea.localScale.x / tranformScaleToCameraSize;
+        float targetSize = cameraArea.localScale.x * ScaleToCameraSize;
         StartCoroutine(ChangeScale(targetSize, cameraArea, t_Effect));
     }
     IEnumerator ChangeScale(float targetSize, Transform cameraArea, float time)
@@ -39,12 +33,9 @@ public class CameraController : MonoBehaviour
         cvc.m_Lens.LensShift = m_defaultShiftSpeed / 5;
         cvc.Follow = cameraArea;
         float value = cvc.m_Lens.OrthographicSize;
-        float timer = 0;
-        while (timer <= time)
+        
+        for (float timer = 0; timer <= time; timer += Time.deltaTime)
         {
-            timer += Time.deltaTime;
-            
-            Debug.Log(cvc.m_Lens.OrthographicSize);
             cvc.m_Lens.OrthographicSize = Mathf.Lerp(value, targetSize, Mathf.Sqrt(timer / time));
             yield return null;
         }
@@ -54,7 +45,7 @@ public class CameraController : MonoBehaviour
     internal void FollowPlayer()
     {
         StopAllCoroutines();
-        StartCoroutine(ChangeScale(m_DefaultSize, player, 0.5f));
-        cvc.Follow = player;
+        StartCoroutine(ChangeScale(m_DefaultSize, transform_Player, t_Normalize));
+        cvc.Follow = transform_Player;
     }
 }
