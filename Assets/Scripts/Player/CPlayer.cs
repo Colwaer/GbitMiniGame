@@ -49,6 +49,15 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
     }
 
+    [SerializeField] private Animator PlayerAnim;
+    [SerializeField] private Animator BottleAnim;
+    private GameObject LastCloud;           //上一朵碰撞的云
+    private LayerMask GroundLayer;
+    internal Rigidbody2D m_RigidBody;
+    private float RaycastLength = 1.2f;
+    private Vector3 RaycastOffset = new Vector3(0.5f, 0);
+    private Coroutine ie_Dash;            //冲刺协程
+
     [Header("状态")]
     [SerializeField] private int statusindex;
     internal bool b_OnGround;
@@ -61,15 +70,6 @@ public class CPlayer : MonoBehaviour, IPlayer
     private float v_y;
     private float sgn_x;
     private float sgn_y;
-
-    [SerializeField] private Animator PlayerAnim;
-    [SerializeField] private Animator BottleAnim;
-    private GameObject LastCloud;           //上一朵碰撞的云
-    private LayerMask GroundLayer;
-    internal Rigidbody2D m_RigidBody;
-    private float RaycastLength = 1.4f;
-    private Vector3 RaycastOffset = new Vector3(0.5f, 0);
-    private Coroutine ie_Dash;            //冲刺协程
 
     private void Awake()
     {

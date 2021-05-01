@@ -1747,9 +1747,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ShootCount: 0
   _Point: 0
-  statusindex: 0
   PlayerAnim: {fileID: 315168163}
   BottleAnim: {fileID: 466731093}
+  statusindex: 0
 --- !u!61 &1704495836
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1763,7 +1763,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.045254707, y: -0.2445184}
+  m_Offset: {x: 0.004650116, y: -0.2445184}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1774,7 +1774,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6944294, y: 1.6953194}
+  m_Size: {x: 0.59461975, y: 1.6953194}
   m_EdgeRadius: 0
 --- !u!50 &1704495837
 Rigidbody2D:
