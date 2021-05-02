@@ -223,6 +223,8 @@ public class CPlayer : MonoBehaviour, IPlayer
     //statusindex是动画器参数，0对应idle，1对应startwalk，2对应walk,3对应jump，4对应drop,5对应dash
     public void SwitchAnim()
     {
+        float animSpeed = 1f; 
+
         //改变的是父物体而不是图片的Scale
         if(sgn_x!=0)
             transform.localScale = new Vector3(-sgn_x, 1, 1);
@@ -241,9 +243,12 @@ public class CPlayer : MonoBehaviour, IPlayer
         {
             if (sgn_y > 0) statusindex = 3;
             else statusindex = 4;
+            animSpeed = (float)(Mathf.Sqrt(m_Velocity_LastFrame.magnitude) / 4);
         }
-
+       
         PlayerAnim.SetInteger("statusindex", statusindex);
         BottleAnim.SetInteger("statusindex", statusindex);
+        PlayerAnim.speed = animSpeed;
+        BottleAnim.speed = animSpeed;
     }
 }
