@@ -3,7 +3,7 @@
 [CreateAssetMenu]
 public class Save : ScriptableObject
 {
-    public PlayerSave playerSave;
+    public PlayerData playerSave;
     public void LoadMethod(CPlayer player)
     {
         playerSave.Load(player);

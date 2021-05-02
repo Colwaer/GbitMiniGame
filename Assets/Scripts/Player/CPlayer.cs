@@ -2,29 +2,21 @@ using UnityEngine;
 using Public;
 using System.Collections;
 using System;
+using static PlayerData;
 
 public class CPlayer : MonoBehaviour, IPlayer
 {
     internal float Speed { get; private set; }
     internal float DashSpeed { get; private set; }
     internal float JumpHeight { get; private set; }
-
     private float MaxFallSpeed;
     private float MaxRiseSpeed;
 
-    private LayerMask GroundLayer;
-    internal Rigidbody2D m_RigidBody;
-    internal bool b_OnGround;
-    internal bool b_IsMoving;
-    internal bool b_isDashing;
-    internal float m_DesiredDirection;      //移动方向
-    private float m_RaycastLength = 1.2f;
-
+    private float t_Dash;                   //冲刺时间,应当小于射击冷却
     private int frame_Accelerate;           //地面上加速需要的固定帧帧数 
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
+    private float t_Shoot;                  //射击冷却时间
 
-    private float t_Shoot;                  //射击冷却
-    private bool b_CanShoot;                //射击冷却完毕
     internal int MaxShootCount;             //最大射击次数
     [SerializeField]
     private int _ShootCount;
@@ -57,15 +49,27 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
     }
 
-    private float t_Dash;                   //冲刺时间,应当小于射击冷却
-    private IEnumerator ie_Dash;            //冲刺协程
-
-    private Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
+    [SerializeField] private Animator PlayerAnim;
+    [SerializeField] private Animator BottleAnim;
     private GameObject LastCloud;           //上一朵碰撞的云
+    private LayerMask GroundLayer;
+    internal Rigidbody2D m_RigidBody;
+    private float RaycastLength = 1.2f;
+    private Vector3 RaycastOffset = new Vector3(0.5f, 0);
+    private Coroutine ie_Dash;            //冲刺协程
 
-    [SerializeField]private Animator PlayerAnim;
-    [SerializeField]private Animator BottleAnim;
-    [SerializeField]private int statusindex;   
+    [Header("状态")]
+    [SerializeField] private int statusindex;
+    internal bool b_OnGround;
+    internal bool b_IsMoving;
+    internal bool b_isDashing;
+    private bool b_CanShoot;                //射击冷却完毕
+    internal float m_DesiredDirection;
+    private Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
+    private float v_x;
+    private float v_y;
+    private float sgn_x;
+    private float sgn_y;
 
     private void Awake()
     {
@@ -74,14 +78,17 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     private void OnDrawGizmos()
     {
+        Vector3 pos1 = transform.position + RaycastOffset;
+        Vector3 pos2 = transform.position - RaycastOffset;
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - m_RaycastLength, 0));
+        Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength, 0)); 
+        Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength, 0));
     }
 
     public void Initialize()
     {
         Point = 0;
-        frame_Accelerate = 20;
+        frame_Accelerate = 13;  //最好与起跑动画时间一致
         frame_SlowDown = 10;
         MaxShootCount = 3;
         ShootCount = 0;
@@ -96,6 +103,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (b_isDashing && ie_Dash != null)
@@ -124,7 +132,18 @@ public class CPlayer : MonoBehaviour, IPlayer
     public void PhysicsCheck()
     {
         m_Velocity_LastFrame = m_RigidBody.velocity;
-        b_OnGround = Physics2D.Raycast(transform.position, new Vector2(0, -1), m_RaycastLength, GroundLayer);
+        v_x = Mathf.Abs(m_Velocity_LastFrame.x);
+        v_y = Mathf.Abs(m_Velocity_LastFrame.y);
+        sgn_x = Mathf.Sign(m_Velocity_LastFrame.x);
+        sgn_y = Mathf.Sign(m_Velocity_LastFrame.y);
+        if (v_x < 0.1f) sgn_x = m_DesiredDirection;    //禁止赋值为0
+        if (v_y < 0.1f) sgn_y = -1;                    //禁止赋值为0
+
+        b_IsMoving = v_x > 0.1f && b_OnGround && sgn_x * m_DesiredDirection > 0;
+
+        b_OnGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength, GroundLayer)
+           || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength, GroundLayer);
+
         if (b_OnGround) ShootCount = 1;
     }
 
@@ -132,15 +151,6 @@ public class CPlayer : MonoBehaviour, IPlayer
     {
         if (b_isDashing)
             return;
-
-        float v_x = Mathf.Abs(m_RigidBody.velocity.x);
-        float v_y = Mathf.Abs(m_RigidBody.velocity.y);
-        float sgn_x = Mathf.Sign(m_RigidBody.velocity.x);
-        float sgn_y = Mathf.Sign(m_RigidBody.velocity.y);
-        if (v_x < 0.01f) sgn_x = m_DesiredDirection;    //禁止赋值为0
-        if (v_y < 0.01f) sgn_y = -1;                    //禁止赋值为0
-
-        b_IsMoving = v_x > 0.1f && b_OnGround && sgn_x * m_DesiredDirection > 0;
 
         if (b_OnGround)
         {
@@ -165,8 +175,9 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Jump()
     {
-        if (b_OnGround)
-            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
+        if (!b_OnGround) 
+            return;
+        m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
 
     public void Shoot(Vector2 direction)
@@ -176,8 +187,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         ShootCount--;
         if (!b_CanShoot)
             return;
-        ie_Dash = Dash(direction);
-        StartCoroutine(ie_Dash);
+        ie_Dash =StartCoroutine(Dash(direction));
         StartCoroutine(ShootCoolDown());
     }
 
@@ -210,24 +220,27 @@ public class CPlayer : MonoBehaviour, IPlayer
         ShootCount = 0;
         CEventSystem.Instance.PlayerDie?.Invoke();
     }
-    //statusindex是动画器参数，0对应idle，1对应walk，2对应jump，3对应drop
+    //statusindex是动画器参数，0对应idle，1对应startwalk，2对应walk,3对应jump，4对应drop,5对应dash
     public void SwitchAnim()
     {
-        if(m_RigidBody.velocity.x!=0)
-        {
-            //改变的是父物体而不是图片的Scale
-            transform.localScale = new Vector3(-Mathf.Sign(m_RigidBody.velocity.x), 1, 1);
-        }
+        //改变的是父物体而不是图片的Scale
+        if(sgn_x!=0)
+            transform.localScale = new Vector3(-sgn_x, 1, 1);
 
-        if(b_OnGround)
+        if(b_isDashing)
         {
-            if (!b_IsMoving) statusindex = 0;
-            else statusindex = 1;
+            statusindex = 5;
+        }
+        else if(b_OnGround)
+        {
+            if (v_x == Speed) statusindex = 2;
+            else if (b_IsMoving) statusindex = 1;
+            else statusindex = 0;
         }
         else
         {
-            if (m_RigidBody.velocity.y > 0) statusindex = 2;
-            else statusindex = 3;
+            if (sgn_y > 0) statusindex = 3;
+            else statusindex = 4;
         }
 
         PlayerAnim.SetInteger("statusindex", statusindex);

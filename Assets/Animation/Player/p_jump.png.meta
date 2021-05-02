@@ -117,7 +117,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -133,7 +133,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -145,7 +145,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -162,12 +162,12 @@ TextureImporter:
       name: p_jump_0
       rect:
         serializedVersion: 2
-        x: 56
+        x: 0
         y: 0
-        width: 207
-        height: 203
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -183,12 +183,12 @@ TextureImporter:
       name: p_jump_1
       rect:
         serializedVersion: 2
-        x: 379
+        x: 320
         y: 0
-        width: 202
-        height: 191
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,12 +204,12 @@ TextureImporter:
       name: p_jump_2
       rect:
         serializedVersion: 2
-        x: 698
+        x: 640
         y: 0
-        width: 206
-        height: 191
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -225,12 +225,12 @@ TextureImporter:
       name: p_jump_3
       rect:
         serializedVersion: 2
-        x: 1016
+        x: 960
         y: 0
-        width: 207
-        height: 191
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -246,12 +246,12 @@ TextureImporter:
       name: p_jump_4
       rect:
         serializedVersion: 2
-        x: 1339
+        x: 1280
         y: 0
-        width: 202
-        height: 203
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -267,12 +267,12 @@ TextureImporter:
       name: p_jump_5
       rect:
         serializedVersion: 2
-        x: 1658
-        y: 8
-        width: 206
-        height: 213
+        x: 1600
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -288,12 +288,12 @@ TextureImporter:
       name: p_jump_6
       rect:
         serializedVersion: 2
-        x: 1976
-        y: 26
-        width: 207
-        height: 207
+        x: 1920
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -309,12 +309,12 @@ TextureImporter:
       name: p_jump_7
       rect:
         serializedVersion: 2
-        x: 2299
-        y: 38
-        width: 202
-        height: 206
+        x: 2240
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -330,12 +330,12 @@ TextureImporter:
       name: p_jump_8
       rect:
         serializedVersion: 2
-        x: 2629
-        y: 38
-        width: 202
-        height: 206
+        x: 2560
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -351,12 +351,12 @@ TextureImporter:
       name: p_jump_9
       rect:
         serializedVersion: 2
-        x: 2936
-        y: 38
-        width: 207
-        height: 206
+        x: 2882
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -372,12 +372,12 @@ TextureImporter:
       name: p_jump_10
       rect:
         serializedVersion: 2
-        x: 3266
-        y: 38
-        width: 207
-        height: 206
+        x: 3200
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -393,12 +393,12 @@ TextureImporter:
       name: p_jump_11
       rect:
         serializedVersion: 2
-        x: 3578
-        y: 38
-        width: 206
-        height: 206
+        x: 3520
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -414,12 +414,12 @@ TextureImporter:
       name: p_jump_12
       rect:
         serializedVersion: 2
-        x: 3896
-        y: 38
-        width: 218
-        height: 206
+        x: 3840
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -435,12 +435,12 @@ TextureImporter:
       name: p_jump_13
       rect:
         serializedVersion: 2
-        x: 4219
-        y: 38
-        width: 202
-        height: 206
+        x: 4160
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -456,12 +456,12 @@ TextureImporter:
       name: p_jump_14
       rect:
         serializedVersion: 2
-        x: 4549
-        y: 38
-        width: 202
-        height: 206
+        x: 4480
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -477,12 +477,12 @@ TextureImporter:
       name: p_jump_15
       rect:
         serializedVersion: 2
-        x: 4868
-        y: 8
-        width: 206
-        height: 225
+        x: 4800
+        y: 0
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -498,12 +498,12 @@ TextureImporter:
       name: p_jump_16
       rect:
         serializedVersion: 2
-        x: 5186
+        x: 5120
         y: 0
-        width: 207
-        height: 233
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -519,12 +519,12 @@ TextureImporter:
       name: p_jump_17
       rect:
         serializedVersion: 2
-        x: 5509
+        x: 5440
         y: 0
-        width: 202
-        height: 221
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -540,12 +540,12 @@ TextureImporter:
       name: p_jump_18
       rect:
         serializedVersion: 2
-        x: 5828
+        x: 5760
         y: 0
-        width: 206
-        height: 214
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -561,12 +561,12 @@ TextureImporter:
       name: p_jump_19
       rect:
         serializedVersion: 2
-        x: 6146
+        x: 6080
         y: 0
-        width: 207
-        height: 203
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -582,12 +582,12 @@ TextureImporter:
       name: p_jump_20
       rect:
         serializedVersion: 2
-        x: 6469
+        x: 6400
         y: 0
-        width: 202
-        height: 191
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -603,12 +603,12 @@ TextureImporter:
       name: p_jump_21
       rect:
         serializedVersion: 2
-        x: 6788
+        x: 6720
         y: 0
-        width: 206
-        height: 203
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -624,12 +624,12 @@ TextureImporter:
       name: p_jump_22
       rect:
         serializedVersion: 2
-        x: 7106
+        x: 7040
         y: 0
-        width: 195
-        height: 203
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -645,12 +645,12 @@ TextureImporter:
       name: p_jump_23
       rect:
         serializedVersion: 2
-        x: 7418
+        x: 7360
         y: 0
-        width: 206
-        height: 203
+        width: 320
+        height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

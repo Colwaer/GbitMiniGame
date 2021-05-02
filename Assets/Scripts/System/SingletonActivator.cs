@@ -8,6 +8,7 @@ public class SingletonActivator : MonoBehaviour
 
     private void Awake()
     {
+        UnityEngine.Random.InitState(System.DateTime.Now.Second);
         foreach (GameObject obj in list)
         {
             obj.SetActive(true);
