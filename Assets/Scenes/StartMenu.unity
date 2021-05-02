@@ -1746,6 +1746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ShootCount: 0
+  _Point: 0
   PlayerAnim: {fileID: 315168163}
   BottleAnim: {fileID: 466731093}
   statusindex: 0
