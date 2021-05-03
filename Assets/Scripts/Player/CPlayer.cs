@@ -2,7 +2,6 @@ using UnityEngine;
 using Public;
 using System.Collections;
 using System;
-using static PlayerData;
 
 public class CPlayer : MonoBehaviour, IPlayer
 {
@@ -223,17 +222,17 @@ public class CPlayer : MonoBehaviour, IPlayer
     //statusindex是动画器参数，0对应idle，1对应startwalk，2对应walk,3对应jump，4对应drop,5对应dash
     public void SwitchAnim()
     {
-        float animSpeed = 1f; 
+        float animSpeed = 1f;
 
         //改变的是父物体而不是图片的Scale
-        if(sgn_x!=0)
+        if (sgn_x != 0)
             transform.localScale = new Vector3(-sgn_x, 1, 1);
 
-        if(b_isDashing)
+        if (b_isDashing)
         {
             statusindex = 5;
         }
-        else if(b_OnGround)
+        else if (b_OnGround)
         {
             if (v_x == Speed) statusindex = 2;
             else if (b_IsMoving) statusindex = 1;

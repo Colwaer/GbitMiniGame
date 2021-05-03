@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CCloud : MonoBehaviour
+public class Cloud_Trigger : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        if (other.collider.CompareTag("Player"))
+        Public.IPlayer player = other.gameObject.GetComponent<Public.IPlayer>();
+        if (player != null)
         {
             var t = GetComponentsInChildren<CSting_Movable>();
             foreach(CSting_Movable item in t)
