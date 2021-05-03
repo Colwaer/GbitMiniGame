@@ -2,6 +2,7 @@ using UnityEngine;
 using Public;
 using System.Collections;
 using System;
+using static PlayerData;
 
 public class CPlayer : MonoBehaviour, IPlayer
 {
@@ -117,6 +118,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         {
             if (m_Velocity_LastFrame.magnitude > 15f)
             {
+                Debug.Log("++dash collier cloud");
                 ShootCount += 2;
                 LastCloud = collision.gameObject;
                 //向下冲锋撞击云只能获得一朵云（依然有不能连续获得的限制）
@@ -222,17 +224,15 @@ public class CPlayer : MonoBehaviour, IPlayer
     //statusindex是动画器参数，0对应idle，1对应startwalk，2对应walk,3对应jump，4对应drop,5对应dash
     public void SwitchAnim()
     {
-        float animSpeed = 1f;
-
         //改变的是父物体而不是图片的Scale
-        if (sgn_x != 0)
+        if(sgn_x!=0)
             transform.localScale = new Vector3(-sgn_x, 1, 1);
 
-        if (b_isDashing)
+        if(b_isDashing)
         {
             statusindex = 5;
         }
-        else if (b_OnGround)
+        else if(b_OnGround)
         {
             if (v_x == Speed) statusindex = 2;
             else if (b_IsMoving) statusindex = 1;
@@ -242,12 +242,9 @@ public class CPlayer : MonoBehaviour, IPlayer
         {
             if (sgn_y > 0) statusindex = 3;
             else statusindex = 4;
-            animSpeed = (float)(Mathf.Sqrt(m_Velocity_LastFrame.magnitude) / 4);
         }
-       
+        
         PlayerAnim.SetInteger("statusindex", statusindex);
         BottleAnim.SetInteger("statusindex", statusindex);
-        PlayerAnim.speed = animSpeed;
-        BottleAnim.speed = animSpeed;
     }
 }
