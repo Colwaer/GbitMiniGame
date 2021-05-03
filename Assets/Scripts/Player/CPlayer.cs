@@ -55,7 +55,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
     private float RaycastLength = 1.2f;
-    private Vector3 RaycastOffset = new Vector3(0.5f, 0);
+    private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
 
     [Header("状态")]
@@ -121,9 +121,6 @@ public class CPlayer : MonoBehaviour, IPlayer
                 Debug.Log("++dash collier cloud");
                 ShootCount += 2;
                 LastCloud = collision.gameObject;
-                //向下冲锋撞击云只能获得一朵云（依然有不能连续获得的限制）
-                if (m_Velocity_LastFrame.y < 0)
-                    ShootCount--;
             }
             else
                 LastCloud = null;
@@ -224,9 +221,11 @@ public class CPlayer : MonoBehaviour, IPlayer
     //statusindex是动画器参数，0对应idle，1对应startwalk，2对应walk,3对应jump，4对应drop,5对应dash
     public void SwitchAnim()
     {
-        //改变的是父物体而不是图片的Scale
-        if(sgn_x!=0)
+        //改变的是所在物体而不是图片的Scale
+        if (v_x > 1f)
             transform.localScale = new Vector3(-sgn_x, 1, 1);
+        else if (m_DesiredDirection != 0)
+            transform.localScale = new Vector3(-m_DesiredDirection, 1, 1);
 
         if(b_isDashing)
         {
