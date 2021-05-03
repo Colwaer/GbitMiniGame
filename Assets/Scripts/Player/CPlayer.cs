@@ -51,7 +51,7 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     [SerializeField] private Animator PlayerAnim;
     [SerializeField] private Animator BottleAnim;
-    private GameObject LastCloud;           //上一朵碰撞的云
+    [SerializeField] private GameObject LastCloud;           //上一朵碰撞的云
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
     private float RaycastLength = 1.2f;

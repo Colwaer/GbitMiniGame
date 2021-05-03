@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CCloud : MonoBehaviour
+public class CloudTrigger : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D other) 
     {
