@@ -818,9 +818,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -974929045
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 159074645
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7434193150378886344, guid: 67a200a6276207244bdbb6de20d1e1e0,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1033,6 +1033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645fcd3246e48b2419e0ce8af3be0ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Index: 0
   loadScenePrefab: {fileID: 1251471841}
 --- !u!4 &642586510
 Transform:
@@ -1093,7 +1094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fa48ccd61b42c478fde9e60fb1d613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpoints: []
+  Checkpoints: []
 --- !u!1 &1085298654
 GameObject:
   m_ObjectHideFlags: 0

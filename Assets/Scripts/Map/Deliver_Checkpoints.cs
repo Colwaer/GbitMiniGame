@@ -6,6 +6,6 @@ public class Deliver_Checkpoints : MonoBehaviour
 {
     private void Start() 
     {
-        GameManager.Instance.checkpoints = GetComponentsInChildren<CCheckpoint>();
+        GameManager.Instance.Checkpoints = GetComponentsInChildren<CCheckpoint>();
     }
 }

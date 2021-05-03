@@ -2,15 +2,18 @@
 
 public class GameManager : Public.Sigleton<GameManager>
 {
-    public CCheckpoint[] checkpoints;
-
+    public CCheckpoint[] Checkpoints;
+    public int SceneIindex
+    {
+        get => CSceneManager.Instance.Index;
+    }
     public int ActiveCheckpointIndex
     {
         get
         {
-            for (int i = 0; i < checkpoints.Length; ++i)
+            for (int i = 0; i < Checkpoints.Length; ++i)
             {
-                if (checkpoints[i].Active)
+                if (Checkpoints[i].Active)
                     return i;
             }
             return -1;
