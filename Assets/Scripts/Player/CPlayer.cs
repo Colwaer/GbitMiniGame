@@ -63,9 +63,9 @@ public class CPlayer : MonoBehaviour, IPlayer
     internal bool b_OnGround;
     internal bool b_IsMoving;
     internal bool b_isDashing;
-    private bool b_CanShoot;                //射击冷却完毕
+    private bool b_CanShoot;    //射击冷却完毕
     internal float m_DesiredDirection;
-    private Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
+    [SerializeField]private Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
     private float v_x;
     private float v_y;
     private float sgn_x;
@@ -112,13 +112,14 @@ public class CPlayer : MonoBehaviour, IPlayer
             b_isDashing = false;
             m_RigidBody.gravityScale = 1;
         }
+        //非冲刺时落到地面上不反弹
+        if (b_OnGround|| m_Velocity_LastFrame.magnitude < 15f) m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
 
         //不能通过连续撞击同一朵云来获得云，只要接触了另一朵云，就解除这个限制
         if (LastCloud == null || collision.gameObject != LastCloud)
         {
             if (m_Velocity_LastFrame.magnitude > 15f)
             {
-                Debug.Log("++dash collier cloud");
                 ShootCount += 2;
                 LastCloud = collision.gameObject;
             }
@@ -150,25 +151,41 @@ public class CPlayer : MonoBehaviour, IPlayer
         if (b_isDashing)
             return;
 
+        int accelarateDirection; //0表示无输入，1表示水平输入与当前移动方向一致，-1表示相反
+        if (m_DesiredDirection == 0) accelarateDirection = 0;
+        else if (m_DesiredDirection * sgn_x > 0) accelarateDirection = 1;
+        else accelarateDirection = -1;
+
         if (b_OnGround)
         {
-            m_RigidBody.velocity = new Vector2(sgn_x * Mathf.Min(Speed, v_x + Speed / frame_Accelerate * m_DesiredDirection * sgn_x), m_RigidBody.velocity.y);
-            //地面上的水平速度不能超过Speed
-            if (v_x > Speed)
-                m_RigidBody.velocity = new Vector2(sgn_x * Speed, m_RigidBody.velocity.y);
-            if (m_DesiredDirection * sgn_x <= 0)
-                m_RigidBody.velocity = new Vector2(sgn_x * Mathf.Max(0, v_x - Speed / frame_SlowDown), m_RigidBody.velocity.y);
+            //如果不希望加速，地面上会自然减速
+            if (accelarateDirection <= 0)
+            {
+                v_x -= Speed / frame_SlowDown;
+                if (v_x < 0) v_x = 0;
+            }
+
         }
         else
         {
             if (sgn_y < 0 && v_y > MaxFallSpeed)
-                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, -MaxFallSpeed);
+                v_y = MaxFallSpeed;
             else if (sgn_y > 0 && v_y > MaxRiseSpeed)
-                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, MaxRiseSpeed);
-            //空中水平速度超过Speed则不能再加速（但可以减速）
-            if (v_x < Speed || sgn_x * m_DesiredDirection < 0)
-                m_RigidBody.velocity = new Vector2(sgn_x * Mathf.Min(Speed, v_x + Speed / frame_Accelerate * m_DesiredDirection * sgn_x), m_RigidBody.velocity.y);
+                v_y = MaxRiseSpeed;
         }
+
+        //水平速度超过Speed则不能加速，但仍可以减速
+        if (v_x < Speed)
+        {
+            v_x += accelarateDirection * Speed / frame_Accelerate;
+            if (v_x > Speed) v_x = Speed;
+        }
+        else if (accelarateDirection < 0)
+        {
+            v_x -= Speed / frame_Accelerate;
+        }
+
+        m_RigidBody.velocity = new Vector2(sgn_x * v_x,sgn_y * v_y);
     }
 
     public void Jump()
@@ -222,7 +239,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     public void SwitchAnim()
     {
         //改变的是所在物体而不是图片的Scale
-        if (v_x > 1f)
+        if (v_x > 3.1f)
             transform.localScale = new Vector3(-sgn_x, 1, 1);
         else if (m_DesiredDirection != 0)
             transform.localScale = new Vector3(-m_DesiredDirection, 1, 1);
@@ -233,7 +250,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         else if (b_OnGround)
         {
-            if (v_x == Speed) statusindex = 2;
+            if (v_x > 8f) statusindex = 2; 
             else if (b_IsMoving) statusindex = 1;
             else statusindex = 0;
         }
