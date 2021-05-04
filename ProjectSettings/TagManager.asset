@@ -50,3 +50,6 @@ TagManager:
   - name: item
     uniqueID: 3320038251
     locked: 0
+  - name: effect
+    uniqueID: 3408158399
+    locked: 0
