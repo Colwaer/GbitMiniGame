@@ -227,11 +227,11 @@ public class CPlayer : MonoBehaviour, IPlayer
         else if (m_DesiredDirection != 0)
             transform.localScale = new Vector3(-m_DesiredDirection, 1, 1);
 
-        if(b_isDashing)
+        if (b_isDashing)
         {
             statusindex = 5;
         }
-        else if(b_OnGround)
+        else if (b_OnGround)
         {
             if (v_x == Speed) statusindex = 2;
             else if (b_IsMoving) statusindex = 1;
@@ -239,6 +239,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         else
         {
+            //从地面弹起时会短暂播放跳跃动画，效果不好
             if (sgn_y > 0) statusindex = 3;
             else statusindex = 4;
         }
