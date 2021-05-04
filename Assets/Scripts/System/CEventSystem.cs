@@ -12,11 +12,6 @@ public class CEventSystem : Sigleton<CEventSystem>
     public Action PlayerDie;
     public Action CheckPointChanged;        //激活了新的记录点
     public Action<int> PointChanged;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        UnityEngine.Random.InitState(DateTime.Now.Second);
-    }
+    public Action<bool> TouchCloud;         //true表示接触速度足够大，能获得两次冲刺次数
 }
 

@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Cloud_Trigger : MonoBehaviour
+public class Cloud_Trigger : CCloud
 {
-    private void OnCollisionEnter2D(Collision2D other) 
+    protected override void OnCollisionEnter2D(Collision2D other) 
     {
-        Public.IPlayer player = other.gameObject.GetComponent<Public.IPlayer>();
-        if (player != null)
+        if (other.collider.CompareTag("Player"))
         {
             var t = GetComponentsInChildren<CSting_Movable>();
             foreach(CSting_Movable item in t)
             {
                 item.StartMove();
             }
-        }    
+        }
+        base.OnCollisionEnter2D(other);
     }
 }

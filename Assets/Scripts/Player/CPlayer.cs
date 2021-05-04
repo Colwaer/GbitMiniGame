@@ -51,7 +51,6 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     [SerializeField] private Animator PlayerAnim;
     [SerializeField] private Animator BottleAnim;
-    private GameObject LastCloud;           //上一朵碰撞的云
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
     private float RaycastLength = 1.2f;
@@ -60,12 +59,12 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     [Header("状态")]
     [SerializeField] private int statusindex;
-    internal bool b_OnGround;
-    internal bool b_IsMoving;
-    internal bool b_isDashing;
-    private bool b_CanShoot;    //射击冷却完毕
+    internal bool b_OnGround=false;
+    internal bool b_IsMoving=false;
+    internal bool b_isDashing=false;
+    internal bool b_CanShoot=true;  //射击冷却完毕
     internal float m_DesiredDirection;
-    [SerializeField]private Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
+    public Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
     private float v_x;
     private float v_y;
     private float sgn_x;
@@ -76,23 +75,23 @@ public class CPlayer : MonoBehaviour, IPlayer
         Initialize();
     }
 
-    private void OnDrawGizmos()
+    private void OnEnable()
     {
-        Vector3 pos1 = transform.position + RaycastOffset;
-        Vector3 pos2 = transform.position - RaycastOffset;
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength, 0)); 
-        Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength, 0));
+        CEventSystem.Instance.TouchCloud += OnTouchCloud;
+    }
+    private void OnDisable()
+    {
+        CEventSystem.Instance.TouchCloud -= OnTouchCloud;
     }
 
+   
     public void Initialize()
     {
         Point = 0;
-        frame_Accelerate = 13;  //最好与起跑动画时间一致
+        frame_Accelerate = 13;  
         frame_SlowDown = 10;
         MaxShootCount = 3;
         ShootCount = 0;
-        b_CanShoot = true;
         t_Shoot = 0.3f;
         Speed = 10f;
         DashSpeed = 30f;
@@ -113,19 +112,12 @@ public class CPlayer : MonoBehaviour, IPlayer
             m_RigidBody.gravityScale = 1;
         }
         //非冲刺时落到地面上不反弹
-        if (b_OnGround|| m_Velocity_LastFrame.magnitude < 15f) m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
-
-        //不能通过连续撞击同一朵云来获得云，只要接触了另一朵云，就解除这个限制
-        if (LastCloud == null || collision.gameObject != LastCloud)
-        {
-            if (m_Velocity_LastFrame.magnitude > 15f)
-            {
-                ShootCount += 2;
-                LastCloud = collision.gameObject;
-            }
-            else
-                LastCloud = null;
-        }
+        if (b_OnGround|| m_Velocity_LastFrame.magnitude < 15f) 
+            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+    }
+    private void OnTouchCloud(bool isCollision)
+    {
+        if (isCollision) ShootCount += 2;
     }
 
     public void PhysicsCheck()
@@ -264,4 +256,14 @@ public class CPlayer : MonoBehaviour, IPlayer
         PlayerAnim.SetInteger("statusindex", statusindex);
         BottleAnim.SetInteger("statusindex", statusindex);
     }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 pos1 = transform.position + RaycastOffset;
+        Vector3 pos2 = transform.position - RaycastOffset;
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength, 0));
+        Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength, 0));
+    }
+
 }

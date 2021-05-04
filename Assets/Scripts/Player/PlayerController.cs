@@ -13,6 +13,7 @@ public class PlayerController : Sigleton<PlayerController>
     private bool b_DesiredShoot = false;
 
     bool b_IsActive = false;
+    [SerializeField] private bool b_TestMode;
 
     protected override void Awake()
     {
@@ -31,6 +32,13 @@ public class PlayerController : Sigleton<PlayerController>
 
     private void Update()
     {
+        if(b_TestMode)  //调试用
+        {
+            if (Input.GetMouseButtonDown(1))
+                m_Player.ShootCount = 3;
+            else if (Input.GetMouseButtonDown(2))
+                CSceneManager.Instance.LoadNextLevelImmediately();
+        }
         if (!b_IsActive)
             return;
         CalculateDirection();
@@ -72,7 +80,6 @@ public class PlayerController : Sigleton<PlayerController>
 
     private void OnSceneLoaded(int SceneIndex)
     {
-        
         if (SceneIndex == 0)
         {
             b_IsActive = false;

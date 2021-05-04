@@ -4,57 +4,66 @@ using UnityEngine;
 
 public class WindArea : MonoBehaviour
 {
-    public GameObject wind;
-    private int m_Count = 0;
-    private bool isSimulated = false;
+    public GameObject Wind;
+    private BoxCollider2D m_BoxCollider;
+    [SerializeField] private int Trigger_Count = 5;
+    private int _Count = 0;
+
     public int Count
     {
         get
         {
-            return m_Count;
+            return _Count;
         }
         set
         {
-            m_Count = value;
-            if (m_Count == Trigger_Count)
+            _Count = value;
+            if (_Count == Trigger_Count)
             {
-                wind.SetActive(true);
-                isSimulated = true;
+                Wind.SetActive(true);
+                m_BoxCollider.enabled = true;
             }
         }
     }
-    public int Trigger_Count = 5;
 
-    private void Awake() 
+    private void Awake()
     {
-        
+        m_BoxCollider = GetComponent<BoxCollider2D>();
+        m_BoxCollider.enabled = false;
     }
-
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnEnable()
     {
-        if (!isSimulated)
-            return;
-        if (other.CompareTag("Player"))
+        CEventSystem.Instance.PlayerDie += OnPlayerDie;
+    }
+    private void OnDisable()
+    {
+        CEventSystem.Instance.PlayerDie -= OnPlayerDie;
+    }
+    private void OnTriggerEnter2D(Collider2D collosion) 
+    {
+        if (collosion.CompareTag("Player"))
         {
-            other.attachedRigidbody.gravityScale = -2f;
+            collosion.attachedRigidbody.gravityScale = -2f;
         }    
     }
-    private void OnTriggerStay2D(Collider2D other) 
+    private void OnTriggerStay2D(Collider2D collosion)
     {
-        if (!isSimulated)
-            return;
-        if (other.CompareTag("Player"))
+        if (collosion.CompareTag("Player"))
         {
-            other.attachedRigidbody.gravityScale = -2f;
+            collosion.attachedRigidbody.gravityScale = -2f;
         }    
     }
-    private void OnTriggerExit2D(Collider2D other) 
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!isSimulated)
-            return;
-        if (other.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !PlayerController.Instance.m_Player.b_isDashing)
         {
-            other.attachedRigidbody.gravityScale = 1f;
+            collision.attachedRigidbody.gravityScale = 1f;
         } 
+    }
+
+    private void OnPlayerDie()
+    {
+        Wind.SetActive(false);
+        m_BoxCollider.enabled = false;
     }
 }
