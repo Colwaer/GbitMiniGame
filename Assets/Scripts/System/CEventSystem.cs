@@ -12,6 +12,7 @@ public class CEventSystem : Sigleton<CEventSystem>
     public Action PlayerDie;
     public Action CheckPointChanged;        //激活了新的记录点
     public Action<int> PointChanged;
-    public Action<bool> TouchCloud;         //true表示接触速度足够大，能获得两次冲刺次数
+    public Action CollideCloud;
+    public Action TouchGround;
 }
 

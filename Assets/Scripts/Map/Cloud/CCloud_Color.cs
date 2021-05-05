@@ -5,24 +5,24 @@ public class CCloud_Color : CCloud
 {
     public WindArea WindArea;
 
-    protected override void OnCollisionEnter2D(Collision2D other) 
+    protected override void OnCollisionEnter2D(Collision2D other)
     {
         if (!Active)
             return;
         if (other.collider.CompareTag("Player"))
         {
-            if (other.collider.attachedRigidbody.velocity.magnitude > CollisionSpeed)
+            if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
             {
-                CEventSystem.Instance.TouchCloud?.Invoke(true);
+                CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
                 WindArea.Count++;
             }
-            else
-                CEventSystem.Instance.TouchCloud?.Invoke(false);
+            else if (PlayerController.Instance.m_Player.OnGround)
+                CEventSystem.Instance.CollideCloud?.Invoke();
         }
     }
 
-    protected override void OnTouchCloud(bool isCollision)
+    protected override void ResetCloud()
     {
         //不会被重新激活
     }

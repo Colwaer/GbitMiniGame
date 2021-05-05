@@ -6,6 +6,7 @@ using static UnityEngine.SceneManagement.SceneManager;
 
 public class CSceneManager : Sigleton<CSceneManager>
 {
+    private const int MAXINDEX = 2;
     //当前关的index
     [SerializeField] private int _Index;
     internal int Index
@@ -16,44 +17,53 @@ public class CSceneManager : Sigleton<CSceneManager>
         }
         set
         {
+            if (value > MAXINDEX || value<0)
+                value = 0;
+            StartCoroutine(ILoadLevel(value));
             _Index = value;
-            LoadScene(value);
             CEventSystem.Instance.SceneLoaded(value);
         }
     }
-
-
     [SerializeField] private Pre_LoadScene loadScenePrefab;
-
-    public void LoadNextLevelImmediately()
+    //禁止用不属于本类的方法加载场景
+    public void LoadLevel(int index)
     {
-        Index++;
+        Index = index;
     }
     public void LoadNextLevel()
     {
-        StartCoroutine(ILoadLevel(Index + 1));
+        Index++;
     }
-    IEnumerator ILoadLevel(int index)
+    //直接启用这个协程是不安全的
+    private IEnumerator ILoadLevel(int index)
     {
-        loadScenePrefab.gameObject.SetActive(true);
-        AsyncOperation asyncLoad = LoadSceneAsync(index);
-        asyncLoad.allowSceneActivation = false;
-        for (; !asyncLoad.isDone;)
+        AsyncOperation Async_LoadScene = LoadSceneAsync(index);
+        switch (index)
         {
-            loadScenePrefab.slider.value = asyncLoad.progress;
-            if (asyncLoad.progress >= 0.9f)
-            {
-                loadScenePrefab.text.gameObject.SetActive(true);
-                loadScenePrefab.slider.value = 1.0f;
-                if (Input.anyKeyDown)
+            //在这里加载两关之间的过场场景
+            case 1:
+                loadScenePrefab.gameObject.SetActive(true);
+                Async_LoadScene.allowSceneActivation = false;
+                for (; !Async_LoadScene.isDone;)
                 {
-                    loadScenePrefab.gameObject.SetActive(false);
-                    asyncLoad.allowSceneActivation = true;
+                    loadScenePrefab.slider.value = Async_LoadScene.progress;
+                    if (Async_LoadScene.progress >= 0.9f)
+                    {
+                        loadScenePrefab.text.gameObject.SetActive(true);
+                        loadScenePrefab.slider.value = 1.0f;
+                        if (Input.anyKeyDown)
+                        {
+                            loadScenePrefab.gameObject.SetActive(false);
+                            Async_LoadScene.allowSceneActivation = true;
+                        }
+                    }
+                    yield return null;
                 }
-            }
-            yield return null;
+                break;
+            default:
+                Async_LoadScene.allowSceneActivation = true;
+                break;
         }
-        Index = index;
     }
     public void Exit()
     {

@@ -59,7 +59,24 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     [Header("状态")]
     [SerializeField] private int statusindex;
-    internal bool b_OnGround=false;
+    private bool _OnGround;
+    internal bool OnGround
+    {
+        get
+        {
+            return _OnGround;
+        }
+        set
+        {
+            _OnGround = value;
+            if(value)
+            {
+                Debug.Log("落地");
+                ShootCount = 1;
+                CEventSystem.Instance.TouchGround?.Invoke();
+            }
+        }
+    }
     internal bool b_IsMoving=false;
     internal bool b_isDashing=false;
     internal bool b_CanShoot=true;  //射击冷却完毕
@@ -77,11 +94,11 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     private void OnEnable()
     {
-        CEventSystem.Instance.TouchCloud += OnTouchCloud;
+        CEventSystem.Instance.CollideCloud += OnCollideCloud;
     }
     private void OnDisable()
     {
-        CEventSystem.Instance.TouchCloud -= OnTouchCloud;
+        CEventSystem.Instance.CollideCloud -= OnCollideCloud;
     }
 
    
@@ -112,12 +129,12 @@ public class CPlayer : MonoBehaviour, IPlayer
             m_RigidBody.gravityScale = 1;
         }
         //非冲刺时落到地面上不反弹
-        if (b_OnGround|| m_Velocity_LastFrame.magnitude < 15f) 
+        if (OnGround|| m_Velocity_LastFrame.magnitude < 15f) 
             m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
     }
-    private void OnTouchCloud(bool isCollision)
+    private void OnCollideCloud()
     {
-        if (isCollision) ShootCount += 2;
+        ShootCount += 2;
     }
 
     public void PhysicsCheck()
@@ -130,12 +147,11 @@ public class CPlayer : MonoBehaviour, IPlayer
         if (v_x < 0.1f) sgn_x = m_DesiredDirection;    //禁止赋值为0
         if (v_y < 0.1f) sgn_y = -1;                    //禁止赋值为0
 
-        b_IsMoving = v_x > 0.1f && b_OnGround && sgn_x * m_DesiredDirection > 0;
+        b_IsMoving = v_x > 0.1f && OnGround && sgn_x * m_DesiredDirection > 0;
 
-        b_OnGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength, GroundLayer)
+        OnGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength, GroundLayer)
            || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength, GroundLayer);
-
-        if (b_OnGround) ShootCount = 1;
+        if (OnGround) ShootCount = 1;
     }
 
     public void Move()
@@ -148,7 +164,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         else if (m_DesiredDirection * sgn_x > 0) accelarateDirection = 1;
         else accelarateDirection = -1;
 
-        if (b_OnGround)
+        if (OnGround)
         {
             //如果不希望加速，地面上会自然减速
             if (accelarateDirection <= 0)
@@ -156,7 +172,6 @@ public class CPlayer : MonoBehaviour, IPlayer
                 v_x -= Speed / frame_SlowDown;
                 if (v_x < 0) v_x = 0;
             }
-
         }
         else
         {
@@ -182,11 +197,11 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Jump()
     {
-        if (!b_OnGround) 
+        if (!OnGround) 
             return;
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
-
+    //direction是喷射方向，也就是冲刺的反方向
     public void Shoot(Vector2 direction)
     {
         if (ShootCount <= 0)
@@ -194,7 +209,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         ShootCount--;
         if (!b_CanShoot)
             return;
-        ie_Dash =StartCoroutine(Dash(direction));
+        ie_Dash =StartCoroutine(Dash(-direction));
         StartCoroutine(ShootCoolDown());
     }
 
@@ -240,7 +255,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         {
             statusindex = 5;
         }
-        else if (b_OnGround)
+        else if (OnGround)
         {
             if (v_x > 8f) statusindex = 2; 
             else if (b_IsMoving) statusindex = 1;

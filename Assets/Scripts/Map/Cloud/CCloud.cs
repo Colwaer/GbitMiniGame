@@ -38,13 +38,15 @@ public class CCloud : MonoBehaviour
     }
     private void OnEnable()
     {
-        CEventSystem.Instance.PlayerDie += OnPlayerDie;
-        CEventSystem.Instance.TouchCloud += OnTouchCloud;
+        CEventSystem.Instance.PlayerDie += ResetCloudImmediately;
+        CEventSystem.Instance.CollideCloud += ResetCloud;
+        CEventSystem.Instance.TouchGround += ResetCloud;
     }
     private void OnDisable()
     {
-        CEventSystem.Instance.PlayerDie -= OnPlayerDie;
-        CEventSystem.Instance.TouchCloud -= OnTouchCloud;
+        CEventSystem.Instance.PlayerDie -= ResetCloudImmediately;
+        CEventSystem.Instance.CollideCloud -= ResetCloud;
+        CEventSystem.Instance.TouchGround -= ResetCloud;
     }
     private void Start()
     {
@@ -57,21 +59,23 @@ public class CCloud : MonoBehaviour
             return;
         if (other.collider.CompareTag("Player"))
         {
-            if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
+            if(PlayerController.Instance.m_Player.OnGround)
             {
-                CEventSystem.Instance.TouchCloud?.Invoke(true);
+                CEventSystem.Instance.CollideCloud?.Invoke();
+            }
+            else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
+            {
+                CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
             }
-            else
-                CEventSystem.Instance.TouchCloud?.Invoke(false);
         }
     }
 
-    protected virtual void OnTouchCloud(bool isCollision)
+    protected virtual void ResetCloud()
     {
         Active = true;
     }
-    private void OnPlayerDie()
+    private void ResetCloudImmediately()
     {
         Active = true;
         StopAllCoroutines();

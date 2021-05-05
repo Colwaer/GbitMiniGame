@@ -6,9 +6,8 @@ public class WindArea : MonoBehaviour
 {
     public GameObject Wind;
     private BoxCollider2D m_BoxCollider;
-    [SerializeField] private int Trigger_Count = 5;
-    private int _Count = 0;
-
+    private int Trigger_Count = 5;
+    [SerializeField] private int _Count = 0;
     public int Count
     {
         get
@@ -63,6 +62,7 @@ public class WindArea : MonoBehaviour
 
     private void OnPlayerDie()
     {
+        Count = 0;
         Wind.SetActive(false);
         m_BoxCollider.enabled = false;
     }

@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using Public;
-using System;
+﻿using Public;
+using UnityEngine;
 
 public class PlayerController : Sigleton<PlayerController>
 {
@@ -37,12 +36,13 @@ public class PlayerController : Sigleton<PlayerController>
             if (Input.GetMouseButtonDown(1))
                 m_Player.ShootCount = 3;
             else if (Input.GetMouseButtonDown(2))
-                CSceneManager.Instance.LoadNextLevelImmediately();
+                CSceneManager.Instance.LoadNextLevel();
         }
+
         if (!b_IsActive)
             return;
-        CalculateDirection();
 
+        CalculateMouseDirection();
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
             b_DesiredJump = true;
@@ -67,12 +67,12 @@ public class PlayerController : Sigleton<PlayerController>
         if (b_DesiredShoot)
         {
             b_DesiredShoot = false;
-            m_Player.Shoot(-1f * Direction);
+            m_Player.Shoot(Direction);
         }
         m_Player.SwitchAnim();
     }
 
-    private void CalculateDirection()
+    private void CalculateMouseDirection()
     {
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
         Direction = new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
