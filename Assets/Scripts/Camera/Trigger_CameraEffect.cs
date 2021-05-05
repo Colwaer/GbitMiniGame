@@ -5,11 +5,11 @@ using Cinemachine;
 
 public class Trigger_CameraEffect : MonoBehaviour
 {
-    private CameraController Controller;    //相机控制器的脚本
+    private CCameraController Controller;    //相机控制器的脚本
     [SerializeField] private float t_Effect = 1f;     //实现相机效果需要的时间            
     private void Start() 
     {
-        Controller = Camera.main.GetComponentInChildren<CameraController>();
+        Controller = Camera.main.GetComponentInChildren<CCameraController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) 
