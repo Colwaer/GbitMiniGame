@@ -53,7 +53,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     [SerializeField] private Animator BottleAnim;
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
-    private float RaycastLength = 1.2f;
+    private float RaycastLength_Ground = 1.2f;
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
 
@@ -77,11 +77,12 @@ public class CPlayer : MonoBehaviour, IPlayer
             }
         }
     }
+   
     internal bool b_IsMoving=false;
     internal bool b_isDashing=false;
-    internal bool b_CanShoot=true;  //射击冷却完毕
+    internal bool b_CanShoot=true;          //射击冷却完毕
     internal float m_DesiredDirection;
-    public Vector2 m_Velocity_LastFrame;   //上一固定帧中的速度
+    public Vector2 m_Velocity_LastFrame;    //上一固定帧中的速度
     private float v_x;
     private float v_y;
     private float sgn_x;
@@ -129,7 +130,7 @@ public class CPlayer : MonoBehaviour, IPlayer
             m_RigidBody.gravityScale = 1;
         }
         //非冲刺时落到地面上不反弹
-        if (OnGround|| m_Velocity_LastFrame.magnitude < 15f) 
+        if (OnGround || m_Velocity_LastFrame.magnitude < 15f)
             m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
     }
     private void OnCollideCloud()
@@ -149,8 +150,8 @@ public class CPlayer : MonoBehaviour, IPlayer
 
         b_IsMoving = v_x > 0.1f && OnGround && sgn_x * m_DesiredDirection > 0;
 
-        OnGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength, GroundLayer)
-           || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength, GroundLayer);
+        OnGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength_Ground, GroundLayer)
+           || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength_Ground, GroundLayer);
         if (OnGround) ShootCount = 1;
     }
 
@@ -274,11 +275,12 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     private void OnDrawGizmos()
     {
-        Vector3 pos1 = transform.position + RaycastOffset;
-        Vector3 pos2 = transform.position - RaycastOffset;
+        Vector3 pos0 = transform.position;
+        Vector3 pos1 = pos0 + RaycastOffset;
+        Vector3 pos2 = pos0 - RaycastOffset;
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength, 0));
-        Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength, 0));
+        Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength_Ground, 0));
+        Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength_Ground, 0));
     }
 
 }
