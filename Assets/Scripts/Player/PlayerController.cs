@@ -31,7 +31,7 @@ public class PlayerController : Sigleton<PlayerController>
 
     private void Update()
     {
-        if(b_TestMode)  //调试用
+        if (b_TestMode)  //调试用
         {
             if (Input.GetMouseButtonDown(1))
                 m_Player.ShootCount = 3;
@@ -47,8 +47,13 @@ public class PlayerController : Sigleton<PlayerController>
         if (Input.GetButtonDown("Jump"))
             b_DesiredJump = true;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && m_Player.ShootCount > 0)
         {
+            Time.timeScale = 0.5f;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Time.timeScale = 1f;
             b_DesiredShoot = true;
         }
     }

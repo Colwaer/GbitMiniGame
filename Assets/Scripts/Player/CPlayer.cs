@@ -69,18 +69,17 @@ public class CPlayer : MonoBehaviour, IPlayer
         set
         {
             _OnGround = value;
-            if(value)
+            if (value)
             {
-                Debug.Log("落地");
                 ShootCount = 1;
                 CEventSystem.Instance.TouchGround?.Invoke();
             }
         }
     }
-   
-    internal bool b_IsMoving=false;
-    internal bool b_isDashing=false;
-    internal bool b_CanShoot=true;          //射击冷却完毕
+
+    internal bool b_IsMoving = false;
+    internal bool b_isDashing = false;
+    internal bool b_CanShoot = true;          //射击冷却完毕
     internal float m_DesiredDirection;
     public Vector2 m_Velocity_LastFrame;    //上一固定帧中的速度
     private float v_x;
@@ -102,11 +101,10 @@ public class CPlayer : MonoBehaviour, IPlayer
         CEventSystem.Instance.CollideCloud -= OnCollideCloud;
     }
 
-   
     public void Initialize()
     {
         Point = 0;
-        frame_Accelerate = 13;  
+        frame_Accelerate = 10;  
         frame_SlowDown = 10;
         MaxShootCount = 3;
         ShootCount = 0;
@@ -121,6 +119,22 @@ public class CPlayer : MonoBehaviour, IPlayer
         GroundLayer = LayerMask.GetMask("Ground");
     }
 
+    /*
+    private void Update()
+    {
+        //防止"扒墙"
+        if (OnGround || b_isDashing)
+            b_HasMaxFallSPeed = false;
+        else
+        {
+            if (sgn_y < 0 && v_y > MaxFallSpeed - 0.1f)
+                b_HasMaxFallSPeed = true;
+            if (b_HasMaxFallSPeed) ;
+                //m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, -MaxFallSpeed);
+        }
+    }
+    */
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (b_isDashing && ie_Dash != null)
@@ -130,9 +144,10 @@ public class CPlayer : MonoBehaviour, IPlayer
             m_RigidBody.gravityScale = 1;
         }
         //非冲刺时落到地面上不反弹
-        if (OnGround || m_Velocity_LastFrame.magnitude < 15f)
+        if (OnGround && v_y < 3.1f)
             m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
     }
+
     private void OnCollideCloud()
     {
         ShootCount += 2;
@@ -181,17 +196,9 @@ public class CPlayer : MonoBehaviour, IPlayer
             else if (sgn_y > 0 && v_y > MaxRiseSpeed)
                 v_y = MaxRiseSpeed;
         }
-
-        //水平速度超过Speed则不能加速，但仍可以减速
-        if (v_x < Speed)
-        {
-            v_x += accelarateDirection * Speed / frame_Accelerate;
-            if (v_x > Speed) v_x = Speed;
-        }
-        else if (accelarateDirection < 0)
-        {
-            v_x -= Speed / frame_Accelerate;
-        }
+        //水平速度不能超过Speed
+        v_x += accelarateDirection * Speed / frame_Accelerate;
+        if (v_x > Speed) v_x = Speed;
 
         m_RigidBody.velocity = new Vector2(sgn_x * v_x,sgn_y * v_y);
     }
@@ -271,6 +278,11 @@ public class CPlayer : MonoBehaviour, IPlayer
         
         PlayerAnim.SetInteger("statusindex", statusindex);
         BottleAnim.SetInteger("statusindex", statusindex);
+    }
+    public void SetAnimSpeed(float speed)
+    {
+        PlayerAnim.speed = speed;
+        BottleAnim.speed = speed;
     }
 
     private void OnDrawGizmos()

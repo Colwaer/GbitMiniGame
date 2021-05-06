@@ -15,6 +15,11 @@ public class Zone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        CameraController.ChangeConfiner(m_PolygonCollider);
+        CameraPoint obj = collision.GetComponent<CameraPoint>();
+        if(obj!=null)
+        {
+            CameraController.ChangeConfiner(m_PolygonCollider);
+        }
+            
     }
 }
