@@ -53,7 +53,8 @@ public class CPlayer : MonoBehaviour, IPlayer
     [SerializeField] private Animator BottleAnim;
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
-    private float RaycastLength_Ground = 1.2f;
+    private float RaycastLength_Ground = 1.15f;
+    private float RaycastLength_CloseToGround = 3f;
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
 
@@ -76,7 +77,7 @@ public class CPlayer : MonoBehaviour, IPlayer
             }
         }
     }
-
+    internal bool b_CloseToGround = false;  //仅用于动画
     internal bool b_IsMoving = false;
     internal bool b_isDashing = false;
     internal bool b_CanShoot = true;          //射击冷却完毕
@@ -119,22 +120,6 @@ public class CPlayer : MonoBehaviour, IPlayer
         GroundLayer = LayerMask.GetMask("Ground");
     }
 
-    /*
-    private void Update()
-    {
-        //防止"扒墙"
-        if (OnGround || b_isDashing)
-            b_HasMaxFallSPeed = false;
-        else
-        {
-            if (sgn_y < 0 && v_y > MaxFallSpeed - 0.1f)
-                b_HasMaxFallSPeed = true;
-            if (b_HasMaxFallSPeed) ;
-                //m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, -MaxFallSpeed);
-        }
-    }
-    */
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (b_isDashing && ie_Dash != null)
@@ -144,7 +129,7 @@ public class CPlayer : MonoBehaviour, IPlayer
             m_RigidBody.gravityScale = 1;
         }
         //非冲刺时落到地面上不反弹
-        if (OnGround && v_y < 3.1f)
+        if (OnGround && !b_isDashing )
             m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
     }
 
@@ -168,6 +153,9 @@ public class CPlayer : MonoBehaviour, IPlayer
         OnGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength_Ground, GroundLayer)
            || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength_Ground, GroundLayer);
         if (OnGround) ShootCount = 1;
+
+        b_CloseToGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength_CloseToGround, GroundLayer)
+           || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength_CloseToGround, GroundLayer);
     }
 
     public void Move()
@@ -271,9 +259,11 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         else
         {
-            //从地面弹起时会短暂播放跳跃动画，效果不好
             if (sgn_y > 0) statusindex = 3;
-            else statusindex = 4;
+            else if (b_CloseToGround)
+                statusindex = 0;    //播放落地动画
+            else
+                statusindex = 4;
         }
         
         PlayerAnim.SetInteger("statusindex", statusindex);

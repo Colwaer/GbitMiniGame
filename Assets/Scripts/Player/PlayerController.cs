@@ -3,15 +3,19 @@ using UnityEngine;
 
 public class PlayerController : Sigleton<PlayerController>
 {
+    bool b_IsActive = false;            //是否启用控制器
+
     internal GameObject Player;         //控制的角色
     internal CPlayer m_Player;          //控制的角色的脚本
     internal Vector3 MousePos;          //鼠标位置
     internal Vector2 Direction;         //瞄准方向
 
+    float t_ControlDirection = 1f;       //冲刺前的最大瞄准时间
+
     private bool b_DesiredJump = false;
     private bool b_DesiredShoot = false;
 
-    bool b_IsActive = false;
+    
     [SerializeField] private bool b_TestMode;
 
     protected override void Awake()
