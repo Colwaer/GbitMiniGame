@@ -4,6 +4,40 @@ using UnityEngine.Tilemaps;
 public class CCloud_Color : CCloud
 {
     public WindArea WindArea;
+    protected override bool Active
+    {
+        get
+        {
+            return _Active;
+        }
+        set
+        {
+            _Active = value;
+            if (value)
+            {
+                WindArea.Count--;
+                StopAllCoroutines();
+                StartCoroutine(ChangeColor(Color.white, t_ChangeColor));
+            }
+            else
+            {
+                WindArea.Count++;
+                StopAllCoroutines();
+                StartCoroutine(ChangeColor(TargetColor, t_ChangeColor));
+            }
+        }
+    }
+    protected override void OnEnable()
+    {
+        CEventSystem.Instance.PlayerDie += ResetCloudImmediately;
+        CEventSystem.Instance.TouchGround += ResetCloud;
+    }
+
+    protected override void OnDisable()
+    {
+        CEventSystem.Instance.PlayerDie -= ResetCloudImmediately;
+        CEventSystem.Instance.TouchGround -= ResetCloud;
+    }
 
     protected override void OnCollisionEnter2D(Collision2D other)
     {
@@ -11,19 +45,17 @@ public class CCloud_Color : CCloud
             return;
         if (other.collider.CompareTag("Player"))
         {
+            //不能先判断有没有落地
             if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
             {
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
-                WindArea.Count++;
+                
             }
             else if (PlayerController.Instance.m_Player.OnGround)
-                CEventSystem.Instance.CollideCloud?.Invoke();
+            {
+                CEventSystem.Instance.TouchGround?.Invoke();
+            }   
         }
-    }
-
-    protected override void ResetCloud()
-    {
-        //不会被重新激活
     }
 }

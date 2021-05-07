@@ -10,7 +10,7 @@ public class CCloud : MonoBehaviour
     private Tilemap tilemap;
 
     [SerializeField] protected bool _Active; 
-    protected bool Active
+    protected virtual bool Active
     {
         get
         {
@@ -36,13 +36,13 @@ public class CCloud : MonoBehaviour
     {
         tilemap = GetComponent<Tilemap>(); 
     }
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         CEventSystem.Instance.PlayerDie += ResetCloudImmediately;
         CEventSystem.Instance.CollideCloud += ResetCloud;
         CEventSystem.Instance.TouchGround += ResetCloud;
     }
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         CEventSystem.Instance.PlayerDie -= ResetCloudImmediately;
         CEventSystem.Instance.CollideCloud -= ResetCloud;
@@ -53,6 +53,7 @@ public class CCloud : MonoBehaviour
         Active = true;
         StopAllCoroutines();
     }
+
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
         if (!Active)
@@ -71,11 +72,11 @@ public class CCloud : MonoBehaviour
         }
     }
 
-    protected virtual void ResetCloud()
+    protected void ResetCloud()
     {
         Active = true;
     }
-    private void ResetCloudImmediately()
+    protected void ResetCloudImmediately()
     {
         Active = true;
         StopAllCoroutines();

@@ -16,6 +16,7 @@ public class WindArea : MonoBehaviour
         }
         set
         {
+            if (value < 0) value = 0;
             _Count = value;
             if (_Count == Trigger_Count)
             {
