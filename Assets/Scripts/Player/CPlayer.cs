@@ -54,7 +54,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
     private float RaycastLength_Ground = 1.15f;
-    private float RaycastLength_CloseToGround = 3f;
+    private float RaycastLength_CloseToGround = 3.5f;
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
 
