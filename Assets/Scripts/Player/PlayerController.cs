@@ -1,4 +1,5 @@
 ﻿using Public;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : Sigleton<PlayerController>
@@ -10,12 +11,11 @@ public class PlayerController : Sigleton<PlayerController>
     internal Vector3 MousePos;          //鼠标位置
     internal Vector2 Direction;         //瞄准方向
 
-    float t_ControlDirection = 1f;       //冲刺前的最大瞄准时间
+    internal float t_ControlDirection = 1f;       //冲刺前的最大瞄准时间
 
-    private bool b_DesiredJump = false;
-    private bool b_DesiredShoot = false;
+    internal bool b_DesiredJump = false;
+    internal bool b_DesiredShoot = false;
 
-    
     [SerializeField] private bool b_TestMode;
 
     protected override void Awake()
@@ -24,6 +24,7 @@ public class PlayerController : Sigleton<PlayerController>
         Player = transform.Find("Player").gameObject;
         m_Player = Player.GetComponent<CPlayer>();
     }
+
     private void OnEnable()
     {
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
@@ -49,7 +50,11 @@ public class PlayerController : Sigleton<PlayerController>
         CalculateMouseDirection();
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
+        {
+            StartCoroutine(ExtendJumpInputTime());
             b_DesiredJump = true;
+        }
+            
 
         if (Input.GetMouseButtonDown(0) && m_Player.ShootCount > 0)
         {
@@ -80,7 +85,16 @@ public class PlayerController : Sigleton<PlayerController>
         }
         m_Player.SwitchAnim();
     }
-
+    
+    private IEnumerator ExtendJumpInputTime()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            b_DesiredJump = true;
+            yield return CTool.Wait(0.021f);
+        }
+    }
+    
     private void CalculateMouseDirection()
     {
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 

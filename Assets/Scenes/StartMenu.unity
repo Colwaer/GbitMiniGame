@@ -921,7 +921,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start Game
+  m_Text: "\u5F00\u59CB\u6E38\u620F"
 --- !u!222 &628932884
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1429,8 +1429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8824e280d3b3748a8ce0b9c504726c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1890602294}
-  text: {fileID: 373121407}
+  m_Slider: {fileID: 1890602294}
+  m_TextBox: {fileID: 373121407}
 --- !u!1 &1302501290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1462,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1467019205}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1302501292
 MonoBehaviour:
@@ -1696,8 +1696,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1302501291}
   - {fileID: 1704495834}
+  - {fileID: 1302501291}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1826,7 +1826,7 @@ Transform:
   - {fileID: 315168161}
   - {fileID: 466731091}
   m_Father: {fileID: 1467019205}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1704495835
 MonoBehaviour:
@@ -1845,6 +1845,7 @@ MonoBehaviour:
   PlayerAnim: {fileID: 315168163}
   BottleAnim: {fileID: 466731093}
   statusindex: 0
+  _OnGround: 0
   m_Velocity_LastFrame: {x: 0, y: 0}
 --- !u!61 &1704495836
 BoxCollider2D:
