@@ -53,12 +53,10 @@ public class CPlayer : MonoBehaviour, IPlayer
     [SerializeField] private Animator BottleAnim;
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
-    private float RaycastLength_Ground_Default = 1.2f;
     private float RaycastLength_Ground = 1.2f;
     private float RaycastLength_CloseToGround = 3.5f;
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
-    private Coroutine ie_ExtendRayCastLength;
 
     [Header("状态")]
     [SerializeField] private int statusindex;
@@ -71,7 +69,14 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         set
         {
+            //非冲刺状态触地后不反弹
+            if (_OnGround == false && value == true && !b_isDashing)
+            {
+                Debug.Log("阻止了反弹");
+                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+            }
             _OnGround = value;
+
             if (value)
             {
                 ShootCount = 1;
@@ -132,25 +137,6 @@ public class CPlayer : MonoBehaviour, IPlayer
             b_isDashing = false;
             m_RigidBody.gravityScale = 1;
         }
-        /*
-        if (OnGround && !b_isDashing && m_Velocity_LastFrame.y<0 )
-        {
-            if (ie_ExtendRayCastLength != null)
-            {
-                StopCoroutine(ie_ExtendRayCastLength);
-                RaycastLength_Ground = RaycastLength_Ground_Default;
-            }
-            ie_ExtendRayCastLength = StartCoroutine(ExtendRayCastLength());
-        }
-        */
-    }
-    //弹起时增加射线长度,用于修复跳跃，现在未启用
-    private IEnumerator ExtendRayCastLength()
-    {
-        Debug.Log("延长");
-        RaycastLength_Ground += 0.25f;  
-        yield return CTool.Wait(0.3f);
-        RaycastLength_Ground = RaycastLength_Ground_Default;
     }
 
     private void OnCollideCloud()
@@ -216,8 +202,10 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Jump()
     {
+        Debug.Log(OnGround);
         if (!OnGround) 
             return;
+        
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
     //direction是喷射方向，也就是冲刺的反方向
@@ -304,8 +292,8 @@ public class CPlayer : MonoBehaviour, IPlayer
         Vector3 pos1 = pos0 + RaycastOffset;
         Vector3 pos2 = pos0 - RaycastOffset;
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength_Ground_Default, 0));
-        Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength_Ground_Default, 0));
+        Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength_Ground, 0));
+        Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength_Ground, 0));
     }
 
 }

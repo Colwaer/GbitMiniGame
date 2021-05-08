@@ -51,7 +51,7 @@ public class PlayerController : Sigleton<PlayerController>
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
         {
-            StartCoroutine(ExtendJumpInputTime());
+            //StartCoroutine(ExtendJumpInputTime());
             b_DesiredJump = true;
         }
             
