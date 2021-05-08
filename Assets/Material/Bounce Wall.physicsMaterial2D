@@ -9,4 +9,3 @@ PhysicsMaterial2D:
   m_Name: Bounce Wall
   friction: 0
   bounciness: 0.3
-

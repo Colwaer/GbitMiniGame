@@ -54,9 +54,11 @@ public class CPlayer : MonoBehaviour, IPlayer
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
     private float RaycastLength_Ground = 1.15f;
+    const float OriginRaycastLength_Ground = 1.15f;
     private float RaycastLength_CloseToGround = 3f;
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
+    private Coroutine ie_OnGround;
 
     [Header("状态")]
     [SerializeField] private int statusindex;
@@ -69,11 +71,21 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         set
         {
+            if (_OnGround == false && value == true && !b_isDashing)
+            {
+                RaycastLength_Ground = 3.0f;
+            }
+                
             _OnGround = value;
+            
             if (value)
             {
                 ShootCount = 1;
                 CEventSystem.Instance.TouchGround?.Invoke();
+            }
+            else
+            {
+                RaycastLength_Ground = OriginRaycastLength_Ground;
             }
         }
     }
@@ -129,8 +141,13 @@ public class CPlayer : MonoBehaviour, IPlayer
             m_RigidBody.gravityScale = 1;
         }
         //非冲刺时落到地面上不反弹
-        if (OnGround && !b_isDashing )
-            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+        // if (OnGround && !b_isDashing )
+        // {
+        //     Debug.Log("非冲刺不反弹代码生效前速度" + m_RigidBody.velocity);
+        //     // m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+        //     Debug.Log("非冲刺不反弹代码生效后速度" + m_RigidBody.velocity);
+        // }
+            
     }
 
     private void OnCollideCloud()
@@ -195,7 +212,10 @@ public class CPlayer : MonoBehaviour, IPlayer
     {
         if (!OnGround) 
             return;
+        RaycastLength_Ground = OriginRaycastLength_Ground;
+        Debug.Log("give player jump velocity");
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
+        Debug.Log(m_RigidBody.velocity);
     }
     //direction是喷射方向，也就是冲刺的反方向
     public void Shoot(Vector2 direction)

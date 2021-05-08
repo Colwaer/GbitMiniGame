@@ -49,7 +49,11 @@ public class PlayerController : Sigleton<PlayerController>
         CalculateMouseDirection();
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
+        {
             b_DesiredJump = true;
+            Debug.Log("Button jump pressed");
+        }
+            
 
         if (Input.GetMouseButtonDown(0) && m_Player.ShootCount > 0)
         {
@@ -71,6 +75,7 @@ public class PlayerController : Sigleton<PlayerController>
         if (b_DesiredJump)
         {
             b_DesiredJump = false;
+            Debug.Log("Player Jump function execute");
             m_Player.Jump();
         }
         if (b_DesiredShoot)
