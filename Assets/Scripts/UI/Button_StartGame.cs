@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Button_StartGame : MonoBehaviour
 {
-    Button Button;
+    Button m_Button;
 
     private void Awake()
     {
-        Button = GetComponent<Button>();
+        m_Button = GetComponent<Button>();
     }
 
     private void Start()
     {
-        Button.onClick.AddListener(CSceneManager.Instance.LoadNextLevel);
-        Button.onClick.AddListener(OnClick);
+        m_Button.onClick.AddListener(CSceneManager.Instance.LoadNextLevel);
+        m_Button.onClick.AddListener(OnClick);
     }
 
     private void OnClick()

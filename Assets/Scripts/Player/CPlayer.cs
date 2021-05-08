@@ -44,7 +44,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         set
         {
-            CEventSystem.Instance.ShootCountChanged?.Invoke(value);
+            CEventSystem.Instance.PointChanged?.Invoke(value);
             _Point = value;
         }
     }
@@ -53,16 +53,21 @@ public class CPlayer : MonoBehaviour, IPlayer
     [SerializeField] private Animator BottleAnim;
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
+<<<<<<< HEAD
     private float RaycastLength_Ground = 1.15f;
     const float OriginRaycastLength_Ground = 1.15f;
     private float RaycastLength_CloseToGround = 3f;
+=======
+    private float RaycastLength_Ground = 1.2f;
+    private float RaycastLength_CloseToGround = 3.5f;
+>>>>>>> 0c4d06762a4fa5b5f097d0dbaa6b71b0b594ee68
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
     private Coroutine ie_OnGround;
 
     [Header("状态")]
     [SerializeField] private int statusindex;
-    private bool _OnGround;
+    [SerializeField] private bool _OnGround;
     internal bool OnGround
     {
         get
@@ -71,6 +76,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         set
         {
+<<<<<<< HEAD
             if (_OnGround == false && value == true && !b_isDashing)
             {
                 RaycastLength_Ground = 3.0f;
@@ -78,6 +84,16 @@ public class CPlayer : MonoBehaviour, IPlayer
                 
             _OnGround = value;
             
+=======
+            //非冲刺状态触地后不反弹
+            if (_OnGround == false && value == true && !b_isDashing)
+            {
+                Debug.Log("阻止了反弹");
+                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+            }
+            _OnGround = value;
+
+>>>>>>> 0c4d06762a4fa5b5f097d0dbaa6b71b0b594ee68
             if (value)
             {
                 ShootCount = 1;
@@ -108,10 +124,12 @@ public class CPlayer : MonoBehaviour, IPlayer
     private void OnEnable()
     {
         CEventSystem.Instance.CollideCloud += OnCollideCloud;
+        CEventSystem.Instance.TouchGround += OnTouchGround;
     }
     private void OnDisable()
     {
         CEventSystem.Instance.CollideCloud -= OnCollideCloud;
+        CEventSystem.Instance.TouchGround -= OnTouchGround;
     }
 
     public void Initialize()
@@ -126,7 +144,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         DashSpeed = 30f;
         MaxFallSpeed = 10f;
         MaxRiseSpeed = 20f;
-        JumpHeight = 3f;
+        JumpHeight = 3.5f;
         t_Dash = 0.15f;
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
@@ -140,6 +158,7 @@ public class CPlayer : MonoBehaviour, IPlayer
             b_isDashing = false;
             m_RigidBody.gravityScale = 1;
         }
+<<<<<<< HEAD
         //非冲刺时落到地面上不反弹
         // if (OnGround && !b_isDashing )
         // {
@@ -148,11 +167,17 @@ public class CPlayer : MonoBehaviour, IPlayer
         //     Debug.Log("非冲刺不反弹代码生效后速度" + m_RigidBody.velocity);
         // }
             
+=======
+>>>>>>> 0c4d06762a4fa5b5f097d0dbaa6b71b0b594ee68
     }
 
     private void OnCollideCloud()
     {
         ShootCount += 2;
+    }
+    private void OnTouchGround()
+    {
+        ShootCount = 1;
     }
 
     public void PhysicsCheck()
@@ -169,7 +194,6 @@ public class CPlayer : MonoBehaviour, IPlayer
 
         OnGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength_Ground, GroundLayer)
            || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength_Ground, GroundLayer);
-        if (OnGround) ShootCount = 1;
 
         b_CloseToGround = Physics2D.Raycast(transform.position + RaycastOffset, new Vector2(0, -1), RaycastLength_CloseToGround, GroundLayer)
            || Physics2D.Raycast(transform.position - RaycastOffset, new Vector2(0, -1), RaycastLength_CloseToGround, GroundLayer);
@@ -210,10 +234,15 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Jump()
     {
+        Debug.Log(OnGround);
         if (!OnGround) 
             return;
+<<<<<<< HEAD
         RaycastLength_Ground = OriginRaycastLength_Ground;
         Debug.Log("give player jump velocity");
+=======
+        
+>>>>>>> 0c4d06762a4fa5b5f097d0dbaa6b71b0b594ee68
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
         Debug.Log(m_RigidBody.velocity);
     }

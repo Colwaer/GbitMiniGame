@@ -46,11 +46,11 @@ public class CSceneManager : Sigleton<CSceneManager>
                 Async_LoadScene.allowSceneActivation = false;
                 for (; !Async_LoadScene.isDone;)
                 {
-                    loadScenePrefab.slider.value = Async_LoadScene.progress;
+                    loadScenePrefab.m_Slider.value = Async_LoadScene.progress;
                     if (Async_LoadScene.progress >= 0.9f)
                     {
-                        loadScenePrefab.text.gameObject.SetActive(true);
-                        loadScenePrefab.slider.value = 1.0f;
+                        loadScenePrefab.m_TextBox.gameObject.SetActive(true);
+                        loadScenePrefab.m_Slider.value = 1.0f;
                         if (Input.anyKeyDown)
                         {
                             loadScenePrefab.gameObject.SetActive(false);

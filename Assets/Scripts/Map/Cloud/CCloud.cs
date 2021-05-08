@@ -61,8 +61,8 @@ public class CCloud : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             if(PlayerController.Instance.m_Player.OnGround)
-            {
-                CEventSystem.Instance.CollideCloud?.Invoke();
+            {    
+                CEventSystem.Instance.TouchGround?.Invoke();
             }
             else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
             {
