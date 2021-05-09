@@ -8,13 +8,14 @@ public class Pointer : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.position = PlayerPos.position - new Vector3(PlayerController.Instance.Direction.x, PlayerController.Instance.Direction.y, 0f).normalized * Distance;
-        transform.rotation = Quaternion.Euler(0f, 0f, 270f - CTool.Direction2Angle(PlayerController.Instance.Direction));
+        
     }
 
     private void Start()
     {
         PlayerPos = PlayerController.Instance.Player.transform;
+        transform.position = PlayerPos.position - new Vector3(PlayerController.Instance.Direction.x, PlayerController.Instance.Direction.y, 0f).normalized * Distance;
+        transform.rotation = Quaternion.Euler(0f, 0f, 270f - CTool.Direction2Angle(PlayerController.Instance.Direction));
     }
 
     private void Update()
