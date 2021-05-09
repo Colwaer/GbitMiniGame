@@ -6,6 +6,7 @@ public class PlayerController : Sigleton<PlayerController>
 {
     bool b_IsActive = false;            //是否启用控制器
 
+    internal GameObject Pointer;        //辅助瞄准的箭头
     internal GameObject Player;         //控制的角色
     internal CPlayer m_Player;          //控制的角色的脚本
     internal Vector3 MousePos;          //鼠标位置
@@ -22,6 +23,7 @@ public class PlayerController : Sigleton<PlayerController>
     {
         base.Awake();
         Player = transform.Find("Player").gameObject;
+        Pointer = transform.Find("Pointer").gameObject;
         m_Player = Player.GetComponent<CPlayer>();
     }
 
@@ -51,19 +53,18 @@ public class PlayerController : Sigleton<PlayerController>
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
         {
-
             b_DesiredJump = true;
-            Debug.Log("Button jump pressed");
-
         }
             
 
         if (Input.GetMouseButtonDown(0) && m_Player.ShootCount > 0)
         {
+            Pointer.SetActive(true);
             Time.timeScale = 0.5f;
         }
         if (Input.GetMouseButtonUp(0))
         {
+            Pointer.SetActive(false);
             Time.timeScale = 1f;
             b_DesiredShoot = true;
         }
@@ -78,7 +79,6 @@ public class PlayerController : Sigleton<PlayerController>
         if (b_DesiredJump)
         {
             b_DesiredJump = false;
-            Debug.Log("Player Jump function execute");
             m_Player.Jump();
         }
         if (b_DesiredShoot)

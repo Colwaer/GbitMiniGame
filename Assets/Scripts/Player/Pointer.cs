@@ -8,6 +8,7 @@ public class Pointer : MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(false);
         PlayerPos = PlayerController.Instance.Player.transform;
     }
 

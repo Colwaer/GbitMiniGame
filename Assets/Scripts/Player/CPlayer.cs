@@ -76,7 +76,7 @@ public class CPlayer : MonoBehaviour, IPlayer
 
             if (_OnGround == false && value == true && !b_isDashing)
             {
-                RaycastLength_Ground = 3.0f;
+                RaycastLength_Ground = 1.5f;
             }
                 
             _OnGround = value;
@@ -89,6 +89,7 @@ public class CPlayer : MonoBehaviour, IPlayer
             }
             else
             {
+                Debug.Log("reset");
                 RaycastLength_Ground = OriginRaycastLength_Ground;
             }
         }
@@ -211,15 +212,13 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Jump()
     {
-        Debug.Log(OnGround);
+        Debug.Log(RaycastLength_Ground.ToString() + " "  + OnGround.ToString());
+
         if (!OnGround) 
             return;
 
         RaycastLength_Ground = OriginRaycastLength_Ground;
-        Debug.Log("give player jump velocity");
-
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
-        Debug.Log(m_RigidBody.velocity);
     }
     //direction是喷射方向，也就是冲刺的反方向
     public void Shoot(Vector2 direction)
@@ -242,6 +241,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     //冲刺时不能主动移动，也不受重力影响
     public IEnumerator Dash(Vector2 direction)
     {
+        RaycastLength_Ground = OriginRaycastLength_Ground;
         b_isDashing = true;
         m_RigidBody.gravityScale = 0;
         m_RigidBody.velocity = direction * DashSpeed;
