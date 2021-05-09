@@ -2,7 +2,6 @@ using UnityEngine;
 using Public;
 using System.Collections;
 using System;
-using static PlayerData;
 
 public class CPlayer : MonoBehaviour, IPlayer
 {

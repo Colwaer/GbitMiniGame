@@ -19,4 +19,13 @@ public class GameManager : Public.Sigleton<GameManager>
             return -1;
         }
     }
+    public int GetSentCheckPointIndex(CCheckpoint c)
+    {
+        for (int i = 0; i < Checkpoints.Length; ++i)
+        {
+            if (c == Checkpoints[i])
+                return i;
+        }
+        return -1;
+    }
 }

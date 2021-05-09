@@ -67,6 +67,8 @@ public class CCheckpoint : MonoBehaviour
     {
         if(!Active)
         {
+            if (GameManager.Instance.ActiveCheckpointIndex > GameManager.Instance.GetSentCheckPointIndex(this))
+                return;
             Public.IPlayer obj = collision.GetComponent<Public.IPlayer>();
             if (obj != null)
             {
