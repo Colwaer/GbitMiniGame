@@ -38,6 +38,7 @@ public class PlayerController : Sigleton<PlayerController>
 
     private void Update()
     {
+        // Debug.Log("GetMask : " + LayerMask.GetMask("Ground") + "Name to Mask : " + LayerMask.NameToLayer("Ground"));
         if (b_TestMode)  //调试用
         {
             if (Input.GetMouseButtonDown(1))

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Deliver_Checkpoints : MonoBehaviour
+public class CheckpointsController : MonoBehaviour
 {
     private void Start() 
     {
