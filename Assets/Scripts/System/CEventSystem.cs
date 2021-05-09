@@ -8,6 +8,7 @@ using System.Collections;
 public class CEventSystem : Sigleton<CEventSystem>
 {
     public Action<int> SceneLoaded;
+    public Action ScenePassed;              //通过了当前场景
     public Action<int> ShootCountChanged;   //射击次数改变了
     public Action PlayerDie;
     public Action CheckPointChanged;        //激活了新的记录点

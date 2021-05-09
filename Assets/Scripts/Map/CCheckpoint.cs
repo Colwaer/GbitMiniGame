@@ -2,22 +2,22 @@
 
 public class CCheckpoint : MonoBehaviour
 {
-    private bool b_IsActive;
     private SpriteRenderer m_SpriteRenderer;
 
+    private bool _Active;
     public bool Active //记录点被激活
-    { 
+    {
         get
         {
-            return b_IsActive;
+            return _Active;
         }
         set
         {
-            b_IsActive = value;
+            _Active = value;
             if(value)
             {
-                m_SpriteRenderer.color = Color.green;   //待修改
-                Debug.Log($"记录点重设为{transform.position}");
+                m_SpriteRenderer.color = Color.green;
+                GameManager.Instance.Save.SaveGame();
             }
             else
             {
@@ -44,17 +44,6 @@ public class CCheckpoint : MonoBehaviour
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-        if (gameObject.name == "Checkpoint0")
-        {
-            Active = true;
-            Spawn();
-        }
-        else
-            Active = false;
-    }
-
     //使玩家重生
     public void Spawn()
     {
@@ -67,7 +56,7 @@ public class CCheckpoint : MonoBehaviour
     {
         if(!Active)
         {
-            if (GameManager.Instance.ActiveCheckpointIndex > GameManager.Instance.GetSentCheckPointIndex(this))
+            if (GameManager.Instance.ActiveCheckpointIndex > GameManager.Instance.GetCheckPointIndex(this))
                 return;
             Public.IPlayer obj = collision.GetComponent<Public.IPlayer>();
             if (obj != null)
@@ -83,12 +72,10 @@ public class CCheckpoint : MonoBehaviour
     {
         Active = false;
     }
-
     private void OnPlayerDie()
     {
         if (Active) Spawn();
     }
-
     private void OnSceneLoaded(int sceneIndex)
     {
         if (Active) Spawn();

@@ -88,7 +88,6 @@ public class CPlayer : MonoBehaviour, IPlayer
             }
             else
             {
-                Debug.Log("reset");
                 RaycastLength_Ground = OriginRaycastLength_Ground;
             }
         }

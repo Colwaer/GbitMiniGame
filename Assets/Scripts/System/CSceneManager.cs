@@ -17,11 +17,12 @@ public class CSceneManager : Sigleton<CSceneManager>
         }
         set
         {
+            CEventSystem.Instance.ScenePassed?.Invoke();
             if (value > MAXINDEX || value<0)
                 value = 0;
             StartCoroutine(ILoadLevel(value));
             _Index = value;
-            CEventSystem.Instance.SceneLoaded(value);
+            CEventSystem.Instance.SceneLoaded?.Invoke(value);
         }
     }
     [SerializeField] private Pre_LoadScene loadScenePrefab;
