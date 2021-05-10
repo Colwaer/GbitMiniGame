@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1001 &170638437
@@ -1836,7 +1836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &281559625
@@ -2170,7 +2170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &342408828
@@ -2668,7 +2668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &439532761
@@ -3533,7 +3533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &764254150
@@ -3941,7 +3941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 0.5882353}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &1011659905
@@ -4801,7 +4801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1206632203
@@ -5361,7 +5361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1222001494
@@ -5410,6 +5410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05899c118838b54cb6056044b5c110b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeTime: 0
+  shakeFrequency: 0
+  shakeDistance: 0
 --- !u!114 &1222001497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5840,7 +5843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 0.5882353}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1410451734
@@ -6327,7 +6330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1638431723
@@ -6763,7 +6766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1809508215
@@ -7324,7 +7327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1878433692
@@ -8211,7 +8214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1901074130
@@ -8754,7 +8757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &2082573368
@@ -9270,7 +9273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &2124380584

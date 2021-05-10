@@ -16,8 +16,6 @@ public class CPlayer : MonoBehaviour, IPlayer
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
     private float t_Shoot;                  //射击冷却时间
 
-    public GameObject m_DashEffect;
-
     internal int MaxShootCount;             //最大射击次数
     [SerializeField]
     private int _ShootCount;
@@ -230,17 +228,6 @@ public class CPlayer : MonoBehaviour, IPlayer
             return;
         ie_Dash = StartCoroutine(Dash(-direction));
         CEventSystem.Instance.PlayerShoot?.Invoke();
-        GameObject effect;
-        effect = Instantiate(m_DashEffect);
-        ParticleSystem particleSystem = effect.GetComponent<ParticleSystem>();
-        
-        effect.transform.position = transform.position;
-        // particleSystem.
-        // particleSystem.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * 180.0f / 3.14159f);
-        // effect.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * 180.0f / 3.14159f);
-        Debug.Log(effect.transform.eulerAngles.z);
-        effect.transform.SetParent(transform);
-        
         StartCoroutine(ShootCoolDown());
     }
 

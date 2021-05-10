@@ -66,6 +66,7 @@ public class CCloud : MonoBehaviour
             }
             else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
             {
+                Debug.Log("collide");
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
             }

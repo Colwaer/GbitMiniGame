@@ -1724,7 +1724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 0.5882353}
+  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -1972,7 +1972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 0.5882353}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &208668959
@@ -4322,7 +4322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 0.5882353}
+  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -6318,7 +6318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &488635401
@@ -9257,7 +9257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 0.5882353}
+  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -9429,6 +9429,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05899c118838b54cb6056044b5c110b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeTime: 0
+  shakeFrequency: 0
+  shakeDistance: 0
 --- !u!114 &1222001497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11564,7 +11567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 0.5882353}
+  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -20383,7 +20386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1001 &1439100817
@@ -21528,7 +21531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1638431723
@@ -35267,7 +35270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.7830189, g: 0.7571645, b: 0.7571645, a: 1}
+  TargetColor: {r: 0.5754717, g: 0.54561234, b: 0.54561234, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1747539437
@@ -36748,7 +36751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionSpeed: 15
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 0.5882353}
+  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
