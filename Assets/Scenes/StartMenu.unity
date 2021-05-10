@@ -6945,6 +6945,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3cb4307a2da7740970003401a41025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DashEffect: {fileID: 8433134157379755750, guid: 89f05faeb406b844e8767e8ac3ecb1ae,
+    type: 3}
   _ShootCount: 0
   _Point: 0
   PlayerAnim: {fileID: 315168163}

@@ -15,5 +15,6 @@ public class CEventSystem : Sigleton<CEventSystem>
     public Action<int> PointChanged;
     public Action CollideCloud;
     public Action TouchGround;
+    public Action PlayerShoot;
 }
 
