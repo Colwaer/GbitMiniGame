@@ -4,7 +4,7 @@ using UnityEngine;
 public class Pointer : MonoBehaviour
 {
     private float Distance = 3f ;
-    [SerializeField] private Transform PlayerPos;
+    private Transform PlayerPos;
 
     private void OnEnable()
     {

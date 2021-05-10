@@ -22,4 +22,11 @@ public class Save : ScriptableObject
         GameManager.Instance.StartSpwan(ActiveCheckPointIndex);
         PlayerController.Instance.m_Player.Point = Point;
     }
+
+    public void ResetGame()
+    {
+        SceneIndex = 0;
+        ActiveCheckPointIndex = 0;
+        Point = 0;
+    }
 }
