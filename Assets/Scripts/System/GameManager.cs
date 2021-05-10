@@ -35,11 +35,11 @@ public class GameManager : Public.Sigleton<GameManager>
     //只能在继续游戏时使用
     public void StartSpwan(int index)
     {
-        StartCoroutine(_StartSpawn(index));
+        StartCoroutine(StartSpawn_(index));
     }
-    private IEnumerator _StartSpawn(int index)
+    private IEnumerator StartSpawn_(int index)
     {
-        //等到
+        //默认在0号记录点出生，在此之后再在指定的出生点重生
         for(; ActiveCheckpointIndex!=0; )
         {
             yield return null;
