@@ -9,7 +9,7 @@ public class EffectOnPlayer : MonoBehaviour
         Effect = GetComponent<ParticleSystem>();
     }
 
-    protected void PlayEffect()
+    protected virtual void PlayEffect()
     {
         //transform.rotation = Quaternion.Euler(0, 0, -Public.CTool.Direction2Angle(PlayerController.Instance.Direction));
         transform.eulerAngles = new Vector3(0, 0, -Public.CTool.Direction2Angle(PlayerController.Instance.Direction));
