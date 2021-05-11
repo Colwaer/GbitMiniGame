@@ -10,7 +10,7 @@ public class Cloud_Movable : MonoBehaviour
     private Vector3 OriginalPosition;
     protected bool b_Started;   //是否启动了移动
     private Collider2D PlayerColl;
-
+    private bool b_PlayerOnCloud;
     protected virtual void Awake()
     {
         PlayerColl = PlayerController.Instance.Player.GetComponent<Collider2D>();
@@ -34,8 +34,10 @@ public class Cloud_Movable : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("a collider has entered");
         if (other.collider.CompareTag("Player"))
         {
+            b_PlayerOnCloud = true;
             if(!b_Started)
             {
                 StartCoroutine(Move());
@@ -44,18 +46,28 @@ public class Cloud_Movable : MonoBehaviour
         }
         else
         {
+            Debug.Log("StopMove");
             StopAllCoroutines();
         }
     }
-
+    private void OnCollisionExit2D(Collision2D other) 
+    {
+        if (other.collider.CompareTag("Player"))
+        {
+            b_PlayerOnCloud = false;
+        }
+    }
     protected virtual IEnumerator Move()
     {
         for (; ; )
         {
             Vector3 deltaPos = new Vector3(Direction.x, Direction.y, 0).normalized * Speed * Time.fixedDeltaTime;
             transform.position += deltaPos;
-            if (Physics2D.IsTouchingLayers(PlayerColl))
+            if (b_PlayerOnCloud)
+            {
                 PlayerColl.gameObject.transform.position += deltaPos;
+            }
+                
             yield return new WaitForFixedUpdate();
         }
     }
