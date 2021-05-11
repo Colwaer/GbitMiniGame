@@ -139,12 +139,7 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (b_isDashing && ie_Dash != null)
-        {
-            StopCoroutine(ie_Dash);
-            b_isDashing = false;
-            m_RigidBody.gravityScale = 1;
-        }
+        StopDash();
     }
 
     private void OnCollideCloud()
@@ -251,6 +246,11 @@ public class CPlayer : MonoBehaviour, IPlayer
             m_RigidBody.velocity -= m_RigidBody.velocity.normalized * 2f;
             yield return new WaitForFixedUpdate();
         }
+        StopDash();
+    }
+    public void StopDash()
+    {
+        if (b_isDashing && ie_Dash != null) StopCoroutine(ie_Dash);
         b_isDashing = false;
         m_RigidBody.gravityScale = 1;
     }

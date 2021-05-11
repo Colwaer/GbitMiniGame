@@ -6,7 +6,7 @@ using static UnityEngine.SceneManagement.SceneManager;
 
 public class CSceneManager : Sigleton<CSceneManager>
 {
-    private const int MAXINDEX = 2;
+    private const int MAXINDEX = 3;
     //当前关的index
     [SerializeField] private int _Index;
     internal int Index

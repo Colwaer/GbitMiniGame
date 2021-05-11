@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+//已弃用
 public class Trigger_CameraEffect : MonoBehaviour
 {
-    private CCameraController Controller;    //相机控制器的脚本
+    private CCameraController Controller;             //相机控制器的脚本
     [SerializeField] private float t_Effect = 1f;     //实现相机效果需要的时间            
     private void Start() 
     {

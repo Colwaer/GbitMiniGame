@@ -6,7 +6,7 @@ public class WindArea : MonoBehaviour
 {
     public GameObject Wind;
     private BoxCollider2D m_BoxCollider;
-    private int Trigger_Count = 5;
+    [SerializeField] private int Trigger_Count;
     [SerializeField] private int _Count = 0;
     public int Count
     {
@@ -31,14 +31,7 @@ public class WindArea : MonoBehaviour
         m_BoxCollider = GetComponent<BoxCollider2D>();
         m_BoxCollider.enabled = false;
     }
-    private void OnEnable()
-    {
-        CEventSystem.Instance.PlayerDie += OnPlayerDie;
-    }
-    private void OnDisable()
-    {
-        CEventSystem.Instance.PlayerDie -= OnPlayerDie;
-    }
+
     private void OnTriggerEnter2D(Collider2D collosion) 
     {
         if (collosion.CompareTag("Player"))
@@ -61,10 +54,4 @@ public class WindArea : MonoBehaviour
         } 
     }
 
-    private void OnPlayerDie()
-    {
-        Count = 0;
-        Wind.SetActive(false);
-        m_BoxCollider.enabled = false;
-    }
 }

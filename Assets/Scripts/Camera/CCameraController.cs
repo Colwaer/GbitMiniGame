@@ -34,14 +34,36 @@ public class CCameraController : MonoBehaviour
         m_Confiner.m_BoundingShape2D = polygonCollider;
     }
 
+    public void FollowPlayer()
+    {
+        StopAllCoroutines();
+        StartCoroutine(ChangeScale(DefaultSize, transform_Player, t_Normalize));
+    }
+
+    public void StartFollow(Transform target, float time)
+    {
+        StartCoroutine(Follow(target,time));
+    }
+    private IEnumerator Follow(Transform target,float time)
+    {
+        PolygonCollider2D tempPolygonCollider = m_Confiner.m_BoundingShape2D as PolygonCollider2D;
+        m_Confiner.m_BoundingShape2D = null;
+        m_VirtualCamera.Follow = target;
+
+        yield return Public.CTool.Wait(time);
+
+        m_VirtualCamera.Follow = transform_Player;
+        m_Confiner.m_BoundingShape2D = tempPolygonCollider;
+        m_VirtualCamera.m_Lens.LensShift = DefaultLensShift;
+    }
+
     //以下方法弃用
-    internal void StartChangeScale(float t_Effect, Transform cameraArea)
+    public void StartChangeScale(float t_Effect, Transform cameraArea)
     {
         StopAllCoroutines();
         float targetSize = cameraArea.localScale.x * ScaleToCameraSize;
         StartCoroutine(ChangeScale(targetSize, cameraArea, t_Effect));
     }
-    
     private IEnumerator ChangeScale(float targetSize, Transform cameraArea, float time)
     {
         m_VirtualCamera.m_Lens.LensShift = DefaultLensShift / 5;
@@ -55,12 +77,6 @@ public class CCameraController : MonoBehaviour
         }
         m_VirtualCamera.m_Lens.OrthographicSize = targetSize;    
         m_VirtualCamera.m_Lens.LensShift = DefaultLensShift;
-    }
-    internal void FollowPlayer()
-    {
-        StopAllCoroutines();
-        StartCoroutine(ChangeScale(DefaultSize, transform_Player, t_Normalize));
-        m_VirtualCamera.Follow = transform_Player;
     }
     // private void Shake()
     // {

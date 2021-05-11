@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class CCloud_Color : CCloud
+public class SpecialCloud0 : Cloud
 {
     public WindArea WindArea;
     protected override bool Active
