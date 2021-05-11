@@ -11,7 +11,7 @@ public class CSting_ComeBack : CSting_Movable
         {
             StopAllCoroutines();
             transform.SetParent(other.transform);
-            direction = -direction;
+            Direction = -Direction;
         }    
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+//已弃用
 public class CSting_Movable : CSting
 {
-    public float Speed = 20f;
-    public Vector2 direction;
+    public float Speed;
+    public Vector2 Direction;
 
     public virtual void StartMove()
     {
@@ -15,7 +16,7 @@ public class CSting_Movable : CSting
     {
         for (; ; )
         {
-            transform.position += new Vector3(direction.x, direction.y, 0).normalized * Speed * Time.deltaTime;
+            transform.position += new Vector3(Direction.x, Direction.y, 0).normalized * Speed * Time.deltaTime;
             yield return null;
         }
     }

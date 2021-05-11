@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Cloud_Trigger : CCloud
+public class Cloud_Trigger : Cloud
 {
     protected override void OnCollisionEnter2D(Collision2D other) 
     {

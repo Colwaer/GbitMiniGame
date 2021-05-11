@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : Sigleton<PlayerController>
 {
-    bool b_IsActive = false;            //是否启用控制器
+    private bool b_IsActive = false;            //是否启用控制器
 
     internal GameObject Pointer;        //辅助瞄准的箭头
     internal GameObject Player;         //控制的角色
@@ -90,13 +90,16 @@ public class PlayerController : Sigleton<PlayerController>
         m_Player.SwitchAnim();
     }
     
-    private IEnumerator ExtendJumpInputTime()
+    public void PauseControl(int time)
     {
-        for (int i = 0; i < 2; i++)
-        {
-            b_DesiredJump = true;
-            yield return CTool.Wait(0.021f);
-        }
+
+    }
+    private IEnumerator PauseControl_(int time)
+    {
+        m_Player.m_RigidBody.velocity = Vector2.zero;
+        b_IsActive = false;
+        yield return CTool.Wait(time);
+        b_IsActive = true;
     }
     
     private void CalculateMouseDirection()

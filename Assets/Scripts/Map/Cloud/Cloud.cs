@@ -2,12 +2,12 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class CCloud : MonoBehaviour
+public class Cloud : MonoBehaviour
 {
     public float CollisionSpeed = 15f;   //撞击云需要达到的速度
     [SerializeField] protected Color TargetColor;
     [SerializeField] protected float t_ChangeColor = 1f;
-    private Tilemap tilemap;
+    private Tilemap m_Tilemap;
 
     [SerializeField] protected bool _Active; 
     protected virtual bool Active
@@ -34,7 +34,7 @@ public class CCloud : MonoBehaviour
     
     protected virtual void Awake()
     {
-        tilemap = GetComponent<Tilemap>(); 
+        m_Tilemap = GetComponent<Tilemap>(); 
     }
     protected virtual void OnEnable()
     {
@@ -66,30 +66,29 @@ public class CCloud : MonoBehaviour
             }
             else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
             {
-                Debug.Log("collide");
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
             }
         }
     }
 
-    protected void ResetCloud()
+    protected virtual void ResetCloud()
     {
         Active = true;
     }
-    protected void ResetCloudImmediately()
+    protected virtual void ResetCloudImmediately()
     {
         Active = true;
         StopAllCoroutines();
-        tilemap.color = Color.white;
+        m_Tilemap.color = Color.white;
     }
 
     protected IEnumerator ChangeColor(Color targetColor,float time)
     {
-        Color originColor = tilemap.color;
+        Color originColor = m_Tilemap.color;
         for (float timer = 0; timer <= time; timer += Time.deltaTime)
         {
-            tilemap.color = Color.Lerp(originColor, targetColor, timer / time);
+            m_Tilemap.color = Color.Lerp(originColor, targetColor, timer / time);
             yield return null;
         }
     }
