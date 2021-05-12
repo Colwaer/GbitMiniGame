@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+//已弃用
 public class Text_ShootCount : MonoBehaviour
 {
     private Text m_Text;
