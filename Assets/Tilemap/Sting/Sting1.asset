@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Sting4
+  m_Name: Sting1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 8cc255d3ef672b044907e8ba51814950, type: 3}
+  m_Sprite: {fileID: -6272695187710728215, guid: 54feceebffb7bd24fad0b326100fd963,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
