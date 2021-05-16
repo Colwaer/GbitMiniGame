@@ -15,6 +15,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     private int frame_Accelerate;           //地面上加速需要的固定帧帧数 
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
     private float t_Shoot;                  //射击冷却时间
+    
 
     internal int MaxShootCount;             //最大射击次数
     [SerializeField]

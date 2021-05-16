@@ -12,8 +12,8 @@ public class Button_ResueGame : MonoBehaviour
 
     private void Start()
     {
-        m_Button.onClick.AddListener(GameManager.Instance.Save.LoadGame);
-        m_Button.onClick.AddListener(OnClick);
+        m_Button.onClick.AddListener(GameManager.Instance.LoadGame);
+        m_Button.onClick.AddListener(OnClick);      
     }
 
     private void OnClick()

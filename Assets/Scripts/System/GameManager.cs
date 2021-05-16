@@ -1,11 +1,19 @@
-﻿using System.Collections;
+﻿using System.Net;
+using System.Collections;
 using UnityEngine;
-
+using System.IO;
 public class GameManager : Public.Sigleton<GameManager>
 {
-    public Save Save;
+    [SerializeField]
+    private Save Save;
     public CCheckpoint[] Checkpoints;
-
+    [HideInInspector]
+    public string savePath;
+    protected override void Awake() 
+    {
+        base.Awake();
+        savePath = Application.dataPath + "save";
+    }
     public int SceneIindex
     {
         get => CSceneManager.Instance.Index;
@@ -40,10 +48,26 @@ public class GameManager : Public.Sigleton<GameManager>
     private IEnumerator StartSpawn_(int index)
     {
         //默认在0号记录点出生，在此之后再在指定的出生点重生
-        for(; ActiveCheckpointIndex!=0; )
+        for(; ActiveCheckpointIndex !=0; )
         {
             yield return null;
         }
         Checkpoints[index].Spawn();
+    }
+    public void SaveGame()
+    {
+        Save.SaveGame(savePath);
+    }
+    public void LoadGame()
+    {
+        Debug.Log("LoadGame");
+        if (File.Exists(savePath))
+            Save.LoadGame(savePath);
+        else
+        {
+            Debug.LogError("save file doesn't exist");
+            CSceneManager.Instance.LoadNextLevel();
+        }
+            
     }
 }

@@ -17,7 +17,7 @@ public class CCheckpoint : MonoBehaviour
             if(value)
             {
                 m_SpriteRenderer.color = Color.green;
-                GameManager.Instance.Save.SaveGame();
+                GameManager.Instance.SaveGame();
             }
             else
             {
