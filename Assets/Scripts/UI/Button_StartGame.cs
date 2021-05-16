@@ -12,7 +12,7 @@ public class Button_StartGame : MonoBehaviour
 
     private void Start()
     {
-        m_Button.onClick.AddListener(CSceneManager.Instance.LoadNextLevel);
+        m_Button.onClick.AddListener(GameManager.Instance.StartGame);
         m_Button.onClick.AddListener(OnClick);
     }
 

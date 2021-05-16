@@ -26,6 +26,7 @@ public class CSceneManager : Sigleton<CSceneManager>
         }
     }
     [SerializeField] private Pre_LoadScene loadScenePrefab;
+
     //禁止用不属于本类的方法加载场景
     public void LoadLevel(int index)
     {

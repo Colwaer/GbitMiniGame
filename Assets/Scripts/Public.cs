@@ -31,7 +31,6 @@ namespace Public
         {
             if (Instance == null)
             {
-                Debug.Log("生成了"+this.GetType().ToString());
                 Instance = (T)this;
                 DontDestroyOnLoad(gameObject);
             }

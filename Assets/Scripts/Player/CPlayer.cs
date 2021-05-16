@@ -60,7 +60,6 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
     private Coroutine ie_Dash;            //冲刺协程
-    private Coroutine ie_OnGround;
 
     [Header("状态")]
     [SerializeField] private int statusindex;

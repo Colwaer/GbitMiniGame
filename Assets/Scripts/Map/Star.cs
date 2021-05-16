@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Star : MonoBehaviour
 {
-    private bool _Picked;
     private Renderer m_Renderer;
+    public int Index;
+
+    private bool _Picked;
     public bool Picked
     {
         get
@@ -34,6 +36,8 @@ public class Star : MonoBehaviour
     private void Awake()
     {
         m_Renderer = GetComponent<Renderer>();
+        if (GameManager.Instance.Stars_Destroyed[Index])
+            Destroy(gameObject);
     }
 
     private void OnEnable()
@@ -61,7 +65,6 @@ public class Star : MonoBehaviour
     }
     private void OnScenePassed()
     {
-        if (Picked)
-            Destroy(gameObject);
+        GameManager.Instance.SetStar(Index, Picked);
     }
 }

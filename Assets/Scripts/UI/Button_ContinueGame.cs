@@ -1,7 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class Button_ResueGame : MonoBehaviour
+public class Button_ContinueGame : MonoBehaviour
 {
     Button m_Button;
 
@@ -12,7 +12,7 @@ public class Button_ResueGame : MonoBehaviour
 
     private void Start()
     {
-        m_Button.onClick.AddListener(GameManager.Instance.LoadGame);
+        m_Button.onClick.AddListener(GameManager.Instance.ContinueGame);
         m_Button.onClick.AddListener(OnClick);      
     }
 
