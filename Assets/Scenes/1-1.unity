@@ -20655,6 +20655,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1044795371}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1044795373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 542912482, guid: caf156442b4394544a9a70faa637b2fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1044795371}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12350fc0953ee0c498db6789a772025d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1093541687
 GameObject:
   m_ObjectHideFlags: 0
@@ -45714,6 +45726,7 @@ MonoBehaviour:
   WindArea: {fileID: 436989068}
   Target: {fileID: 1144693847}
   Obstacle: {fileID: 2043036266}
+  spawnPoint: {fileID: 1044795373}
 --- !u!1 &1809508215
 GameObject:
   m_ObjectHideFlags: 3

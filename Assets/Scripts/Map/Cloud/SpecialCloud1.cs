@@ -6,6 +6,7 @@ public class SpecialCloud1 : Cloud
     public WindArea WindArea;
     public Transform Target;
     public GameObject Obstacle;
+    public CCheckpoint spawnPoint;
 
     protected override bool Active
     {
@@ -30,13 +31,19 @@ public class SpecialCloud1 : Cloud
                 if(Target!=null)
                 {
                     CCameraController CameraController = Camera.main.GetComponentInChildren<CCameraController>();
-                    CameraController.StartFollow(Target, 2f);
-                    PlayerController.Instance.PauseControl(2f);
+                    CameraController.StartFollow(Target, 2.5f);
+                    PlayerController.Instance.PauseControl(2.5f);
+                    StartCoroutine(SpawnPlayer(1.0f));
                 }
                 if (Obstacle != null) 
                     Destroy(Obstacle);
             }
         }
+    }
+    IEnumerator SpawnPlayer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        spawnPoint.Spawn();
     }
     //不会被重置
     protected override void OnEnable()
