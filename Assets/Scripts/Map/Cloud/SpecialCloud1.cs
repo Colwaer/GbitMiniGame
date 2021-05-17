@@ -31,8 +31,10 @@ public class SpecialCloud1 : Cloud
                 {
                     CCameraController CameraController = Camera.main.GetComponentInChildren<CCameraController>();
                     CameraController.StartFollow(Target, 2f);
+                    PlayerController.Instance.PauseControl(2f);
                 }
-                if (Obstacle != null) Destroy(Obstacle);
+                if (Obstacle != null) 
+                    Destroy(Obstacle);
             }
         }
     }

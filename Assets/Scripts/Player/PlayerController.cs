@@ -14,9 +14,9 @@ public class PlayerController : Sigleton<PlayerController>
 
     internal float t_ControlDirection = 1f;       //冲刺前的最大瞄准时间
 
-    internal bool b_DesiredJump = false;
-    internal bool b_DesiredShoot = false;
-
+    internal bool b_DemandToJump;
+    internal bool b_DemandToShoot;
+    internal bool b_IntendToShoot;
     [SerializeField] private bool b_TestMode;
 
     protected override void Awake()
@@ -41,7 +41,7 @@ public class PlayerController : Sigleton<PlayerController>
         // Debug.Log("GetMask : " + LayerMask.GetMask("Ground") + "Name to Mask : " + LayerMask.NameToLayer("Ground"));
         if (b_TestMode)  //调试用
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(3))
                 m_Player.ShootCount = 3;
             else if (Input.GetMouseButtonDown(2))
                 CSceneManager.Instance.LoadNextLevel();
@@ -54,20 +54,27 @@ public class PlayerController : Sigleton<PlayerController>
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
         {
-            b_DesiredJump = true;
+            b_DemandToJump = true;
         }
             
-
-        if (Input.GetMouseButtonDown(0) && m_Player.ShootCount > 0)
+        if (Input.GetMouseButtonDown(0) && m_Player.ShootCount > 0 && !b_IntendToShoot)
         {
+            b_IntendToShoot = true;
             Pointer.SetActive(true);
             Time.timeScale = 0.5f;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && b_IntendToShoot)
         {
+            b_IntendToShoot = false;
             Pointer.SetActive(false);
             Time.timeScale = 1f;
-            b_DesiredShoot = true;
+            b_DemandToShoot = true;
+        }
+        if(Input.GetMouseButtonDown(1) && b_IntendToShoot)
+        {
+            b_IntendToShoot = false;
+            Pointer.SetActive(false);
+            Time.timeScale = 1f;
         }
     }
 
@@ -77,24 +84,24 @@ public class PlayerController : Sigleton<PlayerController>
             return;
         m_Player.PhysicsCheck();
         m_Player.Move();
-        if (b_DesiredJump)
+        if (b_DemandToJump)
         {
-            b_DesiredJump = false;
+            b_DemandToJump = false;
             m_Player.Jump();
         }
-        if (b_DesiredShoot)
+        if (b_DemandToShoot)
         {
-            b_DesiredShoot = false;
+            b_DemandToShoot = false;
             m_Player.Shoot(Direction);
         }
         m_Player.SwitchAnim();
     }
     
-    public void PauseControl(int time)
+    public void PauseControl(float time)
     {
-
+        StartCoroutine(PauseControl_(time));
     }
-    private IEnumerator PauseControl_(int time)
+    private IEnumerator PauseControl_(float time)
     {
         m_Player.m_RigidBody.velocity = Vector2.zero;
         b_IsActive = false;
