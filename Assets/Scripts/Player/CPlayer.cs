@@ -34,21 +34,6 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
     }
 
-    [SerializeField]
-    private int _Point;
-    internal int Point
-    {
-        get
-        {
-            return _Point;
-        }
-        set
-        {
-            CEventSystem.Instance.PointChanged?.Invoke(value);
-            _Point = value;
-        }
-    }
-
     [SerializeField] private Animator PlayerAnim;
     [SerializeField] private Animator BottleAnim;
     private LayerMask GroundLayer;
@@ -121,7 +106,6 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Initialize()
     {
-        Point = 0;
         frame_Accelerate = 10;  
         frame_SlowDown = 10;
         MaxShootCount = 3;
@@ -205,7 +189,7 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Jump()
     {
-        Debug.Log(RaycastLength_Ground.ToString() + " "  + OnGround.ToString());
+        //Debug.Log(RaycastLength_Ground.ToString() + " "  + OnGround.ToString());
 
         if (!OnGround) 
             return;
@@ -307,5 +291,4 @@ public class CPlayer : MonoBehaviour, IPlayer
         Gizmos.DrawLine(pos1, new Vector3(pos1.x, pos1.y - RaycastLength_Ground, 0));
         Gizmos.DrawLine(pos2, new Vector3(pos2.x, pos2.y - RaycastLength_Ground, 0));
     }
-
 }

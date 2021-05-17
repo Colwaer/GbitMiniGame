@@ -16,22 +16,10 @@ public class Star : MonoBehaviour
         }
         set
         {
-            if(value)
-            {
-                if(!_Picked)
-                    PlayerController.Instance.m_Player.Point += m_Point;
-                m_Renderer.enabled = false;
-            }
-           else
-            {
-                if(_Picked)
-                    PlayerController.Instance.m_Player.Point -= m_Point;
-                m_Renderer.enabled = true;
-            }
+            m_Renderer.enabled = !value;
             _Picked = value;
         }
     }
-    private int m_Point = 1;
 
     private void Awake()
     {

@@ -17,9 +17,13 @@ public class CSceneManager : Sigleton<CSceneManager>
         }
         set
         {
-            CEventSystem.Instance.ScenePassed?.Invoke();
-            if (value > MAXINDEX || value<0)
+            //退出时不保存；最后一关结束回到开始界面时时依然会保存，因为value==MAXINDEX+1，稍后才会被置为0
+            if (value != 0)
+                CEventSystem.Instance.ScenePassed?.Invoke();
+            if (value > MAXINDEX || value < 0)
                 value = 0;
+            if (value == _Index)
+                return;
             StartCoroutine(ILoadLevel(value));
             _Index = value;
             CEventSystem.Instance.SceneLoaded?.Invoke(value);
@@ -70,5 +74,10 @@ public class CSceneManager : Sigleton<CSceneManager>
     public void Exit()
     {
         Index = 0;
+    }
+    //必须从这里退出游戏
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

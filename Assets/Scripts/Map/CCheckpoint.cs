@@ -48,8 +48,6 @@ public class CCheckpoint : MonoBehaviour
     public void Spawn()
     {
         PlayerController.Instance.m_Player.transform.position = transform.position;
-        PlayerController.Instance.m_Player.Point += 0;
-        PlayerController.Instance.m_Player.ShootCount += 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

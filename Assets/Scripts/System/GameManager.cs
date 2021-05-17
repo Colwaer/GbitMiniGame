@@ -36,12 +36,25 @@ public class GameManager : Public.Sigleton<GameManager>
     [Header("存档数据")]
     public int SceneIndex;
     public int CheckPointIndex;
-    public int Point;
+    public int Point
+    {
+        get 
+        {
+            int ret = 0;
+            foreach (bool flag in Stars_Destroyed)
+            {
+                if (flag) ret++;
+            }
+            return ret;
+        }
+    }
     public bool[] Stars_Destroyed;    //不能在这里初始化，必须先复制Save中的数据
+    //必须通过这个方法修改Stars_Destroyed
     public void SetStar(int index, bool destroyed)
     {
         if (index < 0 || index >= Save.Stars_Destroyed.Length)
             return;
+        CEventSystem.Instance.PointChanged?.Invoke(Point);
         Stars_Destroyed[index] = destroyed;
     }
 
@@ -49,6 +62,7 @@ public class GameManager : Public.Sigleton<GameManager>
     {
         base.Awake();
         SavePath = Application.dataPath + "/autosave";
+        LoadData();
     }
 
     //存档时,GameManager从游戏进程获取数据，Save再从GameManager获取数据，再将其写入存档文件
@@ -56,54 +70,43 @@ public class GameManager : Public.Sigleton<GameManager>
     {
         SceneIndex = CSceneManager.Instance.Index;
         CheckPointIndex = ActiveCheckpointIndex;
-        Point = PlayerController.Instance.m_Player.Point;
         //Stars_Destroyed在不是在这里修改的
         Save.SaveData(SavePath);
     }
-    //读档时,Save从存档文件获取数据，GameManager再从Save获取数据，再决定游戏进程
-    public void StartGame()
+    //无论如何都要在游戏开始时执行
+    public void LoadData()
     {
-        Debug.Log("开始游戏");
+        Debug.Log("读取存档");
         if (!File.Exists(SavePath))
         {
             Debug.Log("创建了新存档");
             Save.SaveData(SavePath);
         }
-        if (File.Exists(SavePath))
+        Save.LoadData(SavePath);
+        SceneIndex = Save.SceneIndex;
+        CheckPointIndex = Save.CheckPointIndex;
+        Stars_Destroyed = Save.Stars_Destroyed;
+    }
+
+    private void Update()
+    {
+        if(CSceneManager.Instance.Index ==0 && Input.GetKey(KeyCode.C)&& Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
         {
-            Save.LoadData(SavePath);
-
-            Point = Save.Point;
-            Stars_Destroyed = Save.Stars_Destroyed;
-
-            CSceneManager.Instance.LoadLevel(1);
-            PlayerController.Instance.m_Player.Point = Point;
+            Save.ResetGame(SavePath);
         }
+    }
+
+    public void StartGame()
+    {
+        CSceneManager.Instance.LoadLevel(1);
     }
     
     public void ContinueGame()
     {
-        Debug.Log("继续游戏");
-
-        if(!File.Exists(SavePath))
-        {
-            Debug.Log("创建了新存档");
-            Save.SaveData(SavePath);
-        }
-        if (File.Exists(SavePath))
-        {
-            Save.LoadData(SavePath);
-
-            SceneIndex = Save.SceneIndex;
-            CheckPointIndex = Save.CheckPointIndex;
-            Point = Save.Point;
-            Stars_Destroyed = Save.Stars_Destroyed;
-
-            if (SceneIndex == 0) SceneIndex = 1;
-            CSceneManager.Instance.LoadLevel(SceneIndex);
-            StartSpwan(CheckPointIndex);
-            PlayerController.Instance.m_Player.Point = Point;
-        }
+        if (SceneIndex <= 0) SceneIndex = 1;
+        if (CheckPointIndex < 0) CheckPointIndex = 0;
+        CSceneManager.Instance.LoadLevel(SceneIndex);
+        StartSpwan(CheckPointIndex);
     }
 
     private void StartSpwan(int index)
