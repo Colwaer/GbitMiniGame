@@ -10,6 +10,8 @@ public class Board : MonoBehaviour
     private void Awake()
     {
         m_Text = GetComponentInChildren<Text>();
+        if (m_Text == null)
+            Destroy(this);
         Textbox = m_Text.gameObject;
         Textbox.SetActive(false);
     }

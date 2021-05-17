@@ -6,7 +6,7 @@ public class Star : MonoBehaviour
 {
     private Renderer m_Renderer;
     public int Index;
-
+    [SerializeField]
     private bool _Picked;
     public bool Picked
     {
@@ -53,6 +53,10 @@ public class Star : MonoBehaviour
     }
     private void OnScenePassed()
     {
-        GameManager.Instance.SetStar(Index, Picked);
+        if(Picked)
+        {
+            Debug.Log(Index);
+            GameManager.Instance.SetStar(Index, true);
+        } 
     }
 }

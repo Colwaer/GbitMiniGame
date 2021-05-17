@@ -85,7 +85,7 @@ public class GameManager : Public.Sigleton<GameManager>
         Save.LoadData(SavePath);
         SceneIndex = Save.SceneIndex;
         CheckPointIndex = Save.CheckPointIndex;
-        Stars_Destroyed = Save.Stars_Destroyed;
+        Stars_Destroyed = Save.Stars_Destroyed; //获取引用
     }
 
     private void Update()

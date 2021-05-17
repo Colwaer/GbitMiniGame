@@ -34,7 +34,6 @@ public class Cloud_Movable : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("a collider has entered");
         if (other.collider.CompareTag("Player"))
         {
             b_PlayerOnCloud = true;
@@ -46,7 +45,6 @@ public class Cloud_Movable : MonoBehaviour
         }
         else
         {
-            Debug.Log("StopMove");
             StopAllCoroutines();
         }
     }

@@ -19,7 +19,10 @@ public class CSceneManager : Sigleton<CSceneManager>
         {
             //退出时不保存；最后一关结束回到开始界面时时依然会保存，因为value==MAXINDEX+1，稍后才会被置为0
             if (value != 0)
+            {
                 CEventSystem.Instance.ScenePassed?.Invoke();
+                GameManager.Instance.SaveGame();
+            }  
             if (value > MAXINDEX || value < 0)
                 value = 0;
             if (value == _Index)
