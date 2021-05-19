@@ -6,8 +6,8 @@ public class Cloud_Trigger : Cloud
     {
         if (other.collider.CompareTag("Player"))
         {
-            var t = GetComponentsInChildren<CSting_Movable>();
-            foreach(CSting_Movable item in t)
+            var t = GetComponentsInChildren<Sting_Movable>();
+            foreach(Sting_Movable item in t)
             {
                 item.StartMove();
             }

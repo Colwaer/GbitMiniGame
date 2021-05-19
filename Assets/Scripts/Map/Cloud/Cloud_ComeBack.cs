@@ -7,16 +7,25 @@ public class Cloud_ComeBack : Cloud_Movable
 {
     protected override void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Player") && !b_Started)
+        if (other.collider.CompareTag("Player"))
         {
-            StartCoroutine(Move());
-            b_Started = true;
+            b_PlayerOnCloud = true;
+            if (!b_Started)
+            {
+                StartCoroutine(Move());
+                b_Started = true;
+            }
         }
-        else if (other.collider.CompareTag("Ground"))
+        else
         {
             StopAllCoroutines();
             Direction *= -1;
             StartCoroutine(Move());
         }
+    }
+    //不会被重置
+    protected override void ResetCloud()
+    {
+        
     }
 }

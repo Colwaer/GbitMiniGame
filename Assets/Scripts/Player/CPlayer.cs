@@ -15,8 +15,8 @@ public class CPlayer : MonoBehaviour, IPlayer
     private int frame_Accelerate;           //地面上加速需要的固定帧帧数 
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
     private float t_Shoot;                  //射击冷却时间
-    
 
+    public int KeyCount;                    //收集到的钥匙数
     internal int MaxShootCount;             //最大射击次数
     [SerializeField]
     private int _ShootCount;
@@ -97,11 +97,13 @@ public class CPlayer : MonoBehaviour, IPlayer
     {
         CEventSystem.Instance.CollideCloud += OnCollideCloud;
         CEventSystem.Instance.TouchGround += OnTouchGround;
+        CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
     }
     private void OnDisable()
     {
         CEventSystem.Instance.CollideCloud -= OnCollideCloud;
         CEventSystem.Instance.TouchGround -= OnTouchGround;
+        CEventSystem.Instance.SceneLoaded -= OnSceneLoaded;
     }
 
     public void Initialize()
@@ -133,6 +135,10 @@ public class CPlayer : MonoBehaviour, IPlayer
     private void OnTouchGround()
     {
         ShootCount = 1;
+    }
+    private void OnSceneLoaded(int index)
+    {
+        KeyCount = 0;
     }
 
     public void PhysicsCheck()

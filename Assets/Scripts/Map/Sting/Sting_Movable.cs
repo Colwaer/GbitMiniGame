@@ -2,7 +2,7 @@
 using UnityEngine;
 
 //已弃用
-public class CSting_Movable : CSting
+public class Sting_Movable : Sting
 {
     public float Speed;
     public Vector2 Direction;

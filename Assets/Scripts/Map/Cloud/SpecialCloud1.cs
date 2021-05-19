@@ -6,7 +6,7 @@ public class SpecialCloud1 : Cloud
     public WindArea WindArea;
     public Transform Target;
     public GameObject Obstacle;
-    public CCheckpoint spawnPoint;
+    public Checkpoint spawnPoint;
 
     protected override bool Active
     {

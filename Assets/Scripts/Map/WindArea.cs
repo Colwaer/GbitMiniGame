@@ -32,6 +32,15 @@ public class WindArea : MonoBehaviour
         m_BoxCollider.enabled = false;
     }
 
+    private void Start()
+    {
+        if(Trigger_Count ==0)
+        {
+            Wind.SetActive(true);
+            m_BoxCollider.enabled = true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collosion) 
     {
         if (collosion.CompareTag("Player"))
