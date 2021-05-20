@@ -47,10 +47,9 @@ public class CSceneManager : Sigleton<CSceneManager>
     private IEnumerator ILoadLevel(int index)
     {
         AsyncOperation Async_LoadScene = LoadSceneAsync(index);
-        switch (index)
+        switch (Index)  //Index是上一场景的序号
         {
-            //在这里加载两关之间的过场场景
-            case 1:
+            case 0:
                 loadScenePrefab.gameObject.SetActive(true);
                 Async_LoadScene.allowSceneActivation = false;
                 for (; !Async_LoadScene.isDone;)

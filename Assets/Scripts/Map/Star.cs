@@ -57,8 +57,8 @@ public class Star : MonoBehaviour
     {
         if(Picked)
         {
-            Debug.Log(Index);
-            GameManager.Instance.SetStar(Index, true);
+            //Debug.Log(Index);
+            GameManager.Instance.UpdateStar(Index, true);
             Destroy(gameObject);
         } 
     }

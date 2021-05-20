@@ -12,12 +12,12 @@ public class SelectLevelPanel : MonoBehaviour
     }
     private void OnEnable() 
     {
-        int unlockIndex = GameManager.Instance.unlockSceneIndex;
+        int unlockIndex = GameManager.Instance.UnlockSceneIndex;
         for (int i = 0; i < btn_Levels.Length; i++)
         {
             if (unlockIndex - 1 >= i)
             {
-                Debug.Log(i + " true");
+                //Debug.Log(i + " true");
                 btn_Levels[i].interactable = true;
             }             
             else
