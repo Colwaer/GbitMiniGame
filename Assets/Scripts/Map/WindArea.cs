@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WindArea : MonoBehaviour
 {
@@ -8,6 +6,8 @@ public class WindArea : MonoBehaviour
     private BoxCollider2D m_BoxCollider;
     [SerializeField] private int Trigger_Count;
     [SerializeField] private int _Count = 0;
+    [SerializeField] private Vector2 Direction;
+    [SerializeField] private float Force = 60f; //重力为26f
     public int Count
     {
         get
@@ -30,6 +30,7 @@ public class WindArea : MonoBehaviour
     {
         m_BoxCollider = GetComponent<BoxCollider2D>();
         m_BoxCollider.enabled = false;
+        Direction = Public.CTool.Angle2Direction(transform.rotation.z);
     }
 
     private void Start()
@@ -41,26 +42,12 @@ public class WindArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collosion) 
-    {
-        if (collosion.CompareTag("Player"))
-        {
-            collosion.attachedRigidbody.gravityScale = -2f;
-        }    
-    }
     private void OnTriggerStay2D(Collider2D collosion)
     {
         if (collosion.CompareTag("Player"))
         {
-            collosion.attachedRigidbody.gravityScale = -2f;
+            collosion.attachedRigidbody.AddForce(Direction*Force);
         }    
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && !PlayerController.Instance.m_Player.b_isDashing)
-        {
-            collision.attachedRigidbody.gravityScale = 1f;
-        } 
     }
 
 }

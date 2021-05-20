@@ -57,6 +57,7 @@ public class Cloud_Movable : MonoBehaviour
     }
     protected virtual IEnumerator Move()
     {
+        yield return Public.CTool.Wait(1f);
         for (; ; )
         {
             Vector3 deltaPos = new Vector3(Direction.x, Direction.y, 0).normalized * Speed * Time.fixedDeltaTime;
