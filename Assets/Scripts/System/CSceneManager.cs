@@ -74,6 +74,7 @@ public class CSceneManager : Sigleton<CSceneManager>
                 break;
         }
     }
+    
     public void Exit()
     {
         Index = 0;

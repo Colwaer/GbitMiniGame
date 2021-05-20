@@ -1,15 +1,16 @@
-using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Button_StartGame : MonoBehaviour
+public class Button_StartLevel : MonoBehaviour
 {
     Button m_Button;
-    public GameObject LevelSelectPanel;
+    public int LevelIndex;
     private void Awake()
     {
         m_Button = GetComponent<Button>();
     }
-
     private void Start()
     {
         m_Button.onClick.AddListener(StartGame);
@@ -17,7 +18,7 @@ public class Button_StartGame : MonoBehaviour
     }
     private void StartGame()
     {
-        LevelSelectPanel.SetActive(true);
+        CSceneManager.Instance.LoadLevel(LevelIndex);
     }
     private void OnClick()
     {

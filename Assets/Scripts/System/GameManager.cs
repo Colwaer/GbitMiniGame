@@ -34,11 +34,12 @@ public class GameManager : Public.Sigleton<GameManager>
     //只能在继续游戏时使用
 
     [Header("存档数据")]
+    public int unlockSceneIndex = 1;
     public int SceneIndex;
     public int CheckPointIndex;
     public int Point
     {
-        get 
+        get
         {
             int ret = 0;
             foreach (bool flag in Stars_Destroyed)
@@ -57,9 +58,17 @@ public class GameManager : Public.Sigleton<GameManager>
         CEventSystem.Instance.PointChanged?.Invoke(Point);
         Stars_Destroyed[index] = destroyed;
     }
-
-    protected override void Awake() 
+    private void OnEnable()
     {
+        CEventSystem.Instance.SceneLoaded += UpdataUnlockSceneIndex;
+    }
+    private void OnDisable()
+    {
+        CEventSystem.Instance.SceneLoaded -= UpdataUnlockSceneIndex;
+    }
+    protected override void Awake()
+    {
+        Debug.Log(unlockSceneIndex);
         base.Awake();
         SavePath = Application.dataPath + "/autosave";
         LoadData();
@@ -74,6 +83,7 @@ public class GameManager : Public.Sigleton<GameManager>
             Save.SaveData(SavePath);
         }
         Save.LoadData(SavePath);
+        unlockSceneIndex = Save.unlockSceneIndex;
         SceneIndex = Save.SceneIndex;
         CheckPointIndex = Save.CheckPointIndex;
         Stars_Destroyed = Save.Stars_Destroyed; //获取引用
@@ -86,15 +96,16 @@ public class GameManager : Public.Sigleton<GameManager>
         //Stars_Destroyed在不是在这里修改的
         Save.SaveData(SavePath);
     }
-    public void StartGame()
-    {
-        CSceneManager.Instance.LoadLevel(1);
-    }
+    // public void StartGame()
+    // {
+    //     CSceneManager.Instance.LoadLevel(1);
+    // }
     public void ContinueGame()
     {
-        if (SceneIndex <= 0) SceneIndex = 1;
-        if (CheckPointIndex < 0) CheckPointIndex = 0;
+        if (SceneIndex <= 0) SceneIndex = 1;      
         CSceneManager.Instance.LoadLevel(SceneIndex);
+        if (CheckPointIndex < 0) CheckPointIndex = 0;
+        Debug.Log("continue game checkpoint index " + CheckPointIndex);
         StartSpwan(CheckPointIndex);
     }
 
@@ -109,14 +120,23 @@ public class GameManager : Public.Sigleton<GameManager>
         {
             yield return null;
         }
+        Debug.Log(index + " spawn index");
         Checkpoints[index].Spawn();
     }
 
     private void Update()
     {
-        if(CSceneManager.Instance.Index ==0 && Input.GetKey(KeyCode.C)&& Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
+        if (CSceneManager.Instance.Index == 0 && Input.GetKey(KeyCode.C) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
         {
             Save.ResetGame(SavePath);
         }
+    }
+    public void UpdataUnlockSceneIndex(int index)
+    {
+        this.unlockSceneIndex = Save.unlockSceneIndex;
+        Debug.Log(Save.unlockSceneIndex);
+        Debug.Log(this.unlockSceneIndex);
+        Save.unlockSceneIndex = Mathf.Max(index, unlockSceneIndex);
+        this.unlockSceneIndex = Save.unlockSceneIndex;
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ded5b839d375d048a30340d3cffcdc3, type: 3}
   m_Name: Save
   m_EditorClassIdentifier: 
-  SceneIndex: 0
-  CheckPointIndex: -1
-  Stars_Destroyed: 000000000000000000000000
+  unlockSceneIndex: 2
+  SceneIndex: 2
+  CheckPointIndex: 0
+  Stars_Destroyed: 010000000000000000000000
