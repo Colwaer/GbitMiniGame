@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System;
+﻿using System;
 using UnityEngine;
 using System.IO;
-
 
 [CreateAssetMenu]
 public class Save : ScriptableObject
 {
     public int SceneIndex;
     public int CheckPointIndex;
-    public const int STAR_NUM = 9;
+    public const int STAR_NUM = 12;
     public bool[] Stars_Destroyed = new bool[STAR_NUM];    //true表示被摧毁了  
 
     public void SaveData(string savePath)
@@ -25,6 +23,7 @@ public class Save : ScriptableObject
                 writer.Write(Stars_Destroyed[i]);
             }   
         }
+        ;
     }
     
     public void LoadData(string savePath)
@@ -38,6 +37,7 @@ public class Save : ScriptableObject
                 Stars_Destroyed[i] = reader.ReadBoolean();
             }
         }
+        ;
     }
 
     public void ResetGame(string savePath)

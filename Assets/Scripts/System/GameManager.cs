@@ -9,7 +9,7 @@ public class GameManager : Public.Sigleton<GameManager>
     public string SavePath;
     [SerializeField]
     private Save Save;
-    public CCheckpoint[] Checkpoints;
+    public Checkpoint[] Checkpoints;
     public int ActiveCheckpointIndex
     {
         get
@@ -22,7 +22,7 @@ public class GameManager : Public.Sigleton<GameManager>
             return -1;
         }
     }
-    public int GetCheckPointIndex(CCheckpoint c)
+    public int GetCheckPointIndex(Checkpoint c)
     {
         for (int i = 0; i < Checkpoints.Length; ++i)
         {
@@ -64,15 +64,6 @@ public class GameManager : Public.Sigleton<GameManager>
         SavePath = Application.dataPath + "/autosave";
         LoadData();
     }
-
-    //存档时,GameManager从游戏进程获取数据，Save再从GameManager获取数据，再将其写入存档文件
-    public void SaveGame()
-    {
-        SceneIndex = CSceneManager.Instance.Index;
-        CheckPointIndex = ActiveCheckpointIndex;
-        //Stars_Destroyed在不是在这里修改的
-        Save.SaveData(SavePath);
-    }
     //无论如何都要在游戏开始时执行
     public void LoadData()
     {
@@ -85,22 +76,20 @@ public class GameManager : Public.Sigleton<GameManager>
         Save.LoadData(SavePath);
         SceneIndex = Save.SceneIndex;
         CheckPointIndex = Save.CheckPointIndex;
-        Stars_Destroyed = Save.Stars_Destroyed;
+        Stars_Destroyed = Save.Stars_Destroyed; //获取引用
     }
-
-    private void Update()
+    //存档时,GameManager从游戏进程获取数据，Save再从GameManager获取数据，再将其写入存档文件
+    public void SaveGame()
     {
-        if(CSceneManager.Instance.Index ==0 && Input.GetKey(KeyCode.C)&& Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
-        {
-            Save.ResetGame(SavePath);
-        }
+        SceneIndex = CSceneManager.Instance.Index;
+        CheckPointIndex = ActiveCheckpointIndex;
+        //Stars_Destroyed在不是在这里修改的
+        Save.SaveData(SavePath);
     }
-
     public void StartGame()
     {
         CSceneManager.Instance.LoadLevel(1);
     }
-    
     public void ContinueGame()
     {
         if (SceneIndex <= 0) SceneIndex = 1;
@@ -121,5 +110,13 @@ public class GameManager : Public.Sigleton<GameManager>
             yield return null;
         }
         Checkpoints[index].Spawn();
+    }
+
+    private void Update()
+    {
+        if(CSceneManager.Instance.Index ==0 && Input.GetKey(KeyCode.C)&& Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
+        {
+            Save.ResetGame(SavePath);
+        }
     }
 }

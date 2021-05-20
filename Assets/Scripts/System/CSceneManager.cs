@@ -6,7 +6,7 @@ using static UnityEngine.SceneManagement.SceneManager;
 
 public class CSceneManager : Sigleton<CSceneManager>
 {
-    private const int MAXINDEX = 3;
+    private const int MAXINDEX = 4;
     //当前关的index
     [SerializeField] private int _Index;
     internal int Index
@@ -19,7 +19,10 @@ public class CSceneManager : Sigleton<CSceneManager>
         {
             //退出时不保存；最后一关结束回到开始界面时时依然会保存，因为value==MAXINDEX+1，稍后才会被置为0
             if (value != 0)
+            {
                 CEventSystem.Instance.ScenePassed?.Invoke();
+                GameManager.Instance.SaveGame();
+            }  
             if (value > MAXINDEX || value < 0)
                 value = 0;
             if (value == _Index)

@@ -31,7 +31,7 @@ namespace Public
         {
             if (Instance == null)
             {
-                Instance = (T)this;
+                Instance = this as T;
                 DontDestroyOnLoad(gameObject);
             }
             else

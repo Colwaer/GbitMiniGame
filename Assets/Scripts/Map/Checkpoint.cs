@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CCheckpoint : MonoBehaviour
+public class Checkpoint : MonoBehaviour
 {
     private SpriteRenderer m_SpriteRenderer;
 
@@ -56,9 +56,9 @@ public class CCheckpoint : MonoBehaviour
         {
             //if (GameManager.Instance.ActiveCheckpointIndex > GameManager.Instance.GetCheckPointIndex(this)) return;
 
-            Public.IPlayer obj = collision.GetComponent<Public.IPlayer>();
-            if (obj != null)
+            if(collision.CompareTag("Player"))
             {
+                Debug.Log("checkpoint");
                 //设置新的记录点时，先禁用（只是修改Active属性）所有检查点
                 CEventSystem.Instance.CheckPointChanged?.Invoke();
                 Active = true;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CSting : MonoBehaviour
+public class Sting : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {

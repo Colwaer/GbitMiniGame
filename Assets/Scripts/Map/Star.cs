@@ -6,7 +6,7 @@ public class Star : MonoBehaviour
 {
     private Renderer m_Renderer;
     public int Index;
-
+    [SerializeField]
     private bool _Picked;
     public bool Picked
     {
@@ -31,13 +31,15 @@ public class Star : MonoBehaviour
     private void OnEnable()
     {
         CEventSystem.Instance.PlayerDie += OnPlayerDie;
-        CEventSystem.Instance.ScenePassed += OnScenePassed;
+        CEventSystem.Instance.CheckPointChanged += CollectStar;
+        CEventSystem.Instance.ScenePassed += CollectStar;
     }
 
     private void OnDisable()
     {
         CEventSystem.Instance.PlayerDie -= OnPlayerDie;
-        CEventSystem.Instance.ScenePassed -= OnScenePassed;
+        CEventSystem.Instance.CheckPointChanged -= CollectStar;
+        CEventSystem.Instance.ScenePassed -= CollectStar;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -51,8 +53,13 @@ public class Star : MonoBehaviour
     {
         Picked = false;
     }
-    private void OnScenePassed()
+    private void CollectStar()
     {
-        GameManager.Instance.SetStar(Index, Picked);
+        if(Picked)
+        {
+            Debug.Log(Index);
+            GameManager.Instance.SetStar(Index, true);
+            Destroy(gameObject);
+        } 
     }
 }
