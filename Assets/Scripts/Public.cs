@@ -17,8 +17,9 @@ namespace Public
             => new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
         public static Vector3 RandomVector3()
             => new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
+        //恰好适配transform.eulerangles.z到方向矢量的转换，其他转换需要调试出这个变化的系数和常数
         public static Vector2 Angle2Direction(float angle)
-            => new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
+            => new Vector2(-Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
         public static float Direction2Angle(Vector2 direction)
             => Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
     }

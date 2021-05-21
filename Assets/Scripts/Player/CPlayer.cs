@@ -139,6 +139,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     private void OnSceneLoaded(int index)
     {
         KeyCount = 0;
+        if (PlayerController.Instance.b_TestMode) KeyCount = 2;
     }
 
     public void PhysicsCheck()
