@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7320537807641747127}
   - component: {fileID: 7320537807641747126}
   - component: {fileID: 7320537807641747125}
+  - component: {fileID: 1898238750883984266}
   m_Layer: 12
   m_Name: Star
   m_TagString: Untagged
@@ -72,8 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: -974929045
   m_SortingLayer: 3
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: d848ac09706670c40a8c81c5fb295e60, type: 3}
-  m_Color: {r: 0.9811321, g: 0.95123935, b: 0.06016379, a: 1}
+  m_Sprite: {fileID: 5199979006384268662, guid: 7091c739c4a2ee546be9f6313de3b968,
+    type: 3}
+  m_Color: {r: 1, g: 0.9998595, b: 0.995283, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.05146694, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -107,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7978058, y: 1}
+  m_Size: {x: 1.3975086, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &7320537807641747125
 MonoBehaviour:
@@ -121,3 +123,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231c917fd95d67b4db991fdd471ada9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Index: 0
+  _Picked: 0
+--- !u!95 &1898238750883984266
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320537807641747129}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e51ebcfb6d3bff14e93d0a0177fb8118, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
