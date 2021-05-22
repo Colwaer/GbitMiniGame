@@ -11,7 +11,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     private float MaxFallSpeed;
     private float MaxRiseSpeed;
 
-    private float t_Dash;                   //冲刺时间,应当小于射击冷却
+    internal float t_Dash;                   //冲刺时间,应当小于射击冷却
     private int frame_Accelerate;           //地面上加速需要的固定帧帧数 
     private int frame_SlowDown;             //地面上减速需要的固定帧帧数
     private float t_Shoot;                  //射击冷却时间
@@ -117,6 +117,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         t_Dash = 0.16f;
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
+        m_RigidBody.gravityScale = 1f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -208,7 +209,6 @@ public class CPlayer : MonoBehaviour, IPlayer
 
         RaycastLength_Ground = OriginRaycastLength_Ground;
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
-        Debug.Log(Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
     //direction是喷射方向，也就是冲刺的反方向
     public void Shoot(Vector2 direction)
