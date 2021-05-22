@@ -169,8 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &44868760
@@ -567,8 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &237508384
@@ -6397,8 +6395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &572021337
@@ -8477,8 +8474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &609138143
@@ -9395,8 +9391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &640117154
@@ -15245,8 +15240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &646256636
@@ -15884,8 +15878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &716981215
@@ -17250,8 +17243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &768139426
@@ -17980,7 +17972,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.56078434, g: 0.82745105, b: 0.9568628, a: 0}
+  m_BackGroundColor: {r: 0.4764151, g: 0.8289277, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -18021,7 +18013,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801965179}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.296875, y: -10.131238, z: -10}
+  m_LocalPosition: {x: -122.4, y: -8, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1222001495}
@@ -18103,7 +18095,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2624050469664721646, guid: d5d8d2c2080287f43ab3d15667c65bf0,
     type: 3}
-  m_Color: {r: 0.077162705, g: 0.91895854, b: 0.9622642, a: 1}
+  m_Color: {r: 0.07843139, g: 0.2444574, b: 0.9607843, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -18363,8 +18355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &888912288
@@ -19120,7 +19111,7 @@ PrefabInstance:
     - target: {fileID: 6537430942744633452, guid: 4544e0527b5a2d04e87fa56b62b122f6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.48
+      value: 18.86
       objectReference: {fileID: 0}
     - target: {fileID: 6537430942744633452, guid: 4544e0527b5a2d04e87fa56b62b122f6,
         type: 3}
@@ -19217,8 +19208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &1042150694
@@ -20573,6 +20563,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1044795371}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1044795373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 542912482, guid: caf156442b4394544a9a70faa637b2fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1044795371}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d22f69ff2e59914b99b65cf375ff614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1093541687
 GameObject:
   m_ObjectHideFlags: 0
@@ -20621,8 +20623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &1093541690
@@ -23041,8 +23042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &1107733730
@@ -25752,9 +25752,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
+      minMaxState: 0
       minColor: {r: 0.6367924, g: 0.92525446, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.4745098}
+      maxColor: {r: 0.018378438, g: 0.081016704, b: 0.5566038, a: 0.6431373}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -25816,8 +25816,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
-      minScalar: 0.1
+      scalar: 0.3
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -30284,8 +30284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &1172374498
@@ -31732,8 +31731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1386137057
@@ -31967,8 +31965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &1483433935
@@ -46255,14 +46252,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b656645077fc4624d87b09f8302a5ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
   TargetColor: {r: 0.022917405, g: 0.12253646, b: 0.9716981, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 436989068}
   Target: {fileID: 1144693847}
   Obstacle: {fileID: 2043036266}
-  CheckPoint: {fileID: 0}
+  CheckPoint: {fileID: 1044795373}
 --- !u!1 &1809508215
 GameObject:
   m_ObjectHideFlags: 3
@@ -46425,8 +46421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &1947905366
@@ -47620,8 +47615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionSpeed: 15
-  TargetColor: {r: 0.5943396, g: 0.55789423, b: 0.55789423, a: 1}
+  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &2042150685

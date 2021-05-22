@@ -190,7 +190,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.56078434, g: 0.82745105, b: 0.9568628, a: 0}
+  m_BackGroundColor: {r: 0.4764151, g: 0.8289277, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2185,7 +2185,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9630022, g: 1, b: 0.5990566, a: 1}
+      maxColor: {r: 0.9494922, g: 0.9716981, b: 0.1787558, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

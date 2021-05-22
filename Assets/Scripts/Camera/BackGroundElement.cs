@@ -5,34 +5,40 @@ using UnityEngine;
 
 public class BackGroundElement : MonoBehaviour
 {
-    public float deep = 1.0f;
-    public float deltaAlpha = 0.6f;
-    public float deltaScale = 0.6f;
-    private Camera mainCamera;
-    private Vector3 originCameraPosition;
-    private Vector3 originPos;
-    [SerializeField] private Vector3 moveOffset;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private float Depth;
+    [SerializeField]
+    private float DeltaAlpha = 0.5f;
+    [SerializeField]
+    private float DeltaScale = 0.5f;
+    private Camera MainCamera;
+    private Vector3 OriginalCameraPosition;
+    private Vector3 OriginalPos;
+    private Vector3 CameraOffset;
+    private SpriteRenderer m_SpriteRenderer;
+
     private void Awake()
     {
-        originPos = transform.localPosition;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        OriginalPos = transform.localPosition;
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        if (Depth ==0 ) 
+            Depth = Random.Range(2, 10);
     }
 
     private void Start()
     {
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - deltaAlpha / 75 * deep);
-        transform.localScale -= transform.localScale * deltaScale / 75 * deep;
+        m_SpriteRenderer.color = new Color(m_SpriteRenderer.color.r, m_SpriteRenderer.color.g, m_SpriteRenderer.color.b, 1 - DeltaAlpha / 75 * Depth);
+        m_SpriteRenderer.sortingOrder =(int) -Depth;
+        transform.localScale -= transform.localScale * DeltaScale / 10 * Depth;
 
 
-        originCameraPosition = Camera.main.transform.position;
-        mainCamera = Camera.main;
-        transform.position = mainCamera.transform.position;
+        OriginalCameraPosition = Camera.main.transform.position;
+        MainCamera = Camera.main;
+        transform.position = MainCamera.transform.position;
     }
     private void Update()
     {
-        moveOffset = mainCamera.transform.position - originCameraPosition;
-        Vector3 offset = moveOffset / deep + originPos;
+        CameraOffset = MainCamera.transform.position - OriginalCameraPosition;
+        Vector3 offset = CameraOffset / Depth + OriginalPos;
 
         transform.localPosition = offset;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 10);

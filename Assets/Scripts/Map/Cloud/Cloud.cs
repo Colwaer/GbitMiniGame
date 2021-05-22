@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 public class Cloud : MonoBehaviour
 {
-    public float CollisionSpeed = 16.8f;   //撞击云需要达到的速度
+    protected float CollisionSpeed;   //撞击云需要达到的速度
     [SerializeField] protected Color TargetColor;
     [SerializeField] protected float t_ChangeColor = 1f;
     private Tilemap m_Tilemap;
@@ -50,6 +50,7 @@ public class Cloud : MonoBehaviour
     }
     private void Start()
     {
+        CollisionSpeed = 16.8f;
         Active = true;
         StopAllCoroutines();
     }

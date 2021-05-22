@@ -33,7 +33,6 @@ public class PlayerController : Sigleton<PlayerController>
         Player = transform.Find("Player").gameObject;
         Pointer = transform.Find("Pointer").gameObject;
         m_Player = Player.GetComponent<CPlayer>();
-        Debug.Log("fineshed");
     }
 
     private void OnEnable()
