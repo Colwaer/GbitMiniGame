@@ -2,6 +2,13 @@
 
 public class CollideEffect : EffectOnPlayer
 {
+    private ParticleSystem ParticleSystem;
+
+    private void Awake()
+    {
+        ParticleSystem = GetComponent<ParticleSystem>();
+    }
+
     private void OnEnable()
     {
         CEventSystem.Instance.CollideCloud += PlayEffect;
@@ -11,4 +18,8 @@ public class CollideEffect : EffectOnPlayer
         CEventSystem.Instance.CollideCloud -= PlayEffect;
     }
 
+    protected override void Effect()
+    {
+        ParticleSystem.Play();
+    }
 }

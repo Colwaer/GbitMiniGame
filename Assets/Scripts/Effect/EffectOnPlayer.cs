@@ -2,17 +2,16 @@
 
 public class EffectOnPlayer : MonoBehaviour
 {
-    internal ParticleSystem Effect;
-
-    private void Awake()
+    protected void PlayEffect()
     {
-        Effect = GetComponent<ParticleSystem>();
-    }
-
-    protected virtual void PlayEffect()
-    {
+        PlayerController.Instance.FollowPlayer(transform);
         transform.eulerAngles = new Vector3(0, 0, -Public.CTool.Direction2Angle(PlayerController.Instance.Direction));
-        transform.position = PlayerController.Instance.m_Player.transform.position;
-        Effect.Play();
+        Effect();
     }
+
+    protected virtual void Effect()
+    {
+
+    }
+
 }

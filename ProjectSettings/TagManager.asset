@@ -19,7 +19,7 @@ TagManager:
   - Ground
   - Item
   - Zone
-  - 
+  - BackGround
   - 
   - 
   - 
@@ -41,11 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: background
+    uniqueID: 779819903
+    locked: 0
   - name: player
     uniqueID: 159074645
     locked: 0
   - name: platform
     uniqueID: 614918925
+    locked: 0
+  - name: sign
+    uniqueID: 2547826025
     locked: 0
   - name: item
     uniqueID: 3320038251

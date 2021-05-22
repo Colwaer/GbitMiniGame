@@ -6,24 +6,35 @@ using UnityEngine;
 public class BackGroundElement : MonoBehaviour
 {
     public float deep = 1.0f;
-    public Vector3 originScreenPosition;
+    public float deltaAlpha = 0.6f;
+    public float deltaScale = 0.6f;
     private Camera mainCamera;
     private Vector3 originCameraPosition;
+    private Vector3 originPos;
     [SerializeField] private Vector3 moveOffset;
-    
-    private void Start() 
+    private SpriteRenderer spriteRenderer;
+    private void Awake()
     {
+        originPos = transform.localPosition;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - deltaAlpha / 75 * deep);
+        transform.localScale -= transform.localScale * deltaScale / 75 * deep;
+
+
         originCameraPosition = Camera.main.transform.position;
         mainCamera = Camera.main;
-        transform.position = mainCamera.ScreenToWorldPoint(originScreenPosition);
-
-        
+        transform.position = mainCamera.transform.position;
     }
-    private void FixedUpdate()
+    private void Update()
     {
         moveOffset = mainCamera.transform.position - originCameraPosition;
-        Vector3 targetPosition = mainCamera.ScreenToWorldPoint(originScreenPosition + moveOffset * deep);
-        transform.position = targetPosition;
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        Vector3 offset = moveOffset / deep + originPos;
+
+        transform.localPosition = offset;
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 10);
     }
 }

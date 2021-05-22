@@ -10,7 +10,15 @@ public class PlayerController : Sigleton<PlayerController>
     internal GameObject Player;         //控制的角色
     internal CPlayer m_Player;          //控制的角色的脚本
     internal Vector3 MousePos;          //鼠标位置
-    internal Vector2 Direction;         //瞄准方向
+    //需要多次调用时，应先复制一份，然后访问复制的值
+    internal Vector2 Direction         
+    {
+        get
+        {
+            MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            return new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
+        }
+    }
 
     internal float t_ControlDirection = 1f;       //冲刺前的最大瞄准时间
 
@@ -25,6 +33,7 @@ public class PlayerController : Sigleton<PlayerController>
         Player = transform.Find("Player").gameObject;
         Pointer = transform.Find("Pointer").gameObject;
         m_Player = Player.GetComponent<CPlayer>();
+        Debug.Log("fineshed");
     }
 
     private void OnEnable()
@@ -50,7 +59,6 @@ public class PlayerController : Sigleton<PlayerController>
         if (!b_IsActive)
             return;
 
-        CalculateMouseDirection();
         m_Player.m_DesiredDirection = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Jump"))
         {
@@ -96,7 +104,12 @@ public class PlayerController : Sigleton<PlayerController>
         }
         m_Player.SwitchAnim();
     }
-    
+    //其他需要跟随玩家的物体调用此函数
+    public void FollowPlayer(Transform follower)
+    {
+        follower.position = Player.transform.position;
+    }
+
     public void PauseControl(float time)
     {
         StartCoroutine(PauseControl_(time));
@@ -109,12 +122,6 @@ public class PlayerController : Sigleton<PlayerController>
         b_IsActive = true;
     }
     
-    private void CalculateMouseDirection()
-    {
-        MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
-        Direction = new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
-    }
-
     private void OnSceneLoaded(int SceneIndex)
     {
         if (SceneIndex == 0)
