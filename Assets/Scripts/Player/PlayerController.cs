@@ -17,7 +17,7 @@ public class PlayerController : Sigleton<PlayerController>
     internal bool b_DemandToJump;
     internal bool b_DemandToShoot;
     internal bool b_IntendToShoot;
-    [SerializeField] private bool b_TestMode;
+    public bool b_TestMode;
 
     protected override void Awake()
     {

@@ -53,6 +53,7 @@ public class Cloud_Movable : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             b_PlayerOnCloud = false;
+            Player.GetComponent<Rigidbody2D>().velocity += Speed * Direction;
         }
     }
     protected virtual IEnumerator Move()

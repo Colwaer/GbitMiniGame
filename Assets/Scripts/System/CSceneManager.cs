@@ -49,7 +49,7 @@ public class CSceneManager : Sigleton<CSceneManager>
         AsyncOperation Async_LoadScene = LoadSceneAsync(index);
         switch (Index)  //Index是上一场景的序号
         {
-            case 0:
+            case -1:
                 loadScenePrefab.gameObject.SetActive(true);
                 Async_LoadScene.allowSceneActivation = false;
                 for (; !Async_LoadScene.isDone;)

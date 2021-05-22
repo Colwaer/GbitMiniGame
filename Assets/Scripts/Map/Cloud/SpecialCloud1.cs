@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class SpecialCloud1 : Cloud
 {
-    public WindArea WindArea;
-    public Transform Target;
-    public GameObject Obstacle;
-    public Checkpoint spawnPoint;
+    public WindArea WindArea;       //要激活(关闭)的气流
+    public Transform Target;        //相机暂时移动到的目的地
+    public GameObject Obstacle;     //要摧毁的障碍物
+    public Checkpoint CheckPoint;   //要重生到的记录点
 
     protected override bool Active
     {
@@ -19,13 +19,12 @@ public class SpecialCloud1 : Cloud
             _Active = value;
             if (value)
             {
-                WindArea.Count = 0;
                 StopAllCoroutines();
                 StartCoroutine(ChangeColor(Color.white, t_ChangeColor));
             }
             else
             {
-                WindArea.Count = 1;
+                if (WindArea != null) WindArea.Count += 1;
                 StopAllCoroutines();
                 StartCoroutine(ChangeColor(TargetColor, t_ChangeColor));
                 if(Target!=null)
@@ -33,17 +32,20 @@ public class SpecialCloud1 : Cloud
                     CCameraController CameraController = Camera.main.GetComponentInChildren<CCameraController>();
                     CameraController.StartFollow(Target, 2.5f);
                     PlayerController.Instance.PauseControl(2.5f);
-                    StartCoroutine(SpawnPlayer(1.0f));
                 }
                 if (Obstacle != null) 
                     Destroy(Obstacle);
+                if(CheckPoint!= null)
+                {
+                    StartCoroutine(SpawnPlayer(1.0f));
+                }
             }
         }
     }
     IEnumerator SpawnPlayer(float time)
     {
         yield return new WaitForSeconds(time);
-        spawnPoint.Spawn();
+        CheckPoint.Spawn();
     }
     //不会被重置
     protected override void OnEnable()
@@ -61,17 +63,12 @@ public class SpecialCloud1 : Cloud
             return;
         if (other.collider.CompareTag("Player"))
         {
-            //不能先判断有没有落地
             if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
             {
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
-                
             }
-            else if (PlayerController.Instance.m_Player.OnGround)
-            {
-                CEventSystem.Instance.TouchGround?.Invoke();
-            }   
+            //踩上去不会将冲刺次数重置为1
         }
     }
 }

@@ -8139,6 +8139,7 @@ MonoBehaviour:
   _ShootCount: 0
   PlayerAnim: {fileID: 315168163}
   BottleAnim: {fileID: 466731093}
+  RaycastLength_Ground: 1.15
   statusindex: 0
   _OnGround: 0
   m_Velocity_LastFrame: {x: 0, y: 0}

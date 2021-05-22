@@ -5,7 +5,7 @@ using System;
 
 public class CPlayer : MonoBehaviour, IPlayer
 {
-    internal float Speed { get; private set; }
+    internal float Speed { get; set; }
     internal float DashSpeed { get; private set; }
     internal float JumpHeight { get; private set; }
     private float MaxFallSpeed;
@@ -39,7 +39,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     private LayerMask GroundLayer;
     internal Rigidbody2D m_RigidBody;
 
-    private float RaycastLength_Ground = 1.15f;
+    [SerializeField] private float RaycastLength_Ground = 1.15f;
     const float OriginRaycastLength_Ground = 1.15f;
     private float RaycastLength_CloseToGround = 3.5f;
 
@@ -88,13 +88,9 @@ public class CPlayer : MonoBehaviour, IPlayer
     private float sgn_x;
     private float sgn_y;
 
-    private void Awake()
-    {
-        Initialize();
-    }
-
     private void OnEnable()
     {
+        Initialize();
         CEventSystem.Instance.CollideCloud += OnCollideCloud;
         CEventSystem.Instance.TouchGround += OnTouchGround;
         CEventSystem.Instance.SceneLoaded += OnSceneLoaded;
@@ -118,7 +114,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         MaxFallSpeed = 10f;
         MaxRiseSpeed = 20f;
         JumpHeight = 3.5f;
-        t_Dash = 0.15f;
+        t_Dash = 0.16f;
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
     }
@@ -138,7 +134,17 @@ public class CPlayer : MonoBehaviour, IPlayer
     }
     private void OnSceneLoaded(int index)
     {
+        if(index==0)
+        {
+            //让玩家再次初始化
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
         KeyCount = 0;
+        if (PlayerController.Instance.b_TestMode) KeyCount = 2;
     }
 
     public void PhysicsCheck()
@@ -202,6 +208,7 @@ public class CPlayer : MonoBehaviour, IPlayer
 
         RaycastLength_Ground = OriginRaycastLength_Ground;
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
+        Debug.Log(Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
     }
     //direction是喷射方向，也就是冲刺的反方向
     public void Shoot(Vector2 direction)
@@ -251,7 +258,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         ShootCount = 0;
         CEventSystem.Instance.PlayerDie?.Invoke();
     }
-    //statusindex是动画器参数，0对应idle，1对应startwalk，2对应walk,3对应jump，4对应drop,5对应dash
+    //statusindex是动画器参数，0对应idle，1对应startwalk，2对应walk,3对应jump，4对应drop,5对应dash,6对应droponground
     public void SwitchAnim()
     {
         //改变的是所在物体而不是图片的Scale
@@ -274,7 +281,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         {
             if (sgn_y > 0) statusindex = 3;
             else if (b_CloseToGround)
-                statusindex = 0;    //播放落地动画
+                statusindex = 6;    //播放落地动画
             else
                 statusindex = 4;
         }
