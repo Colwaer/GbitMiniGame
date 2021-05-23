@@ -10,7 +10,7 @@ public class Cloud : MonoBehaviour
     private Tilemap m_Tilemap;
 
     [SerializeField] protected bool _Active; 
-    protected virtual bool Active
+    public virtual bool Active
     {
         get
         {

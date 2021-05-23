@@ -14,9 +14,9 @@ namespace Public
                 yield return null;
         }
         public static Vector2 RandomVector2()
-            => new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
+            => new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         public static Vector3 RandomVector3()
-            => new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
+            => new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
         //恰好适配transform.eulerangles.z到方向矢量的转换，其他转换需要调试出这个变化的系数和常数
         public static Vector2 Angle2Direction(float angle)
             => new Vector2(-Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
@@ -39,15 +39,51 @@ namespace Public
                 Destroy(gameObject);
         }
     }
-    //会受到玩家伤害的单位继承此接口
-    public interface IDamagable
-    {
-        void Die();
-    }
     //玩家继承此接口
     public interface IPlayer
     {
         void Die();
+    }
+    //为背景成随机数
+    public class Random_Background
+    {
+        public static bool[] Nums = new bool[40];
+        public static int RandomDepth()
+        {
+            int num = Random.Range(10, 40);
+            for (; Nums[num];)
+            {
+                num = Random.Range(10, 40);
+            }
+            Nums[num] = true;
+            return num / 2;
+        }
+        public static float RandomAlphaRandge() => Random.Range(0.4f, 0.6f);
+        public static float RandomScaleRandge() => Random.Range(0.6f, 0.8f);
+
+        public static bool[] Blocks= new bool[25];      //交叉点是否被使用过
+        public static Vector3 RandomPos()
+        {
+            int num = Random.Range(0, 25);
+            for(; Blocks[num];)
+            {
+                num = Random.Range(0, 25);
+            }
+            Blocks[num] = true;
+            Vector2 pos = new Vector2(num / 5 * 10f - 5f, num % 5 * 10f - 25f) + CTool.Angle2Direction(Random.Range(0,360))*Random.Range(0,3);
+            return pos; 
+        }
+        public static void Reset()
+        {
+            for (int i = 0; i < 40; i++)
+            {
+                Nums[i] = false;
+            }
+            for (int i = 0; i < 25; i++)
+            {
+                Blocks[i] = false;
+            }
+        }
     }
 }
 

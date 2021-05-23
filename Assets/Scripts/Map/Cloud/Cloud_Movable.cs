@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//单向移动的云
+//单向移动的云，不能从中获得冲刺次数
 public class Cloud_Movable : MonoBehaviour
 {
     public float Speed = 10f;
