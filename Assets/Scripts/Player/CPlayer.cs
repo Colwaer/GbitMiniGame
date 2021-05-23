@@ -5,7 +5,7 @@ using System;
 
 public class CPlayer : MonoBehaviour, IPlayer
 {
-    internal float Speed { get; set; }
+    internal float Speed { get; private set; }
     internal float DashSpeed { get; private set; }
     internal float JumpHeight { get; private set; }
     private float MaxFallSpeed;
@@ -77,10 +77,32 @@ public class CPlayer : MonoBehaviour, IPlayer
             }
         }
     }
+    [SerializeField] private bool _InWindArea;
+    internal bool InWindArea
+    {
+        get
+        {
+            return _InWindArea;
+        }
+        set
+        {
+            _InWindArea = value;
+            if (value)
+            {
+                m_RigidBody.gravityScale = 0f;
+            }
+            else
+            {
+                m_RigidBody.gravityScale = 1f;
+            }
+        }
+    }
+
     internal bool b_CloseToGround = false;  //仅用于动画
     internal bool b_IsMoving = false;
     internal bool b_isDashing = false;
     internal bool b_CanShoot = true;          //射击冷却完毕
+
     internal float m_DesiredDirection;
     public Vector2 m_Velocity_LastFrame;    //上一固定帧中的速度
     private float v_x;
@@ -115,9 +137,10 @@ public class CPlayer : MonoBehaviour, IPlayer
         MaxRiseSpeed = 20f;
         JumpHeight = 3.5f;
         t_Dash = 0.16f;
+        KeyCount = 0;
         m_RigidBody = GetComponent<Rigidbody2D>();
         GroundLayer = LayerMask.GetMask("Ground");
-        m_RigidBody.gravityScale = 1f;
+        InWindArea = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -135,16 +158,11 @@ public class CPlayer : MonoBehaviour, IPlayer
     }
     private void OnSceneLoaded(int index)
     {
-        if(index==0)
-        {
-            //让玩家再次初始化
-            gameObject.SetActive(false);
-        }
-        else
+        gameObject.SetActive(false);
+        if (index > 0)
         {
             gameObject.SetActive(true);
         }
-        KeyCount = 0;
         if (PlayerController.Instance.b_TestMode) KeyCount = 2;
     }
 
@@ -176,6 +194,10 @@ public class CPlayer : MonoBehaviour, IPlayer
         if (m_DesiredDirection == 0) accelarateDirection = 0;
         else if (m_DesiredDirection * sgn_x > 0) accelarateDirection = 1;
         else accelarateDirection = -1;
+        v_x += accelarateDirection * Speed / frame_Accelerate;
+
+        if (InWindArea)
+            return;
 
         if (OnGround)
         {
@@ -194,7 +216,6 @@ public class CPlayer : MonoBehaviour, IPlayer
                 v_y = MaxRiseSpeed;
         }
         //水平速度不能超过Speed
-        v_x += accelarateDirection * Speed / frame_Accelerate;
         if (v_x > Speed) v_x = Speed;
 
         m_RigidBody.velocity = new Vector2(sgn_x * v_x,sgn_y * v_y);

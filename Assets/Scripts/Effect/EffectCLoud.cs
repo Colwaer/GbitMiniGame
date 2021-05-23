@@ -21,8 +21,12 @@ public class EffectCLoud : MonoBehaviour
         DefaultScale = transform.localScale;
     }
 
-    private void Start()
+    private void OnEnable()
     {
+        m_Renderer.color = DefaultColor;
+        transform.localScale = DefaultScale;
+        transform.eulerAngles = Vector3.zero;
+        PlayerController.Instance?.FollowPlayer(transform);
         StartCoroutine(Fade());
     }
 
@@ -38,5 +42,6 @@ public class EffectCLoud : MonoBehaviour
             transform.eulerAngles = new Vector3(0f, 0f, percent * TargetAndle);
             yield return null;
         }
+        gameObject.SetActive(false);
     }
 }

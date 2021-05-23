@@ -18,6 +18,7 @@ public class BackGroundElement : MonoBehaviour
 
     private void Awake()
     {
+        MainCamera = Camera.main;
         OriginalPos = transform.localPosition;
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         if (Depth ==0 ) 
@@ -30,11 +31,9 @@ public class BackGroundElement : MonoBehaviour
         m_SpriteRenderer.sortingOrder =(int) -Depth;
         transform.localScale -= transform.localScale * DeltaScale / 10 * Depth;
 
-
-        OriginalCameraPosition = Camera.main.transform.position;
-        MainCamera = Camera.main;
-        transform.position = MainCamera.transform.position;
+        OriginalCameraPosition = MainCamera.transform.position;
     }
+
     private void Update()
     {
         CameraOffset = MainCamera.transform.position - OriginalCameraPosition;
