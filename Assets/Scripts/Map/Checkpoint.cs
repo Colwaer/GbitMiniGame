@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Checkpoint : MonoBehaviour
         set
         {
             _Active = value;
-            if(value)
+            if (value)
             {
                 m_SpriteRenderer.color = Color.green;
                 GameManager.Instance.SaveGame();
@@ -22,7 +23,7 @@ public class Checkpoint : MonoBehaviour
             else
             {
                 m_SpriteRenderer.color = Color.red;
-            }    
+            }
         }
     }
 
@@ -49,14 +50,18 @@ public class Checkpoint : MonoBehaviour
     {
         PlayerController.Instance.m_Player.transform.position = transform.position;
     }
-
+    // IEnumerator IESpawn(float time)
+    // {
+    //     yield return new WaitForSeconds(time);
+        
+    // }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!Active)
+        if (!Active)
         {
             //if (GameManager.Instance.ActiveCheckpointIndex > GameManager.Instance.GetCheckPointIndex(this)) return;
 
-            if(collision.CompareTag("Player"))
+            if (collision.CompareTag("Player"))
             {
                 //设置新的记录点时，先禁用（只是修改Active属性）所有检查点
                 CEventSystem.Instance.CheckPointChanged?.Invoke();
@@ -64,7 +69,7 @@ public class Checkpoint : MonoBehaviour
             }
         }
     }
-    
+
     private void OnCheckPointChanged()
     {
         Active = false;
