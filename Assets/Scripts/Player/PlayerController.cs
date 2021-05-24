@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerController : Sigleton<PlayerController>
+public class PlayerController : Singleton<PlayerController>
 {
     private bool b_IsActive = false;            //是否启用控制器
 

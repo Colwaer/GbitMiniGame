@@ -4,7 +4,7 @@ using UnityEngine;
 public class EffectCLoud : MonoBehaviour
 {
     private float t_Fade = 1f;
-    private float count_Fade;
+    private float timer;
     private SpriteRenderer m_Renderer;
     private Color DefaultColor;
     [SerializeField] 
@@ -32,11 +32,11 @@ public class EffectCLoud : MonoBehaviour
 
     private IEnumerator Fade()
     {
-        count_Fade = 0f;
+        timer = 0f;
         float percent = 0f;
-        for (; percent < 1f; count_Fade += Time.deltaTime)
+        for (; percent < 1f; timer += Time.deltaTime)
         {
-            percent = count_Fade / t_Fade;
+            percent = timer / t_Fade;
             m_Renderer.color = Color.Lerp(DefaultColor, TargetColor, percent);
             transform.localScale = Vector3.Lerp(DefaultScale, TargetScale, percent);
             transform.eulerAngles = new Vector3(0f, 0f, percent * TargetAndle);

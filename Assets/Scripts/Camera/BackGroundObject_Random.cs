@@ -47,7 +47,7 @@ public class BackGroundObject_Random : MonoBehaviour
     private void Update()
     {
         CameraOffset = MainCamera.transform.position - OriginalCameraPosition;
-        Vector3 offset = CameraOffset / Depth + OriginalPos;
+        Vector3 offset = -CameraOffset / Depth + OriginalPos;
         transform.localPosition = offset;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 10);
     }

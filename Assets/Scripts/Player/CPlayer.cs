@@ -44,7 +44,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     private float RaycastLength_CloseToGround = 3.5f;
 
     private Vector3 RaycastOffset = new Vector3(0.4f, 0);
-    private Coroutine ie_Dash;            //冲刺协程
+    private Coroutine co_Dash;            //冲刺协程
 
     [Header("状态")]
     [SerializeField] private int statusindex;
@@ -239,7 +239,7 @@ public class CPlayer : MonoBehaviour, IPlayer
         ShootCount--;
         if (!b_CanShoot)
             return;
-        ie_Dash = StartCoroutine(Dash(-direction));
+        co_Dash = StartCoroutine(Dash(-direction));
         CEventSystem.Instance.PlayerShoot?.Invoke();
         StartCoroutine(ShootCoolDown());
     }
@@ -268,7 +268,7 @@ public class CPlayer : MonoBehaviour, IPlayer
     }
     public void StopDash()
     {
-        if (b_isDashing && ie_Dash != null) StopCoroutine(ie_Dash);
+        if (b_isDashing && co_Dash != null) StopCoroutine(co_Dash);
         b_isDashing = false;
         m_RigidBody.gravityScale = 1;
     }

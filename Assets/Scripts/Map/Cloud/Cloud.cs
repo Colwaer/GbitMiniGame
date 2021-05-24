@@ -10,6 +10,7 @@ public class Cloud : MonoBehaviour
     private Tilemap m_Tilemap;
 
     [SerializeField] protected bool _Active; 
+    //true表示未变色，可以撞击其获取云
     public virtual bool Active
     {
         get

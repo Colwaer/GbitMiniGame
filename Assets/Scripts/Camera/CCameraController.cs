@@ -15,7 +15,6 @@ public class CCameraController : MonoBehaviour
     private CinemachineVirtualCamera m_VirtualCamera;
     private CinemachineConfiner m_Confiner;
     private Transform transform_Player;
-    private Coroutine ie_CameraShake;
 
     public float shakeTime, shakeFrequency, shakeDistance;
 
@@ -78,17 +77,5 @@ public class CCameraController : MonoBehaviour
         m_VirtualCamera.m_Lens.OrthographicSize = targetSize;    
         m_VirtualCamera.m_Lens.LensShift = DefaultLensShift;
     }
-    // private void Shake()
-    // {
-    //     if (ie_CameraShake != null)
-    //     {
-    //         StopCoroutine(ie_CameraShake);
-    //         ie_CameraShake = StartCoroutine(CameraShake(shakeFrequency, shakeDistance, shakeTime));
-    //     }
-    //     else
-    //     {
-    //         ie_CameraShake = StartCoroutine(CameraShake(shakeFrequency, shakeDistance, shakeTime));
-    //     }
-    // }
    
 }

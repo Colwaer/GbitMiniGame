@@ -4,7 +4,7 @@ using Public;
 using UnityEngine.UI;
 using static UnityEngine.SceneManagement.SceneManager;
 
-public class CSceneManager : Sigleton<CSceneManager>
+public class CSceneManager : Singleton<CSceneManager>
 {
     private const int MAXINDEX = 4;
     //当前关的index

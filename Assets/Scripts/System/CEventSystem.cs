@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 
 //此脚本所属游戏物体应当被最先生成
-public class CEventSystem : Sigleton<CEventSystem>
+public class CEventSystem : Singleton<CEventSystem>
 {
     public Action<int> SceneLoaded;
     public Action ScenePassed;              //通过了当前场景

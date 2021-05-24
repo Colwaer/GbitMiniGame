@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 
 //通过这个类和存档交互
-public class GameManager : Public.Sigleton<GameManager>
+public class GameManager : Public.Singleton<GameManager>
 {
     public string SavePath;
     [SerializeField]
