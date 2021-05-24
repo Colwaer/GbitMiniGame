@@ -44,6 +44,9 @@ TagManager:
   - name: background
     uniqueID: 779819903
     locked: 0
+  - name: building
+    uniqueID: 1127603877
+    locked: 0
   - name: player
     uniqueID: 159074645
     locked: 0

@@ -10,9 +10,7 @@ public class WindArea : MonoBehaviour
     [SerializeField] private Vector2 Direction;
     [SerializeField] private float Force = 60f; //重力为26f
     [SerializeField] private bool b_Active_WindArea;    //气流区域初始状态
-    private float Speed_Default;                        //默认水平最大速度
-    [SerializeField] private float Speed_New = 20f;     //气流区域中新的水平最大速度
-
+    private float Speed_New;                            //气流区域中的限速
     public int Count
     {
         get
@@ -38,7 +36,7 @@ public class WindArea : MonoBehaviour
         m_BoxCollider.enabled = b_Active_WindArea;
         Direction = Public.CTool.Angle2Direction(transform.eulerAngles.z);
         m_Player = PlayerController.Instance.m_Player;
-        Speed_Default = PlayerController.Instance.m_Player.Speed;
+        Speed_New = Force;
     }
 
     private void Start()
@@ -53,7 +51,7 @@ public class WindArea : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            m_Player.Speed = Speed_New;
+            m_Player.InWindArea =true;
         }
     }
 
@@ -61,7 +59,7 @@ public class WindArea : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            m_Player.Speed = Speed_Default;
+            m_Player.InWindArea = false;
         }
     }
 
@@ -69,8 +67,8 @@ public class WindArea : MonoBehaviour
     {
         if (collosion.CompareTag("Player"))
         {
-            m_Player.Speed = Speed_New;
-            collosion.attachedRigidbody.AddForce(Direction*Force,ForceMode2D.Force);
+            m_Player.InWindArea = true;
+            collosion.attachedRigidbody.AddForce(Direction*Force*(Speed_New-collosion.attachedRigidbody.velocity.magnitude)/Speed_New,ForceMode2D.Force);
         }    
     }
 

@@ -33,7 +33,6 @@ public class PlayerController : Sigleton<PlayerController>
         Player = transform.Find("Player").gameObject;
         Pointer = transform.Find("Pointer").gameObject;
         m_Player = Player.GetComponent<CPlayer>();
-        Debug.Log("fineshed");
     }
 
     private void OnEnable()
@@ -107,7 +106,8 @@ public class PlayerController : Sigleton<PlayerController>
     //其他需要跟随玩家的物体调用此函数
     public void FollowPlayer(Transform follower)
     {
-        follower.position = Player.transform.position;
+        if(Player!= null)
+            follower.position = Player.transform.position;
     }
 
     public void PauseControl(float time)

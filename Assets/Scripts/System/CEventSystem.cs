@@ -16,5 +16,11 @@ public class CEventSystem : Sigleton<CEventSystem>
     public Action CollideCloud;
     public Action TouchGround;
     public Action PlayerShoot;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        ScenePassed += Random_Background.Reset;
+    }
 }
 

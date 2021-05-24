@@ -8,7 +8,7 @@ public class SpecialCloud1 : Cloud
     public GameObject Obstacle;     //要摧毁的障碍物
     public Checkpoint CheckPoint;   //要重生到的记录点
 
-    protected override bool Active
+    public override bool Active
     {
         get
         {
