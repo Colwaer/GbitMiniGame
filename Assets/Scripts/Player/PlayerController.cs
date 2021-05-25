@@ -46,16 +46,6 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            b_IsActive = false;
-            CEventSystem.Instance.StartExplore?.Invoke();
-        }
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            b_IsActive = true;
-            CEventSystem.Instance.EndExplore?.Invoke();
-        }
 
         // Debug.Log("GetMask : " + LayerMask.GetMask("Ground") + "Name to Mask : " + LayerMask.NameToLayer("Ground"));
         if (b_TestMode)  //调试用

@@ -16,8 +16,6 @@ public class CEventSystem : Singleton<CEventSystem>
     public Action CollideCloud;
     public Action TouchGround;
     public Action PlayerShoot;
-    public Action StartExplore;
-    public Action EndExplore;
     protected override void Awake()
     {
         base.Awake();
