@@ -106,16 +106,16 @@ public class GameManager : Public.Singleton<GameManager>
 
     private void StartSpwan(int index)
     {
+        if (index == 0) return;
         StartCoroutine(StartSpawn_(index));
     }
     private IEnumerator StartSpawn_(int index)
     {
         //默认在0号记录点出生，在此之后再在指定的出生点重生
-        for (; ActiveCheckpointIndex != 0;)
+        for (; ActiveCheckpointIndex != 0 || Checkpoints[index] == null;)
         {
             yield return null;
         }
-        Debug.Log(index + " spawn index");
         Checkpoints[index].Spawn();
     }
 
