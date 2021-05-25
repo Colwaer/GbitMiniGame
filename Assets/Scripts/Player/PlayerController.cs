@@ -11,7 +11,7 @@ public class PlayerController : Singleton<PlayerController>
     internal CPlayer m_Player;          //控制的角色的脚本
     internal Vector3 MousePos;          //鼠标位置
     //需要多次调用时，应先复制一份，然后访问复制的值
-    internal Vector2 Direction         
+    internal Vector2 Direction
     {
         get
         {
@@ -46,6 +46,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
+
         // Debug.Log("GetMask : " + LayerMask.GetMask("Ground") + "Name to Mask : " + LayerMask.NameToLayer("Ground"));
         if (b_TestMode)  //调试用
         {
@@ -63,7 +64,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             b_DemandToJump = true;
         }
-            
+
         if (Input.GetMouseButtonDown(0) && m_Player.ShootCount > 0 && !b_IntendToShoot)
         {
             b_IntendToShoot = true;
@@ -77,7 +78,7 @@ public class PlayerController : Singleton<PlayerController>
             Time.timeScale = 1f;
             b_DemandToShoot = true;
         }
-        if(Input.GetMouseButtonDown(1) && b_IntendToShoot)
+        if (Input.GetMouseButtonDown(1) && b_IntendToShoot)
         {
             b_IntendToShoot = false;
             Pointer.SetActive(false);
@@ -106,7 +107,7 @@ public class PlayerController : Singleton<PlayerController>
     //其他需要跟随玩家的物体调用此函数
     public void FollowPlayer(Transform follower)
     {
-        if(Player!= null)
+        if (Player != null)
             follower.position = Player.transform.position;
     }
 
@@ -121,7 +122,7 @@ public class PlayerController : Singleton<PlayerController>
         yield return CTool.Wait(time);
         b_IsActive = true;
     }
-    
+
     private void OnSceneLoaded(int SceneIndex)
     {
         if (SceneIndex == 0)

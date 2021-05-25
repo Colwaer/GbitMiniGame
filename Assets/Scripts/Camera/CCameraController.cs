@@ -8,7 +8,7 @@ public class CCameraController : MonoBehaviour
 {
     private const float ScaleToCameraSize = 0.28f;
     private float t_Normalize = 1f;         //恢复跟随玩家需要的时间
-   
+
     private float DefaultSize;              //默认相机大小     
     private Vector2 DefaultLensShift;       //默认相机速度
 
@@ -17,7 +17,8 @@ public class CCameraController : MonoBehaviour
     private Transform transform_Player;
 
     public float shakeTime, shakeFrequency, shakeDistance;
-
+    public bool b_EnableChangeConfiner = true;
+    private PolygonCollider2D lastConfiner;
     private void Awake()
     {
         m_VirtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -30,7 +31,19 @@ public class CCameraController : MonoBehaviour
 
     public void ChangeConfiner(PolygonCollider2D polygonCollider)
     {
+        if (!b_EnableChangeConfiner)
+        {
+            lastConfiner = polygonCollider;
+            return;
+        }
+        if (!lastConfiner)
+            lastConfiner = polygonCollider;
         m_Confiner.m_BoundingShape2D = polygonCollider;
+    }
+    public void SwitchToLastConfiner()
+    {
+        if (lastConfiner != null)
+            m_Confiner.m_BoundingShape2D = lastConfiner;
     }
 
     public void FollowPlayer()
@@ -41,9 +54,9 @@ public class CCameraController : MonoBehaviour
 
     public void StartFollow(Transform target, float time)
     {
-        StartCoroutine(Follow(target,time));
+        StartCoroutine(Follow(target, time));
     }
-    private IEnumerator Follow(Transform target,float time)
+    private IEnumerator Follow(Transform target, float time)
     {
         PolygonCollider2D tempPolygonCollider = m_Confiner.m_BoundingShape2D as PolygonCollider2D;
         m_Confiner.m_BoundingShape2D = null;
@@ -68,14 +81,14 @@ public class CCameraController : MonoBehaviour
         m_VirtualCamera.m_Lens.LensShift = DefaultLensShift / 5;
         m_VirtualCamera.Follow = cameraArea;
         float value = m_VirtualCamera.m_Lens.OrthographicSize;
-        
+
         for (float timer = 0; timer <= time; timer += Time.deltaTime)
         {
             m_VirtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(value, targetSize, Mathf.Sqrt(timer / time));
             yield return null;
         }
-        m_VirtualCamera.m_Lens.OrthographicSize = targetSize;    
+        m_VirtualCamera.m_Lens.OrthographicSize = targetSize;
         m_VirtualCamera.m_Lens.LensShift = DefaultLensShift;
     }
-   
+
 }
