@@ -223,10 +223,10 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     public void Jump()
     {
-        //Debug.Log(RaycastLength_Ground.ToString() + " "  + OnGround.ToString());
-
         if (!OnGround) 
             return;
+
+        CAudioController.Instance.PlaySound(ESound.Jump);
 
         RaycastLength_Ground = OriginRaycastLength_Ground;
         m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Sqrt(JumpHeight * -Physics2D.gravity.y * 2));
@@ -253,6 +253,8 @@ public class CPlayer : MonoBehaviour, IPlayer
     //冲刺时不能主动移动，也不受重力影响
     public IEnumerator Dash(Vector2 direction)
     {
+        CAudioController.Instance.PlaySound(ESound.Dash);
+
         RaycastLength_Ground = OriginRaycastLength_Ground;
         b_isDashing = true;
         m_RigidBody.gravityScale = 0;

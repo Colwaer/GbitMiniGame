@@ -51,7 +51,7 @@ public class WindArea : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            m_Player.InWindArea =true;
+            CAudioController.Instance.PlaySound(ESound.Wind);
         }
     }
 
@@ -59,7 +59,7 @@ public class WindArea : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            m_Player.InWindArea = false;
+            CAudioController.Instance.StopSound(ESound.Wind);
         }
     }
 
@@ -67,7 +67,6 @@ public class WindArea : MonoBehaviour
     {
         if (collosion.CompareTag("Player"))
         {
-            m_Player.InWindArea = true;
             collosion.attachedRigidbody.AddForce(Direction*Force*(Speed_New-collosion.attachedRigidbody.velocity.magnitude)/Speed_New,ForceMode2D.Force);
         }    
     }
