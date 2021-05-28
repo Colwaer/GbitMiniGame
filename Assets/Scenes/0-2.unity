@@ -1766,7 +1766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4df7a36263b0f46b9cd0aa9f200fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
+  TargetColor: {r: 0.6320754, g: 0.5217604, b: 0.6100124, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -2013,7 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
+  TargetColor: {r: 0.8290317, g: 0.8490566, b: 0.8490566, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &208668959
@@ -2141,7 +2141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
+  TargetColor: {r: 0.8290317, g: 0.8490566, b: 0.8490566, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &228468351
@@ -24169,7 +24169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4df7a36263b0f46b9cd0aa9f200fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
+  TargetColor: {r: 0.6320754, g: 0.5217604, b: 0.6100124, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -24318,7 +24318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
+  TargetColor: {r: 0.8290317, g: 0.8490566, b: 0.8490566, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!66 &293236082
@@ -39110,7 +39110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
+  TargetColor: {r: 0.8290317, g: 0.8490566, b: 0.8490566, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &508108382
@@ -43892,8 +43892,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538561517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.889999, y: -7.2200003, z: 23.62}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
+  m_LocalPosition: {x: 3.98, y: -7.05, z: 23.62}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 801965182}
   m_RootOrder: 0
@@ -43952,8 +43952,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 779819903
   m_SortingLayer: 1
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1419487527222451476, guid: df2407b896fbae14b8cdb9f745efc356,
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 6686179981640315609, guid: b596cfaefbbac1e4ba061d72bfec3aff,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -44703,8 +44703,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 877, y: -353.2}
-  m_SizeDelta: {x: 1333.9491, y: 345.8523}
+  m_AnchoredPosition: {x: 800.4, y: -353.2}
+  m_SizeDelta: {x: 1487.1315, y: 345.8523}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1052632115
 MonoBehaviour:
@@ -46802,7 +46802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4df7a36263b0f46b9cd0aa9f200fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
+  TargetColor: {r: 0.6320754, g: 0.5217604, b: 0.6100124, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -47022,8 +47022,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1083, y: 58.4}
-  m_SizeDelta: {x: 1333.9491, y: 368.60754}
+  m_AnchoredPosition: {x: -1155.1, y: 58.4}
+  m_SizeDelta: {x: 1478.1202, y: 368.60754}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305969909
 MonoBehaviour:
@@ -48911,7 +48911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4df7a36263b0f46b9cd0aa9f200fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
+  TargetColor: {r: 0.6320754, g: 0.5217604, b: 0.6100124, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}
@@ -58373,7 +58373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
+  TargetColor: {r: 0.8290317, g: 0.8490566, b: 0.8490566, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1001 &1439100817
@@ -60064,7 +60064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
+  TargetColor: {r: 0.8290317, g: 0.8490566, b: 0.8490566, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1638431723
@@ -73811,7 +73811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26378cd8effe2e745a07247fb27487ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.7877358, g: 1, b: 0.9927637, a: 1}
+  TargetColor: {r: 0.8290317, g: 0.8490566, b: 0.8490566, a: 1}
   t_ChangeColor: 1
   _Active: 0
 --- !u!1 &1747539437
@@ -75521,7 +75521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4df7a36263b0f46b9cd0aa9f200fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetColor: {r: 0.9245283, g: 0.48406905, b: 0.8337805, a: 1}
+  TargetColor: {r: 0.6320754, g: 0.5217604, b: 0.6100124, a: 1}
   t_ChangeColor: 1
   _Active: 0
   WindArea: {fileID: 208668960}

@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DieEffect : MonoBehaviour
+public class DieEffect : EffectOnPlayer
 {
-    private ParticleSystem effect;
+    [SerializeField] private ParticleSystem m_Effect;
     private void Start()
     {
-        effect = GetComponentInChildren<ParticleSystem>();
+        m_Effect = GetComponent<ParticleSystem>();
     }
     private void OnEnable()
     {
-        CEventSystem.Instance.PlayerDie += EnableEffect;
+        CEventSystem.Instance.PlayerDie += PlayEffect;
     }
     private void OnDisable()
     {
-        CEventSystem.Instance.PlayerDie -= EnableEffect;
+        CEventSystem.Instance.PlayerDie -= PlayEffect;
     }
-    public void EnableEffect()
+    protected override void Effect()
     {
-        effect.transform.position = PlayerController.Instance.m_Player.transform.position;
-        effect.Play();
+        m_Effect.Play();
     }
 }

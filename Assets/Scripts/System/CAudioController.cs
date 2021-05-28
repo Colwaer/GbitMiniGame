@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ESound
 {
-    Jump,Dash,Wind
+    Jump,Dash,Wind,GetStar
 }
 public class CAudioController : Singleton<CAudioController>
 {
@@ -35,6 +35,7 @@ public class CAudioController : Singleton<CAudioController>
         m_AudioDict.Add(ESound.Jump, FindSound("fx_jump"));
         m_AudioDict.Add(ESound.Dash, FindSound("fx_dash"));
         m_AudioDict.Add(ESound.Wind, FindSound("fx_wind"));
+        m_AudioDict.Add(ESound.GetStar, FindSound("fx_getstar"));
     }
     
     public void PlaySound(ESound ename)

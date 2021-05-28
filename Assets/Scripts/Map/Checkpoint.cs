@@ -50,11 +50,7 @@ public class Checkpoint : MonoBehaviour
     {
         PlayerController.Instance.m_Player.transform.position = transform.position;
     }
-    // IEnumerator IESpawn(float time)
-    // {
-    //     yield return new WaitForSeconds(time);
-        
-    // }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!Active)
@@ -76,7 +72,7 @@ public class Checkpoint : MonoBehaviour
     }
     private void OnPlayerDie()
     {
-        if (Active) Spawn();
+        if (Active) Invoke(nameof(Spawn),0.25f);
     }
     private void OnSceneLoaded(int sceneIndex)
     {

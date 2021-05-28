@@ -9,15 +9,12 @@ public class PlayerController : Singleton<PlayerController>
     internal GameObject Pointer;        //辅助瞄准的箭头
     internal GameObject Player;         //控制的角色
     internal CPlayer m_Player;          //控制的角色的脚本
-    internal Vector3 MousePos;          //鼠标位置
-    //需要多次调用时，应先复制一份，然后访问复制的值
+                                    
+    internal Vector3 MousePos;
+    //需要多次调用鼠标位方向时，应该先复制一份，然后访问复制的值 
     internal Vector2 Direction
-    {
-        get
-        {
-            MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            return new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
-        }
+    {        
+        get=>new Vector2(MousePos.x - m_Player.transform.position.x, MousePos.y - m_Player.transform.position.y).normalized;
     }
 
     internal float t_ControlDirection = 1f;       //冲刺前的最大瞄准时间
@@ -46,7 +43,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
-
+        MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        MousePos -= new Vector3(0, 0, MousePos.z);
         // Debug.Log("GetMask : " + LayerMask.GetMask("Ground") + "Name to Mask : " + LayerMask.NameToLayer("Ground"));
         if (b_TestMode)  //调试用
         {

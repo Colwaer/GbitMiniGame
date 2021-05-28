@@ -32,11 +32,12 @@ public class BackGroundObject_Random : MonoBehaviour
         {
             OriginalPos = transform.localPosition;
         }
-        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     private void Start()
     {
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_SpriteRenderer.color = new Color(m_SpriteRenderer.color.r, m_SpriteRenderer.color.g, m_SpriteRenderer.color.b, (1 - AlphaRange / 75 * Depth) * 0.8f); 
         m_SpriteRenderer.sortingOrder =(int) -Depth;
         transform.localScale -= transform.localScale * ScaleRange * Depth / 20;
