@@ -7,6 +7,7 @@ public class Sting : MonoBehaviour
         Public.IPlayer player = collision.GetComponent<Public.IPlayer>();
         if(player!=null)
         {
+            CAudioController.Instance.PlaySound(ESound.Die);
             player.Die();
         }
     }

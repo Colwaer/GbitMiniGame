@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ESound
 {
-    Jump,Dash,Wind,GetStar
+    Jump,Dash,Wind,GetStar,Collide,Pass,Die
 }
 public class CAudioController : Singleton<CAudioController>
 {
@@ -36,15 +36,28 @@ public class CAudioController : Singleton<CAudioController>
         m_AudioDict.Add(ESound.Dash, FindSound("fx_dash"));
         m_AudioDict.Add(ESound.Wind, FindSound("fx_wind"));
         m_AudioDict.Add(ESound.GetStar, FindSound("fx_getstar"));
+        m_AudioDict.Add(ESound.Collide, FindSound("fx_collide"));
+        m_AudioDict.Add(ESound.Pass, FindSound("fx_pass"));
+        m_AudioDict.Add(ESound.Die, FindSound("fx_die"));
     }
     
     public void PlaySound(ESound ename)
     {
-        m_AudioDict[ename]?.Play();
+        AudioSource audio = m_AudioDict[ename];
+        if (audio == null)
+            return;
+        if (ename == ESound.Pass)
+        {
+            m_AudioDict[ename].pitch = Random.Range(0.15f, 0.25f);
+        }
+        m_AudioDict[ename].Play();
     }
     public void StopSound(ESound ename)
     {
-        m_AudioDict[ename]?.Stop();
+        AudioSource audio = m_AudioDict[ename];
+        if (audio == null)
+            return;
+        m_AudioDict[ename].Stop();
     }
     public void StopAllsounds()
     {

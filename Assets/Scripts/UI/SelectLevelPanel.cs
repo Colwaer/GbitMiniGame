@@ -13,15 +13,12 @@ public class SelectLevelPanel : MonoBehaviour
     private void OnEnable() 
     {
         int unlockIndex = GameManager.Instance.UnlockSceneIndex;
+        Debug.Log(unlockIndex);
         for (int i = 0; i < btn_Levels.Length; i++)
         {
-            if (unlockIndex - 1 >= i)
-            {
-                //Debug.Log(i + " true");
-                btn_Levels[i].interactable = true;
-            }             
-            else
-                btn_Levels[i].interactable = false;
+            btn_Levels[i].interactable = unlockIndex - 1 >= i;
         }
+        //最后一个是退出按钮
+        btn_Levels[btn_Levels.Length - 1].interactable = true;
     }
 }

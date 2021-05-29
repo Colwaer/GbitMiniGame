@@ -61,7 +61,7 @@ public class Cloud_Movable : MonoBehaviour
         yield return Public.CTool.Wait(1f);
         for (; ; )
         {
-            Vector3 deltaPos = new Vector3(Direction.x, Direction.y, 0).normalized * Speed * Time.fixedDeltaTime;
+            Vector3 deltaPos = Speed * Time.fixedDeltaTime * new Vector3(Direction.x, Direction.y, 0).normalized;
             transform.position += deltaPos;
             if (b_PlayerOnCloud)
             {

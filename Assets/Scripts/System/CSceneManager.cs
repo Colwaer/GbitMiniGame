@@ -27,6 +27,10 @@ public class CSceneManager : Singleton<CSceneManager>
                 value = 0;
             if (value == _Index)
                 return;
+            if(value!=0)
+            {
+                CAudioController.Instance.PlaySound(ESound.Pass);
+            }
             StartCoroutine(ILoadLevel(value));
             _Index = value;
             CEventSystem.Instance.SceneLoaded?.Invoke(value);
@@ -57,7 +61,7 @@ public class CSceneManager : Singleton<CSceneManager>
                     loadScenePrefab.m_Slider.value = Async_LoadScene.progress;
                     if (Async_LoadScene.progress >= 0.9f)
                     {
-                        loadScenePrefab.m_TextBox.gameObject.SetActive(true);
+                        loadScenePrefab.m_TextBox.SetActive(true);
                         loadScenePrefab.m_Slider.value = 1.0f;
                         if (Input.anyKeyDown)
                         {
