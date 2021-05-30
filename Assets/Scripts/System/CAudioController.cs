@@ -54,6 +54,18 @@ public class CAudioController : Singleton<CAudioController>
         }
         m_AudioDict[ename].Play();
     }
+    public void PlaySoundLoop(ESound ename)
+    {
+        AudioSource audio = m_AudioDict[ename];
+        if (audio == null)
+            return;
+        if (ename == ESound.Pass)
+        {
+            m_AudioDict[ename].pitch = Random.Range(0.15f, 0.25f);
+        }
+        m_AudioDict[ename].loop = true;
+        m_AudioDict[ename].Play();
+    }
     public void StopSound(ESound ename)
     {
         AudioSource audio = m_AudioDict[ename];

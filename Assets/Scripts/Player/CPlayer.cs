@@ -59,7 +59,8 @@ public class CPlayer : MonoBehaviour, IPlayer
         set
         {
             PlayerAnim.SetBool("isGround", value);
-
+            if (value)
+                ShootCount = 1;
             if (value == _OnGround)
                 return;
 

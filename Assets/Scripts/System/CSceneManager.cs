@@ -34,7 +34,7 @@ public class CSceneManager : Singleton<CSceneManager>
             else
             {
                 if(_Index == 0)
-                    CAudioController.Instance.PlaySound(ESound.Bgm1);
+                    CAudioController.Instance.PlaySoundLoop(ESound.Bgm1);
                 CAudioController.Instance.PlaySound(ESound.Pass);
             }
             StartCoroutine(ILoadLevel(value));
