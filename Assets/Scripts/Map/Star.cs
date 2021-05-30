@@ -5,6 +5,8 @@ using UnityEngine;
 public class Star : MonoBehaviour
 {
     private Renderer m_Renderer;
+    public ParticleSystem m_ParticleSystem;
+
     public int Index;
     [SerializeField]
     private bool _Picked;
@@ -46,6 +48,7 @@ public class Star : MonoBehaviour
         if (collision.CompareTag("Player") && !Picked )
         {
             CAudioController.Instance.PlaySound(ESound.GetStar);
+            m_ParticleSystem.Play();
 
             Picked = true;
         }

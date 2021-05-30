@@ -27,8 +27,14 @@ public class CSceneManager : Singleton<CSceneManager>
                 value = 0;
             if (value == _Index)
                 return;
-            if(value!=0)
+            if(value == 0)
             {
+                CAudioController.Instance.StopAllsounds();
+            }
+            else
+            {
+                if(_Index == 0)
+                    CAudioController.Instance.PlaySound(ESound.Bgm1);
                 CAudioController.Instance.PlaySound(ESound.Pass);
             }
             StartCoroutine(ILoadLevel(value));

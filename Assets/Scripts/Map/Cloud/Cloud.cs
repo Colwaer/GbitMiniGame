@@ -66,19 +66,14 @@ public class Cloud : MonoBehaviour
         {
             if(PlayerController.Instance.m_Player.OnGround)
             {    
-                CEventSystem.Instance.TouchGround?.Invoke();
+                //CEventSystem.Instance.TouchGround?.Invoke();
             }
             else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed || PlayerController.Instance.m_Player.b_isDashing)
             {
-                Debug.Log("collider enter dash take effect");
                 CAudioController.Instance.PlaySound(ESound.Collide);
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
                 PlayerController.Instance.m_Player.StopDash();
-            }
-            else
-            {
-                Debug.Log("collider enter other condition booldash : " + PlayerController.Instance.m_Player.b_isDashing);
             }
         }
     }
@@ -89,11 +84,9 @@ public class Cloud : MonoBehaviour
             return;
         if (other.collider.CompareTag("Player"))
         {
-            Debug.Log("player staying in collider");
             if(PlayerController.Instance.m_Player.OnGround)
             {    
-                Debug.Log("player on ground");
-                CEventSystem.Instance.TouchGround?.Invoke();
+                //CEventSystem.Instance.TouchGround?.Invoke();
             }
             else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed || PlayerController.Instance.m_Player.b_isDashing)
             {
@@ -102,16 +95,11 @@ public class Cloud : MonoBehaviour
                 Active = false;
                 PlayerController.Instance.m_Player.StopDash();
             }
-            else
-            {
-                Debug.Log("other condition, playerSpeed :" + PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude);
-            }
         }
     }
     protected virtual void ResetCloud()
     {
         Active = true;
-        Debug.LogWarning("reset cloud");
     }
     protected virtual void ResetCloudImmediately()
     {

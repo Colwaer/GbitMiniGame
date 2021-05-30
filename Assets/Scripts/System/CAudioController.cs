@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ESound
 {
-    Jump,Dash,Wind,GetStar,Collide,Pass,Die
+    Jump,Dash,Wind,GetStar,Collide,Pass,Die,Bgm1
 }
 public class CAudioController : Singleton<CAudioController>
 {
@@ -18,6 +18,7 @@ public class CAudioController : Singleton<CAudioController>
         AudioSources = GetComponentsInChildren<AudioSource>();
         BuildDict();
     }
+
 
     private void BuildDict()
     {
@@ -39,6 +40,7 @@ public class CAudioController : Singleton<CAudioController>
         m_AudioDict.Add(ESound.Collide, FindSound("fx_collide"));
         m_AudioDict.Add(ESound.Pass, FindSound("fx_pass"));
         m_AudioDict.Add(ESound.Die, FindSound("fx_die"));
+        m_AudioDict.Add(ESound.Bgm1, FindSound("bgm_1"));
     }
     
     public void PlaySound(ESound ename)

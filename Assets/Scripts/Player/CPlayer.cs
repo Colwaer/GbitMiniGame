@@ -28,7 +28,8 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         set
         {
-            if (value > MaxShootCount) return;
+            if (value > MaxShootCount) 
+                return;
             CEventSystem.Instance.ShootCountChanged?.Invoke(value);
             _ShootCount = value;
         }
@@ -57,14 +58,13 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         set
         {
+            if (value == _OnGround)
+                return;
 
             if (_OnGround == false && value == true && !b_isDashing)
             {
                 RaycastLength_Ground = 1.5f;
             }
-                
-            _OnGround = value;
-            
 
             if (value)
             {
@@ -75,6 +75,8 @@ public class CPlayer : MonoBehaviour, IPlayer
             {
                 RaycastLength_Ground = OriginRaycastLength_Ground;
             }
+
+            _OnGround = value;
         }
     }
     [SerializeField] private bool _InWindArea;

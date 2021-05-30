@@ -8,7 +8,6 @@ public class WindSoundArea : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Debug.Log("Play");
             CAudioController.Instance.PlaySound(ESound.Wind);
         }
     }

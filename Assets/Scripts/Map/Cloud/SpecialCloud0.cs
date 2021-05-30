@@ -54,7 +54,7 @@ public class SpecialCloud0 : Cloud
             }
             else if (PlayerController.Instance.m_Player.OnGround)
             {
-                CEventSystem.Instance.TouchGround?.Invoke();
+                //CEventSystem.Instance.TouchGround?.Invoke();
             }   
         }
     }
