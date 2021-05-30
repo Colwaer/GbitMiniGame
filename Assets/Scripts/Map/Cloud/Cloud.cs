@@ -74,7 +74,31 @@ public class Cloud : MonoBehaviour
             }
         }
     }
-
+    protected virtual void OnCollisionStay2D(Collision2D other)
+    {
+        
+        if (!Active)
+            return;
+        if (other.collider.CompareTag("Player"))
+        {
+            Debug.Log("player staying in collider");
+            if(PlayerController.Instance.m_Player.OnGround)
+            {    
+                Debug.Log("player on ground");
+                CEventSystem.Instance.TouchGround?.Invoke();
+            }
+            else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
+            {
+                CAudioController.Instance.PlaySound(ESound.Collide);
+                CEventSystem.Instance.CollideCloud?.Invoke();
+                Active = false;
+            }
+            else
+            {
+                Debug.Log("other condition, playerSpeed :" + PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude);
+            }
+        }
+    }
     protected virtual void ResetCloud()
     {
         Active = true;
