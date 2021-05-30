@@ -19,6 +19,8 @@ public class Cloud : MonoBehaviour
         }
         set
         {
+            if (_Active == value)
+                return;
             _Active = value;
             if (value)
             {
@@ -102,6 +104,7 @@ public class Cloud : MonoBehaviour
     protected virtual void ResetCloud()
     {
         Active = true;
+        Debug.LogWarning("reset cloud");
     }
     protected virtual void ResetCloudImmediately()
     {
