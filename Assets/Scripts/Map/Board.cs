@@ -4,23 +4,22 @@ using UnityEngine;
 //提示牌
 public class Board : MonoBehaviour
 {
-    private Text m_Text;
-    private GameObject Textbox;
+    private GameObject Canvas;
 
     private void Awake()
     {
-        m_Text = GetComponentInChildren<Text>();
-        if (m_Text == null)
+        Canvas canvas = GetComponentInChildren<Canvas>();
+        if (canvas == null)
             Destroy(this);
-        Textbox = m_Text.gameObject;
-        Textbox.SetActive(false);
+        Canvas = canvas.gameObject;
+        Canvas.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            Textbox.SetActive(true);
+            Canvas.SetActive(true);
         }
     }
 
@@ -28,7 +27,7 @@ public class Board : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Textbox.SetActive(false);
+            Canvas.SetActive(false);
         }
     }
 }

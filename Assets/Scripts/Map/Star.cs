@@ -45,6 +45,8 @@ public class Star : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !Picked )
         {
+            CAudioController.Instance.PlaySound(ESound.GetStar);
+
             Picked = true;
         }
     }

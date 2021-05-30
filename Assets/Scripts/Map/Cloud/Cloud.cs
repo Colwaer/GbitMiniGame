@@ -68,6 +68,7 @@ public class Cloud : MonoBehaviour
             }
             else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
             {
+                CAudioController.Instance.PlaySound(ESound.Collide);
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
             }
