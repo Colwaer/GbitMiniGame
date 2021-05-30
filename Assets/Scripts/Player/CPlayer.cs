@@ -58,6 +58,8 @@ public class CPlayer : MonoBehaviour, IPlayer
         }
         set
         {
+            PlayerAnim.SetBool("isGround", value);
+
             if (value == _OnGround)
                 return;
 
@@ -310,7 +312,7 @@ public class CPlayer : MonoBehaviour, IPlayer
             else
                 statusindex = 4;
         }
-        
+        PlayerAnim.SetFloat("Vertical", m_RigidBody.velocity.y);
         PlayerAnim.SetInteger("statusindex", statusindex);
         BottleAnim.SetInteger("statusindex", statusindex);
     }

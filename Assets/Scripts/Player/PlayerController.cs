@@ -43,6 +43,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
+        
+
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         MousePos -= new Vector3(0, 0, MousePos.z);
         // Debug.Log("GetMask : " + LayerMask.GetMask("Ground") + "Name to Mask : " + LayerMask.NameToLayer("Ground"));
