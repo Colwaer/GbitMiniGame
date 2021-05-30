@@ -145,7 +145,7 @@ public class CPlayer : MonoBehaviour, IPlayer
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        StopDash();
+        
     }
 
     private void OnCollideCloud()

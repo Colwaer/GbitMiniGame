@@ -70,9 +70,15 @@ public class Cloud : MonoBehaviour
             }
             else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed || PlayerController.Instance.m_Player.b_isDashing)
             {
+                Debug.Log("collider enter dash take effect");
                 CAudioController.Instance.PlaySound(ESound.Collide);
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
+                PlayerController.Instance.m_Player.StopDash();
+            }
+            else
+            {
+                Debug.Log("collider enter other condition booldash : " + PlayerController.Instance.m_Player.b_isDashing);
             }
         }
     }
@@ -94,6 +100,7 @@ public class Cloud : MonoBehaviour
                 CAudioController.Instance.PlaySound(ESound.Collide);
                 CEventSystem.Instance.CollideCloud?.Invoke();
                 Active = false;
+                PlayerController.Instance.m_Player.StopDash();
             }
             else
             {
