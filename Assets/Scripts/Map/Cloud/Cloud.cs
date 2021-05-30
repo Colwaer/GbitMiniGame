@@ -68,7 +68,7 @@ public class Cloud : MonoBehaviour
             {    
                 CEventSystem.Instance.TouchGround?.Invoke();
             }
-            else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
+            else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed || PlayerController.Instance.m_Player.b_isDashing)
             {
                 CAudioController.Instance.PlaySound(ESound.Collide);
                 CEventSystem.Instance.CollideCloud?.Invoke();
@@ -89,7 +89,7 @@ public class Cloud : MonoBehaviour
                 Debug.Log("player on ground");
                 CEventSystem.Instance.TouchGround?.Invoke();
             }
-            else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed)
+            else if (PlayerController.Instance.m_Player.m_Velocity_LastFrame.magnitude > CollisionSpeed || PlayerController.Instance.m_Player.b_isDashing)
             {
                 CAudioController.Instance.PlaySound(ESound.Collide);
                 CEventSystem.Instance.CollideCloud?.Invoke();

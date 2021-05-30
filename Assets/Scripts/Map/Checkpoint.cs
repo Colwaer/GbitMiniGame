@@ -72,7 +72,7 @@ public class Checkpoint : MonoBehaviour
     }
     private void OnPlayerDie()
     {
-        if (Active) Invoke(nameof(Spawn),0.25f);
+        if (Active) Invoke(nameof(Spawn), 0.045f);
     }
     private void OnSceneLoaded(int sceneIndex)
     {
