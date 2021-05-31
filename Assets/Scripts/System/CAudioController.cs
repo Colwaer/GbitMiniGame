@@ -48,9 +48,12 @@ public class CAudioController : Singleton<CAudioController>
         AudioSource audio = m_AudioDict[ename];
         if (audio == null)
             return;
-        if (ename == ESound.Pass)
+        switch(ename)
         {
-            m_AudioDict[ename].pitch = Random.Range(0.15f, 0.25f);
+            case ESound.Pass:
+                m_AudioDict[ename].pitch = Random.Range(0.2f, 0.3f);break;
+            default:
+                break;
         }
         m_AudioDict[ename].Play();
     }

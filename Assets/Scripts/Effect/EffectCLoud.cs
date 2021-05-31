@@ -26,7 +26,8 @@ public class EffectCLoud : MonoBehaviour
         m_Renderer.color = DefaultColor;
         transform.localScale = DefaultScale;
         transform.eulerAngles = Vector3.zero;
-        PlayerController.Instance?.FollowPlayer(transform);
+        if (PlayerController.Instance != null)
+            PlayerController.Instance.FollowPlayer(transform);
         StartCoroutine(Fade());
     }
 

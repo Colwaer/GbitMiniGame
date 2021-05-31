@@ -45,7 +45,6 @@ public class Save : ScriptableObject
 
     public void ResetGame(string savePath)
     {
-        Debug.LogWarning("游戏存档被重置");
         Array.Clear(Stars_Destroyed, 0, Stars_Destroyed.Length);
         UnlockSceneIndex = 1;
         SceneIndex = 0;

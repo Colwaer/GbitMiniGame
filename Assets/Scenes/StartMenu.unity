@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 174598552}
   - component: {fileID: 174598551}
   m_Layer: 0
-  m_Name: SaveReseter
+  m_Name: Cheater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1799,7 +1799,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 7ec1f97a7f0d59d45b374f6f965a4749, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
-  m_Pitch: 0.2
+  m_Pitch: 0.25
   Loop: 0
   Mute: 0
   Spatialize: 0

@@ -148,11 +148,6 @@ public class CPlayer : MonoBehaviour, IPlayer
         InWindArea = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
-
     private void OnCollideCloud()
     {
         ShootCount += 2;

@@ -22,7 +22,7 @@ public class PlayerController : Singleton<PlayerController>
     internal bool b_DemandToJump;
     internal bool b_DemandToShoot;
     internal bool b_IntendToShoot;
-    public bool b_TestMode;
+    internal bool b_TestMode;
 
     protected override void Awake()
     {
@@ -30,6 +30,7 @@ public class PlayerController : Singleton<PlayerController>
         Player = transform.Find("Player").gameObject;
         Pointer = transform.Find("Pointer").gameObject;
         m_Player = Player.GetComponent<CPlayer>();
+        b_TestMode = false;
     }
 
     private void OnEnable()
@@ -43,8 +44,6 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
-        
-
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         MousePos -= new Vector3(0, 0, MousePos.z);
         // Debug.Log("GetMask : " + LayerMask.GetMask("Ground") + "Name to Mask : " + LayerMask.NameToLayer("Ground"));
